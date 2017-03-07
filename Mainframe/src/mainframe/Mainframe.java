@@ -15,12 +15,9 @@ import java.rmi.Remote;
 
 public class Mainframe {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         
-        java.rmi.registry.LocateRegistry.createRegistry(1337);
+        java.rmi.registry.LocateRegistry.createRegistry(4242); // start i server-JVM
         
         System.out.println("Hello, World!");
         
