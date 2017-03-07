@@ -15,7 +15,6 @@ public class SensorInfo {
     
     // Credentials
     private String name; // Object name
-    private int ID; // Sensor ID
     private String password;
     private boolean authenticated;
     
@@ -28,10 +27,9 @@ public class SensorInfo {
     private String datatype; // Data type ie Tempeature
     private String dataunit; // Unit ie Celcius
     
-    SensorInfo(String _name, int _ID, String _sensortype, String _datatype, String _dataunit) { // Constructor
+    SensorInfo(String _name, String _password, String _sensortype, String _datatype, String _dataunit) { // Constructor
         this.name = _name;
-        this.ID = _ID;
-        this.password = Integer.toString((ID*2)+7);
+        this.password = _password;
         this.authenticated = FALSE;
         
         this.location = "Unknown";
