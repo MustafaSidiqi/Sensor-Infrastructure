@@ -9,8 +9,6 @@ package mainframe;
  *
  * @author nb
  */
-public interface SensorInterface extends java.rmi.Remote {
-    
-    
+public interface DataserverInterface {
     
 }

@@ -11,12 +11,19 @@ package mainframe;
  */
 public class SensorInfo {
     
-    String Name; // Name of the sensor
+    // Credentials
+    String name; // Object name
     int ID; // Sensor ID
-    String Location; // // Location of the sensor
-    String Description; // Short description
-    String Type; // Type of sensor ie Termometer
-    String DataType; // Data type ie Tempeature
-    String Unit; // Unit ie Celcius
+    String password;
+    boolean authenticated;
+    
+    // Information
+    String location; // // Location of the sensor
+    String description; // Short description
+   
+    // Sensor Information
+    String type; // Type of sensor ie Termometer
+    String dataType; // Data type ie Tempeature
+    String unit; // Unit ie Celcius
 
 }

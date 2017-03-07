@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 
 public class SensorArsenal {
+
     private ArrayList<SensorInfo> ListOfSensors;
     
 
@@ -35,8 +36,5 @@ public class SensorArsenal {
     public void authenticateSensor() {
         
     }
-    
-    
- 
 
 }

@@ -11,4 +11,26 @@ package mainframe;
  */
 public class SensorData {
     
+    // Data
+    String type; // Temperature, Image, People
+    String dataType; // Metadata, Rawdata
+    String unit; // Celcius, JPEG, amount
+    int value; // Value
+    // File???
+    
+    // Timestamp
+    int seconds;
+    int minutes;
+    int hours;
+    int day;
+    int month;
+    int year;
+    
+    // Which sensor it belongs to
+    SensorInfo sensorName;
+    
+    // Security
+    int checksum;
+    
+    
 }

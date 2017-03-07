@@ -17,9 +17,13 @@ public class Mainframe {
 
     public static void main(String[] args) throws Exception {
         
+        System.out.println("Hello, World!");
+        
         java.rmi.registry.LocateRegistry.createRegistry(4242); // start i server-JVM
         
-        System.out.println("Hello, World!");
+        SensorArsenal arsenal = new SensorArsenal();
+        
+        Naming.rebind("rmi://localhost/arsenal", (Remote) arsenal);
         
     }
     
