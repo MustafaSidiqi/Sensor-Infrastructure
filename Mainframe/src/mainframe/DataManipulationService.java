@@ -11,4 +11,8 @@ package mainframe;
  */
 public class DataManipulationService {
     
+    // Upload Data
+    
+    // Request Data
+    
 }

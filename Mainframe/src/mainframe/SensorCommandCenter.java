@@ -5,6 +5,9 @@
  */
 package mainframe;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 /**
  *
  * @author nb
@@ -12,6 +15,10 @@ package mainframe;
 public class SensorCommandCenter {
     
     boolean listeningToSensors;
+    
+    SensorCommandCenter() {
+        this.listeningToSensors = FALSE;
+    }
     
     public void listenToSensors() { // Listen to sensors
         
@@ -29,6 +36,14 @@ public class SensorCommandCenter {
         
         // 1. Ask sensor for data
         
+    }
+    
+    public void startListening() {
+        this.listeningToSensors = TRUE;
+    }
+    
+    public void stopListening() {
+        this.listeningToSensors = FALSE;
     }
     
 }

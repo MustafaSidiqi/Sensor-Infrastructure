@@ -19,7 +19,7 @@ public class SensorSentinelJava {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        SensorInterface interface = (GalgeI) Naming.lookup("rmi://localhost/galgeleg");
+        //SensorInterface interface = (GalgeI) Naming.lookup("rmi://localhost/galgeleg");
     }
     
 }

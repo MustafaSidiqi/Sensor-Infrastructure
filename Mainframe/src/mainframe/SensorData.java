@@ -27,10 +27,8 @@ public class SensorData {
     int year;
     
     // Which sensor it belongs to
-    SensorInfo sensorName;
+    String sensorName;
     
     // Security
-    int checksum;
-    
     
 }

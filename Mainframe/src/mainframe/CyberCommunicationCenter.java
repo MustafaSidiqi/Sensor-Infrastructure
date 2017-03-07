@@ -11,4 +11,10 @@ package mainframe;
  */
 public class CyberCommunicationCenter {
     
+    // Authenticate User
+    
+    // Download Data Dump
+    
+    // Stream Real Time Data
+    
 }
