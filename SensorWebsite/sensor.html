@@ -1,0 +1,73 @@
+
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf = 8">
+    <title> Webdsign</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+<script language="JavaScript">
+    function InitializeService(){
+     service.useService(http://localhost:1394/MyWebService.asmx?wsdl,
+   "Getvalues");
+    }
+    var droplistValue;
+    function GetValue(){
+     droplistValue = document.opt;
+     var e = document.getElementById("droplistSelectedValue");
+     droplistValue = e.options[e.selectedIndex].text;
+    }
+
+    function SetTextBoxValue() {
+            var droplistValue;
+            droplistValue = document.opt;
+            var e = document.getElementById("droplistSelectedValue");
+            document.getElementById('sensorValue').value = "David";
+        }
+    </script>
+
+</head>
+<body>
+    <ul class = "nav" >
+
+    <div class="logo">
+        <a href="#">LOGO </a>
+    </div>
+
+    <li> <a href="index.html"> Home </a></li>
+    <li> <a href="a"> About </a></li>
+    <li> <a href="sensor.html"> Services </a></li>
+    <li> <a href="a"> Contact</a></li>
+
+    </ul>
+
+<div class="banner">
+    <img class="banner-image" src="img/mountain.jpg">
+</div>
+
+
+<div class="heading" >Services</div>
+
+
+                <div align = "center" class="Services">
+        <div class="services1">
+            <h1> Epicness sensor </h1>
+                <a href="sensor.html">  </a> 
+        <p>                  
+                <select id="droplistSelectedValue">
+                <option value="volvo">Awesomeness</option>
+                <option value="saab">Lameness</option>
+                <option value="mercedes">Dopeness</option>
+                <option value="audi">Swagness</option>
+                </select> 
+
+                <input id="sensorValue" type="text">
+                    <button type="button" onclick="Javascript:SetTextBoxValue()"> Get Sensor Data</button>
+
+        </p>
+        </div>
+
+        </div>
+</body>
+</html>
+
