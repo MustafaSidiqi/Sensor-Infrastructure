@@ -5,10 +5,38 @@
  */
 package mainframe;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author nb
  */
+
 public class SensorArsenal {
+    private ArrayList<SensorInfo> ListOfSensors;
     
+
+    public void newSensor() { // Add a sensor to the arsenal
+    
+    }
+    
+    public void deleteSensor() {
+        
+    }
+    
+    public void grantAccess() { // Grant a sensor access to upload data
+        
+    } 
+    
+    public void removeAccess() {
+        
+    }
+    
+    public void authenticateSensor() {
+        
+    }
+    
+    
+ 
+
 }
