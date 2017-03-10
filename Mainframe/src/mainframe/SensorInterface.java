@@ -11,6 +11,6 @@ package mainframe;
  */
 public interface SensorInterface extends java.rmi.Remote {
     
-    
+    boolean sendData(String username, String password, String data);
     
 }

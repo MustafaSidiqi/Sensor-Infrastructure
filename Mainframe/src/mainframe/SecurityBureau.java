@@ -8,6 +8,7 @@ package mainframe;
 import brugerautorisation.transport.soap.Brugeradmin;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.server.UnicastRemoteObject;
 import javax.jws.WebService;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -17,7 +18,15 @@ import javax.xml.ws.Service;
  * @author nb
  */
 @WebService(endpointInterface = "mainframe.UserAuthenticationInterface")
-public class SecurityBureau implements UserAuthenticationInterface{
+public class SecurityBureau extends UnicastRemoteObject implements UserAuthenticationInterface{
+    
+    
+    SecurityBureau() throws MalformedURLException {
+        URL url = new URL("http://ubuntu4.javabog.dk:9901/kontotjeneste?wsdl");
+        QName qname = new QName("http://mainframe/", "UserAuthenticationInterfaceService");
+        Service service = Service.create(url, qname);
+        //UserAuthenticationinterface g = service.getPort(UserAuthenticationinterface.class);
+    }
 
     // Backgroundcheck User
     
@@ -47,10 +56,7 @@ public class SecurityBureau implements UserAuthenticationInterface{
      * 
      * Klienten der skal forsøge at logge ind skal indeholde:
      * 
-     *  URL url = new URL("http://ubuntu4.javabog.dk:9901/kontotjeneste?wsdl");
-        QName qname = new QName("http://mainframe/", "UserAuthenticationInterfaceService");
-        Service service = Service.create(url, qname);
-        UserAuthenticationinterface g = service.getPort(GalgelegI.class);
+     *  
 
         Scanner scanner = new Scanner(System.in);
 

@@ -7,43 +7,37 @@ package mainframe;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 /**
  *
  * @author nb
  */
-public class SensorCommandCenter {
-    
+public class SensorCommandCenter extends UnicastRemoteObject implements SensorInterface {
+    public SecurityBureau cia;
     boolean listeningToSensors;
+    private ArrayList<String> incommingBuffer = new ArrayList<>();
     
     SensorCommandCenter() {
         this.listeningToSensors = FALSE;
     }
     
-    public void listenToSensors() { // Listen to sensors
-        
-        // 1. New sensor want to be added to arsenal
-        // 2. Sensor wants to add data to servers
-            // Authenticate
-        
-        while(listeningToSensors) {
-            
+    @Override
+    public boolean sendData(String username, String password, String data) { // Listen to sensors
+
+        if(cia.login(username, password) && listeningToSensors) {
+            System.out.println(data);
+            incommingBuffer.add(data);
+            return TRUE;
+        } else {
+            return FALSE;
         }
         
     }
     
-    public void askSensor(int SensorID, String SensorName) {
-        
-        // 1. Ask sensor for data
-        
-    }
-    
-    public void startListening() {
-        this.listeningToSensors = TRUE;
-    }
-    
-    public void stopListening() {
-        this.listeningToSensors = FALSE;
+    public boolean isThereNewData() {
+        return this.incommingBuffer.isEmpty();
     }
     
 }
