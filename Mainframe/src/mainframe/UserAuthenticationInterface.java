@@ -10,5 +10,5 @@ package mainframe;
  * @author nb
  */
 public interface UserAuthenticationInterface {
-    
+  //hello niklas   
 }
