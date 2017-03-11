@@ -5,7 +5,9 @@
  */
 package mainframe;
 
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.rmi.*;
 
 /**
  *
@@ -15,7 +17,21 @@ public class CyberCommunicationCenter extends UnicastRemoteObject implements Web
 
     SecurityBureau cia;
     
+    public String username; 
+    public String password; 
+    
+    
     // Authenticate User
+    
+    public void setUsername(String a) throws RemoteException {
+        this.username = a; 
+    }
+    
+    public void setPassword(String b) throws RemoteException {
+        this.username = b; 
+    }
+    
+
     public boolean receiveLoginInfo(String username, String password) {
         //Send over the login data to SecurityBureau();
         if(login) {
@@ -31,5 +47,6 @@ public class CyberCommunicationCenter extends UnicastRemoteObject implements Web
     // Stream Real Time Data
     SensorCommandCenter nsa;
     DataManipulationService db;
-    
+
+   
 }
