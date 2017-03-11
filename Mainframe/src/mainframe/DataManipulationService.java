@@ -16,5 +16,7 @@ public class DataManipulationService {
     // Upload Data
     
     // Request Data
+    SensorCommandCenter nsa;
+    CyberCommunicationCenter nasa;
     
 }

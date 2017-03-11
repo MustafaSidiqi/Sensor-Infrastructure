@@ -19,13 +19,16 @@ import javax.xml.ws.Service;
  */
 @WebService(endpointInterface = "mainframe.UserAuthenticationInterface")
 public class SecurityBureau extends UnicastRemoteObject implements UserAuthenticationInterface{
-    
+
+    SensorCommandCenter nsa;
+    CyberCommunicationCenter nasa;
+    DataManipulationService db;
     
     SecurityBureau() throws MalformedURLException {
         URL url = new URL("http://ubuntu4.javabog.dk:9901/kontotjeneste?wsdl");
-        QName qname = new QName("http://mainframe/", "UserAuthenticationInterfaceService");
+        QName qname = new QName("https://niklasbuhl.xyz/sensorinfrastructure/", "UserAuthenticationInterfaceService");
         Service service = Service.create(url, qname);
-        //UserAuthenticationinterface g = service.getPort(UserAuthenticationinterface.class);
+        UserAuthenticationInterface g = service.getPort(UserAuthenticationInterface.class);
     }
 
     // Backgroundcheck User
@@ -39,7 +42,7 @@ public class SecurityBureau extends UnicastRemoteObject implements UserAuthentic
             Service service = Service.create(url, qname);
             ba = service.getPort(Brugeradmin.class);
         } catch (MalformedURLException e1) {
-            e1.printStackTrace();
+            //e1.printStackTrace();
             return false;
         }
         try {
@@ -47,7 +50,7 @@ public class SecurityBureau extends UnicastRemoteObject implements UserAuthentic
             return true;
 
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return false;
     }

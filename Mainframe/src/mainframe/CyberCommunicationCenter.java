@@ -5,11 +5,15 @@
  */
 package mainframe;
 
+import java.rmi.server.UnicastRemoteObject;
+
 /**
  *
  * @author nb
  */
-public class CyberCommunicationCenter {
+public class CyberCommunicationCenter extends UnicastRemoteObject implements WebserverInterface {
+
+    SecurityBureau cia;
     
     // Authenticate User
     public boolean receiveLoginInfo(String username, String password) {
@@ -25,5 +29,7 @@ public class CyberCommunicationCenter {
         //Request data from database, and send back to website
 }
     // Stream Real Time Data
+    SensorCommandCenter nsa;
+    DataManipulationService db;
     
 }
