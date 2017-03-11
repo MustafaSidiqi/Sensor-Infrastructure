@@ -1,7 +1,5 @@
 package newpackage;
 
-
-
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,18 +12,16 @@ import javax.servlet.http.HttpSession;
  */
 public class LoginServlet extends HttpServlet {
 
-
-public void doGet(HttpServletRequest request, HttpServletResponse response) 
-			           throws ServletException, java.io.IOException {
-
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, java.io.IOException {
+        /*
 try
 {	    
+     UserBean user;
+     
+      user.setPassword(request.getParameter("password"));
+     //user.setUserName(request.getParameter("username"));
 
-     UserBean user = new UserBean();
-     user.setUserName(request.getParameter("un"));
-     user.setPassword(request.getParameter("pw"));
-
-     user = UserDAO.login(user);
 	   		    
      if (user.isValid())
      {
@@ -38,11 +34,11 @@ try
      else 
           response.sendRedirect("invalidLogin.jsp"); //error page 
 } 
-		
+	
 		
 catch (Throwable theException) 	    
 {
      System.out.println(theException); 
+}*/
+    }
 }
-       }
-	}

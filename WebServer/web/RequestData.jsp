@@ -28,7 +28,7 @@
         </tr>
     </tbody>
 </table>
-<form action="displayData.jsp" method="POST">
+<form action="mainframeConnect" method="POST">
 
     <table border="0">
 
