@@ -29,10 +29,21 @@ public class Mainframe {
 
         db.cia = cia;
         nsa.cia = cia;
+        nasa.cia = cia;
+        
+        cia.nsa = nsa;
+        nasa.nsa = nsa;
+        db.nsa = nsa;
+        
+        cia.nasa = nasa;
+        nsa.nasa = nasa;
+        db.nasa = nasa;
+        
+        cia.db = db;
+        nsa.db = db;
+        nasa.db = db;
         
         java.rmi.registry.LocateRegistry.createRegistry(1337); // start i server-JVM
-        
-        
         
         SensorArsenal arsenal = new SensorArsenal();
         

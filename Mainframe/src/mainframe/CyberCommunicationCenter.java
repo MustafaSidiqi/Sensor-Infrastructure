@@ -10,11 +10,15 @@ package mainframe;
  * @author nb
  */
 public class CyberCommunicationCenter {
+
+    SecurityBureau cia;
     
     // Authenticate User
     
     // Download Data Dump
     
     // Stream Real Time Data
+    SensorCommandCenter nsa;
+    DataManipulationService db;
     
 }

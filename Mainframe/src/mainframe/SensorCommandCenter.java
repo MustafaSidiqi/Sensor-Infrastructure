@@ -8,7 +8,9 @@ package mainframe;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.Queue;
+import java.util.LinkedList;
 
 /**
  *
@@ -17,10 +19,13 @@ import java.util.ArrayList;
 public class SensorCommandCenter extends UnicastRemoteObject implements SensorInterface {
     public SecurityBureau cia;
     boolean listeningToSensors;
-    private ArrayList<String> incommingBuffer = new ArrayList<>();
+    private final Queue<String> incommingBuffer;
+    CyberCommunicationCenter nasa;
+    DataManipulationService db;
     
     SensorCommandCenter() {
         this.listeningToSensors = FALSE;
+        incommingBuffer = new LinkedList<>();
     }
     
     @Override
@@ -40,4 +45,7 @@ public class SensorCommandCenter extends UnicastRemoteObject implements SensorIn
         return this.incommingBuffer.isEmpty();
     }
     
+    public String getData() {
+        return this.incommingBuffer.remove();
+    }
 }
