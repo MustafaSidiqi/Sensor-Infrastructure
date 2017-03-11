@@ -5,11 +5,13 @@
  */
 package mainframe;
 
+import java.rmi.server.UnicastRemoteObject;
+
 /**
  *
  * @author nb
  */
-public class CyberCommunicationCenter {
+public class CyberCommunicationCenter extends UnicastRemoteObject implements WebserverInterface {
 
     SecurityBureau cia;
     

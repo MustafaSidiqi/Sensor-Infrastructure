@@ -9,6 +9,6 @@ package mainframe;
  *
  * @author nb
  */
-public interface WebserverInterface {
+public interface WebserverInterface extends java.rmi.Remote {
     
 }
