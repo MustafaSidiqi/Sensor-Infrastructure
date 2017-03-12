@@ -11,19 +11,20 @@ public class SensorGatherKlient {
         //System.setSecurityManager(new RMISecurityManager());
 
 
-        ArrayList<Integer> data = new ArrayList<>();
+        ArrayList<String> data = new ArrayList<>();
         
         //boolean aktiv = true; // Boolean til at se om spillet skal spilles
-        SensorGatherI g = (SensorGatherI) Naming.lookup("rmi://ubuntu4.javabog.dk:53712/s153712");
+        //SensorGatherI g = (SensorGatherI) Naming.lookup("rmi://ubuntu4.javabog.dk:53720/s153712");
+        SensorGatherI g = (SensorGatherI) Naming.lookup("rmi://localhost/kontotjeneste");
 
         g.getSensorData();
         
-        for (Integer temp : g.getSensorData()) {
+        for (String temp : g.getSensorData()) {
             data.add(temp);
             indexMax++;
         }
         for(int i = 0; i < data.size();i++){
-        System.out.println("Value at index: " + i + " is " + data.get(i));
+        System.out.println(data.get(i));
         }
         
         String bruger = "s153712";

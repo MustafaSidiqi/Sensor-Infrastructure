@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public interface SensorGatherI extends java.rmi.Remote {
     
-    void storeData(Integer x) throws java.rmi.RemoteException;
+    void storeData(String x) throws java.rmi.RemoteException;
     
     int getDataAmount() throws java.rmi.RemoteException;
 
-    ArrayList<Integer> getSensorData() throws java.rmi.RemoteException;
+    ArrayList<String> getSensorData() throws java.rmi.RemoteException;
 
     void clearDataArray() throws java.rmi.RemoteException;
     
@@ -28,4 +28,6 @@ public interface SensorGatherI extends java.rmi.Remote {
     String getName() throws java.rmi.RemoteException;
     
     void setLogin(String brugernavn, String password) throws java.rmi.RemoteException;
+    
+    String addTogether() throws java.rmi.RemoteException;
 }
