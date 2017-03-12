@@ -1,5 +1,8 @@
 /Mainframe/nbproject/private/
 /SensorSentinelJava/nbproject/private/
+<<<<<<< HEAD
+/Mainframe/build/
+=======
 <<<<<<< Updated upstream
 /Mainframe/build/
 /Mainframe/dist/
@@ -10,3 +13,4 @@
 >>>>>>> Stashed changes
 /WebServer/nbproject/private/
 /WebServer/build/
+>>>>>>> 429f940aeb80dca72a8d5e1328d7a37cb9eaaba9
