@@ -7,19 +7,32 @@ package SQL_forbindelse;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
  * @author taras
+ * 
+ * used to connect to sql server and manupulate data. 
  */
 public class DB {
 
     private Connection con;
     private String DBName = "sensor_test";
     SimpleDateFormat simpleDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+    private ArrayList<SensorData> data; 
+    /**
+     * 
+     * @param dbname
+     * @param uname
+     * @param password
+     * @throws Exception 
+     * 
+     * This wil connect to db that you choose 
+     * will create new Table if the table doesn't exist. 
+     */
     public DB(String dbname, String uname, String password) throws Exception {
 
         try {
@@ -28,9 +41,20 @@ public class DB {
             throw new IllegalStateException("Cannot connect the database!" + e.getMessage());
         }
         makeDB();
-
+        data = new ArrayList<SensorData>();
     }
-
+    
+    /**
+     * 
+     * @param SensID  - What sensor is writing 
+     * @param loc     - location of the server  
+     * @param type    - type of the sensor
+     * @param unit    - unit of data 
+     * @param value   - value of the data 
+     * @param d       - date 
+     * @param chsm    - check sum
+     * inserts data into the table
+     */
     public void insertData(int SensID,String loc,int type, int unit,float value, Timestamp d, int chsm){
         try {
            Statement stmt = con.createStatement();
@@ -41,26 +65,72 @@ public class DB {
            stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }        
+    }
+    
+    /**
+     * 
+     * @param ID
+     * @return array with SensorData object.
+     */
+    public ArrayList<SensorData> getAllBySensorID(int ID){
         
+        String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = "+ID;        
+        return getData(req);
+    }
+    
+    public ArrayList<SensorData> getIntervalBySensorID(int ID, Date start, Date end){
+        
+        String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = "+ID+" and `Date` >= '"+start.toString()+ " 00:00:00' and `Date` <= '"+end+ " 23:59:59'" ;        
+        return getData(req);        
+    }
+    
+    public ArrayList<SensorData> getAllByType(int type){
+        
+        String req = "SELECT * FROM `sensordata` WHERE `Type` = "+type;        
+        return getData(req);
+    }
+    
+    public ArrayList<SensorData> getIntervalByType(int type, Date start, Date end){
+        
+        String req = "SELECT * FROM `sensordata` WHERE `Type` = "+type+" and `Date` >= '"+start.toString()+ " 00:00:00' and `Date` <= '"+end+ " 23:59:59'" ;        
+        return getData(req);        
+    }
+    
+    public ArrayList<SensorData> getAllByLocation(String loc){
+        
+        String req = "SELECT * FROM `sensordata` WHERE `Location` = "+loc;        
+        return getData(req);
+    }
+    
+    public ArrayList<SensorData> getIntervalByLocation(String loc, Date start, Date end){
+        
+        String req = "SELECT * FROM `sensordata` WHERE `Location` = "+loc+" and `Date` >= '"+start.toString()+ " 00:00:00' and `Date` <= '"+end+ " 23:59:59'" ;        
+        return getData(req);        
+    }
+    
+        public ArrayList<SensorData> getAllByDate(Date d){
+        
+        String req = "SELECT * FROM `sensordata` WHERE `Date` = "+d;        
+        return getData(req);
+    }
+    
+    public ArrayList<SensorData> getIntervalByDate(Date start, Date end){
+        
+        String req = "SELECT * FROM `sensordata` WHERE `Date` >= '"+start+ " 00:00:00' and `Date` <= '"+end+ " 23:59:59'" ;        
+        return getData(req);        
+    }    
+    
+    public ArrayList<SensorData> directSQL(String sql){
+        return getData(sql);
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
-    
+    /**
+     * Create a table the server
+     */
     private void makeDB() {
         Statement stmt;
         try {
@@ -85,4 +155,25 @@ public class DB {
             }
 
     }
+    
+    public ArrayList<SensorData> getData(String s){
+        try {
+           Statement stmt = con.createStatement();            
+           ResultSet rs = null;
+           rs = stmt.executeQuery(s);
+                while (rs.next()) {
+                    SensorData d = new SensorData();
+                    d.setSD(rs);
+                    data.add(d);
+                    
+                    // test function....
+                    d.printData();
+                }
+                rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
+        }     
+        return data;
+    }
+
 }
