@@ -19,4 +19,11 @@ public class DataManipulationService {
     SensorCommandCenter nsa;
     CyberCommunicationCenter nasa;
     
+   public void storeData() {
+       
+       String newData ="";
+       if(nsa.isThereNewData()) newData = nsa.getData();
+       System.out.println(newData);
+   }
+    
 }

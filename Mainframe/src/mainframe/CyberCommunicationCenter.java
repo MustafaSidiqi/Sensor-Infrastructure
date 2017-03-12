@@ -7,14 +7,6 @@ package mainframe;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.rmi.*;
-import brugerautorisation.transport.soap.Brugeradmin;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.rmi.server.UnicastRemoteObject;
-import javax.jws.WebService;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 
 
 /**
@@ -33,12 +25,14 @@ public class CyberCommunicationCenter extends UnicastRemoteObject implements Web
     SensorCommandCenter nsa;
     DataManipulationService db;
     
+    public CyberCommunicationCenter()throws java.rmi.RemoteException{
+    }
     
     // Authenticate User
 
     //NOT FINSHED
     @Override
-    public boolean cyberLogin(String username, String password) throws RemoteException {
+    public boolean cyberLogin(String username, String password) throws java.rmi.RemoteException {
         return cia.login(username, password);
     };
     //NOT FINSHED YET
