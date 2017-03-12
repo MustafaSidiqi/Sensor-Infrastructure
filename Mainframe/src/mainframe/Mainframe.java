@@ -64,9 +64,6 @@ public class Mainframe {
         */
         
         System.out.println("Everything should be running now.");
-        
-        
-
     }
     
 }
