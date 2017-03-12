@@ -59,9 +59,7 @@ public class SecurityBureau extends UnicastRemoteObject implements UserAuthentic
      * 
      * Klienten der skal forsøge at logge ind skal indeholde:
      * 
-     *  
-
-        
+     * 
         URL url = new URL("http://ubuntu4.javabog.dk:9901/kontotjeneste?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelegImplService");
         Service service = Service.create(url, qname);
