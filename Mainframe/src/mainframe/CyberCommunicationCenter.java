@@ -16,7 +16,7 @@ import java.rmi.*;
 public class CyberCommunicationCenter extends UnicastRemoteObject implements WebserverInterface {
 
     SecurityBureau cia;
-    
+    //YO
     public String username; 
     public String password; 
     
