@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mainframe;
+package newpackage;
 
 import java.rmi.RemoteException;
 
@@ -12,7 +12,6 @@ import java.rmi.RemoteException;
  * @author nb
  */
 public interface WebserverInterface extends java.rmi.Remote {
-    public String setUsername() throws RemoteException;
-    public String setPassword() throws RemoteException;
-    
+    public void setUsername(String username ) throws RemoteException;
+    public void setPassword(String password) throws RemoteException;
 }

@@ -31,7 +31,7 @@ public class CyberCommunicationCenter extends UnicastRemoteObject implements Web
         this.username = b; 
     }
     
-
+/*
     public boolean receiveLoginInfo(String username, String password) {
         //Send over the login data to SecurityBureau();
         if(login) {
@@ -40,13 +40,14 @@ public class CyberCommunicationCenter extends UnicastRemoteObject implements Web
             return false;
         }
 }
+    */
     // Download Data Dump
+   /*
     public requestDataInfo[String sensorName, String dateFrom, String dateTo] {
         //Request data from database, and send back to website
 }
+*/
     // Stream Real Time Data
     SensorCommandCenter nsa;
     DataManipulationService db;
-
-   
 }
