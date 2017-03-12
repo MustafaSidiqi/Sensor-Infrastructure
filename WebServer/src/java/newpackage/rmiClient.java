@@ -16,8 +16,8 @@ public class rmiClient {
     	public static void main(String[] arg) throws Exception {
 
 		WebserverInterface WSI = (WebserverInterface) Naming.lookup("rmi://link/WebserverInterface");
-                WSI.setPassword(password);
-                WSI.setUsername(username);
+                //WSI.setPassword(un);
+                //WSI.setUsername(pw);
                 
 	}
     
