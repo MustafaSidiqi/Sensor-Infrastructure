@@ -4,6 +4,7 @@ import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.util.ArrayList;
 import java.util.Random;
+import mainframe.SensorInterface;
 import static sensorGather.SensorGatherServer.timeStamp;
 //import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class SensorGatherKlient {
         //SensorGatherI g = (SensorGatherI) Naming.lookup("rmi://ubuntu4.javabog.dk:53720/s153712");
         //SensorGatherI g = (SensorGatherI) Naming.lookup("rmi://localhost/kontotjeneste");
         
-        SensorGatherI g = (SensorGatherI) Naming.lookup("rmi://52.56.199.233/sensorcommandcenter");
+        SensorInterface g = (SensorInterface) Naming.lookup("rmi://52.56.199.233/sensorcommandcenter");
 
 
         //

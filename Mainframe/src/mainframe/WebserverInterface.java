@@ -12,6 +12,8 @@ import java.rmi.RemoteException;
  * @author nb
  */
 public interface WebserverInterface extends java.rmi.Remote {
-    public void setUsername(String username ) throws RemoteException;
-    public void setPassword(String password) throws RemoteException;    
+    
+    public void cyberLogin(String username, String password) throws RemoteException;
+    
+//public void setPassword(String password) throws RemoteException;    
 }

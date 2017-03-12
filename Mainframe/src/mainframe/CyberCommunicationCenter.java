@@ -37,13 +37,11 @@ public class CyberCommunicationCenter extends UnicastRemoteObject implements Web
     // Authenticate User
 
     //NOT FINSHED
-    public void setUsername(String username ) throws RemoteException {
-        
+    @Override
+    public boolean cyberLogin(String username, String password) throws RemoteException {
+        return cia.login(username, password);
     };
     //NOT FINSHED YET
-    public void setPassword(String password) throws RemoteException {
-        
-    };
     
     
     /*
