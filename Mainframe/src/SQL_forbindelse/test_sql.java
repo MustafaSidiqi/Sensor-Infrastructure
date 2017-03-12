@@ -23,8 +23,8 @@ public class test_sql {
         }*/
          DB  test;
                 try {
-        //DB  test = new DB("jdbc:mysql://aa1k9u56usyttan.cfdquak6nbpb.eu-west-2.rds.amazonaws.com:3306/ebdb","distribuerede","systemer");
-        test = new DB("jdbc:mysql://localhost:3306/sensor_test","root","");
+        test = new DB("jdbc:mysql://sensordb.cfdquak6nbpb.eu-west-2.rds.amazonaws.com:3306/SensorDB","sensorDatabase","sensor2017");
+        //test = new DB("jdbc:mysql://localhost:3306/sensor_test","root","");
         Timestamp d = new Timestamp(2017,03,13,16,50,20,20);
         d.setMonth(d.getMonth()-1);           
         d.setYear(d.getYear()-1900);
@@ -32,7 +32,7 @@ public class test_sql {
         // creates new data sample 
         test.insertData(2, "stue", 2, 3, 4,d , 25);
         
-        // saves into array List ArrayList<SensorData> /// get all elements where sensor id is 2
+        //saves into array List ArrayList<SensorData> /// get all elements where sensor id is 2
         test.getAllBySensorID(2);
         // saves into array List ArrayList<SensorData> /// get all elements where sensor id is 2 and interval data is the same
         System.out.println("Date interval test");

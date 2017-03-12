@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class DB {
 
     private Connection con;
-    private String DBName = "sensor_test";
+    private String DBName = "SensorDB";
     SimpleDateFormat simpleDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private ArrayList<SensorData> data; 
     /**
@@ -136,7 +136,7 @@ public class DB {
         try {
             stmt = con.createStatement();
 
-            String sql =    "CREATE TABLE IF NOT EXISTS `SensorData` ("+
+            String sql =    "CREATE TABLE IF NOT EXISTS `sensordata` ("+
                             "`Data_ID` int(11) NOT NULL AUTO_INCREMENT,"+
                             "`Sensor_ID` int(11) NOT NULL,"+
                             "`Location` text NOT NULL,"+
