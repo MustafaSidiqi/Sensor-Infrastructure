@@ -1,9 +1,8 @@
 package sensorGather;
 
-//import galgeleg.*;
 import java.rmi.Naming;
 import java.util.ArrayList;
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class SensorGatherKlient {
     static int indexMax = 0;
@@ -19,7 +18,7 @@ public class SensorGatherKlient {
             data.add(temp);
             indexMax++;
         }
-        for(int i = 0; i < data.size()-1;i++){
+        for(int i = 0; i < data.size();i++){
         System.out.println("Value at index: " + i + " is " + data.get(i));
         }
         
@@ -27,7 +26,14 @@ public class SensorGatherKlient {
         String pass = "yas12!";
         g.setLogin(bruger, pass);
         
-        System.out.println("Username = " + g.getLogin());
-        System.out.println("Password = " + loginData.password);
+        System.out.println("Username = " + g.getUsername());
+        System.out.println("Password = " + g.getPassword());
+        System.out.println("Data amount = " + g.getDataAmount());
+        System.out.println("Data amount = " + g.getID());
+        System.out.println("Data amount = " + g.getType());
+        System.out.println("Data amount = " + g.getName());
+        System.out.println("Data amount = " + g.getUnit());
+        
+        
     }
 }

@@ -42,7 +42,7 @@ public class SecurityBureau extends UnicastRemoteObject implements UserAuthentic
             Service service = Service.create(url, qname);
             ba = service.getPort(Brugeradmin.class);
         } catch (MalformedURLException e1) {
-            //e1.printStackTrace();
+            e1.printStackTrace();
             return false;
         }
         try {
@@ -50,7 +50,7 @@ public class SecurityBureau extends UnicastRemoteObject implements UserAuthentic
             return true;
 
         } catch (IllegalArgumentException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         return false;
     }

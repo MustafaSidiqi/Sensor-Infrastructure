@@ -16,12 +16,20 @@ import java.util.ArrayList;
 public class SensorGatherImpl extends UnicastRemoteObject implements SensorGatherI {
 
     //private SensorGatherLogik logik;
-    loginData l;
     //private Brugeradmin BI;
     private ArrayList<Integer> sensorData = new ArrayList<>();
     //private ArrayList<Integer> temp = new ArrayList<>();
     private int dataAmount;
     private boolean isDataSent = false;
+    private static String username = "na";
+    private static String password = "na";
+    private static final String sensorID = "0001";
+    private static final String sensorType = "Temperature";
+    private static final String sensorDataType = "Integer";
+    private static final String sensorUnit = "Celcius";
+    private static final String sensorName = "Temperature Data";
+    
+    
     //private boolean dataIsStored;
 
     public SensorGatherImpl() throws java.rmi.RemoteException {
@@ -35,7 +43,7 @@ public class SensorGatherImpl extends UnicastRemoteObject implements SensorGathe
     }
 
     @Override
-    public int getDataAmount(ArrayList<Integer> sensorData) {
+    public int getDataAmount() {
         dataAmount = sensorData.size();
         return dataAmount;
     }
@@ -62,7 +70,7 @@ public class SensorGatherImpl extends UnicastRemoteObject implements SensorGathe
         }
         isDataSent = false;
     }
-
+/*
     public static String hentUrl(String url) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
         StringBuilder sb = new StringBuilder();
@@ -73,16 +81,46 @@ public class SensorGatherImpl extends UnicastRemoteObject implements SensorGathe
         }
         return sb.toString();
     }
-
+*/
 
     @Override
-    public loginData getLogin() throws RemoteException {
-       return l;
+    public String getUsername() throws RemoteException {
+       return username;
+    }
+    
+    @Override
+    public String getPassword() throws RemoteException {
+       return password;
+    }
+    
+    @Override
+    public void setLogin(String brugernavn, String password) throws RemoteException {
+        SensorGatherImpl.username = brugernavn;
+        SensorGatherImpl.password = password;
     }
 
     @Override
-    public void setLogin(String brugernavn, String password) throws RemoteException {
-        loginData.brugernavn = brugernavn;
-        loginData.password = password;
+    public String getID() throws RemoteException {
+        return sensorID;
+    }
+
+    @Override
+    public String getType() throws RemoteException {
+        return sensorType;
+    }
+
+    @Override
+    public String getDataType() throws RemoteException {
+        return sensorDataType;
+    }
+
+    @Override
+    public String getUnit() throws RemoteException {
+        return sensorUnit;
+    }
+
+    @Override
+    public String getName() throws RemoteException {
+        return sensorName;
     }
 }

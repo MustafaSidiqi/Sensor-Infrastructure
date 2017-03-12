@@ -16,7 +16,7 @@ public class SensorGatherServer {
         while (true) {
             Random rand = new Random();
             int value = rand.nextInt(50);
-            Thread.sleep(5000);
+            Thread.sleep(3000);
             g.storeData(value);
             System.out.println("value :" + value);
             g.clearDataArray();
