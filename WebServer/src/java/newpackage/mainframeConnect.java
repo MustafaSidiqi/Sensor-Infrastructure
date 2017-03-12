@@ -10,6 +10,8 @@ import brugerautorisation.transport.soap.Brugeradmin;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,6 +41,22 @@ public class mainframeConnect extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+
+            String un = request.getParameter("username");
+            String pw = request.getParameter("password");
+            boolean validUser = false;
+            WebserverInterface WSI;
+            /*
+            try {
+                System.setSecurityManager(new RMISecurityManager());
+                WSI = (WebserverInterface) Naming.lookup("rmi://localhost:1337/cybercommunicationscenter");
+                validUser = WSI.cyberLogin(un, pw);
+                System.out.println("Connected");
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("HelloClient exception: " + e);
+            }
+             */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -46,42 +64,18 @@ public class mainframeConnect extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet mainframeConnect at " + request.getContextPath() + "</h1>");
+            
+            validUser = true;
+            if (validUser == true) {
+                out.println("Welcome " + un + " <meta http-equiv=refresh content=2;URL=\"requestData.jsp\">");
+            } else {
+                out.println("You have entered a wrong username " + un + " <meta http-equiv=refresh content=5;URL=\"login.jsp\">");
+                out.println("<br><br/> Redirecting...");
+            }
+            out.println(validUser);
             out.println("</body>");
             out.println("</html>");
 
-            /*
-        String requestedSensor = request.getParameter("Sensor");
-        String requesteddataFrom = request.getParameter("dataFrom");
-        String requesteddataTo = request.getParameter("dataTo");
-        out.println(requestedSensor);
-        System.out.println(requestedSensor);
-        System.out.println(requesteddataFrom);
-        System.out.println(requesteddataTo);
-             */
-            String un = request.getParameter("username");
-            String pw = request.getParameter("password");
-
-            out.println(un);
-            out.println(pw);
-
-            URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
-            QName qname = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
-            Service service = Service.create(url, qname);
-            Brugeradmin ba = service.getPort(Brugeradmin.class);
-
-            //ba.sendGlemtAdgangskodeEmail("jacno", "Dette er en test, husk at skifte kode");
-            // ba.ændrAdgangskode("jacno", "kode3stljl", "xxx");
-            try {
-
-                // String newpass = request.getParameter("newpass");
-                //ba.ændrAdgangskode(user, pass, newpass);
-                Bruger b = ba.hentBruger(un, pw);
-                out.println("Fik bruger = " + b);
-                out.println(b);
-                System.out.println(b);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -129,9 +123,9 @@ public class mainframeConnect extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         System.out.println("sd");
-        
+
     }
 
     /**

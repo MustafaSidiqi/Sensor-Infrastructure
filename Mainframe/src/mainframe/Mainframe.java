@@ -57,11 +57,11 @@ public class Mainframe {
         Naming.rebind("rmi://52.56.199.233:1337/sensorcommandcenter", (Remote) commandcenter);
         Naming.rebind("rmi://52.56.199.233:1337/cybercommunicationscenter", (Remote) cybercenter);*/
         
-        /*
-        //fo local host
-        Naming.rebind("rmi://localhost:1337/sensorcommandcenter", (Remote) commandcenter);
+        
+        //for local host
+        //Naming.rebind("rmi://localhost:1337/sensorcommandcenter", (Remote) commandcenter);
         Naming.rebind("rmi://localhost:1337/cybercommunicationscenter", (Remote) cybercenter);
-        */
+        
         
         System.out.println("Everything should be running now.");
     }

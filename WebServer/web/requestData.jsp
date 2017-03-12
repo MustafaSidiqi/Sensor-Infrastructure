@@ -21,70 +21,73 @@
     </head>
     <body>
         <h1>Request data from database:</h1>
-        <%
+
+        <form action="mainframeConnect" method="POST">
+
+            <table border="0" width="3" cellspacing="4" cellpadding="6">
+                <tbody>
+                    <tr>
+                        <td>Logged in as: </td>
+                        <td>Username:</td>
+                        <td>Location:</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>From: </td>
+                        <td><input type="date" name="fromDate"></td>
+                        <td>To:</td>
+                        <td><input type="date" name="toDate"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Location: </td>
+                        <td><select name="location">
+                                <option>Location</option>
+                                <option>DTU Lyngby</option>
+                                <option>DTU Ballerup</option>
+                            </select></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Sensor: </td>
+                        <td><select name="sensor">
+                                <option>Sensor</option>
+                                <option>Temperature</option>
+                                <option>Noise Level</option>
+                                <option>Humidity</option>
+                            </select>
+
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>    <input type="reset" value="Clear" /></td>
+                        <td>    <input type="submit" value="Request" /></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
 
 
-            URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
-            QName qname = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
-            Service service = Service.create(url, qname);
-            Brugeradmin ba = service.getPort(Brugeradmin.class);
-
-            //ba.sendGlemtAdgangskodeEmail("jacno", "Dette er en test, husk at skifte kode");
-            // ba.ændrAdgangskode("jacno", "kode3stljl", "xxx");
-            try {
-            String user = request.getParameter("username");
-            String pass = request.getParameter("password");
-                // String newpass = request.getParameter("newpass");
-                //ba.ændrAdgangskode(user, pass, newpass);
-                Bruger b = ba.hentBruger(user, pass);
-                out.println("Fik bruger = " + b);
-                out.println(pass);
-                System.out.println(b);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        %>
-    <tbody>
-        <tr>
-            <td>Logged in as: </td>
-            <td>  </td> 
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td> </td>
-        </tr>
-    </tbody>
-</table>
-<form action="mainframeConnect" method="POST">
-
-    <table border="0">
-
-        <tbody>
-            <tr>
-
-                <td>Sensor: </td>
-                <td>
-                    <select name="Sensor">
-                        Sensor: <option>Temperature</option>
-                        <option>Sound-Level</option>
-                        <option>Sunlight</option>
-                    </select></td>
 
 
-            </tr>
-            <tr>
-                <td>Date From:</td>
-                <td><input type="text" name="dataFrom" value="DD/MM/YYYY" size="20" /></td>
-            </tr>
-            <tr>
-                <td>Date To:</td>
-                <td><input type="text" name="dateTo" value="DD/MM/YYYY" size="20" /></td>
-            </tr>
-        </tbody>
-    </table>
-    <input type="reset" value="Clear" />
-    <input type="submit" value="Submit" />
-</form>
 
-</body>
+
+
+
+        </form>
+
+    </body>
 </html>
