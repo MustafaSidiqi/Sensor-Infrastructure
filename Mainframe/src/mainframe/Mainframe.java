@@ -23,7 +23,8 @@ public class Mainframe {
         // Amazon IP server: 52.56.199.233
         
         SecurityBureau cia = new SecurityBureau();
-        SensorCommandCenter nsa = new SensorCommandCenter();
+        SensorCommandCenter nsa = new SensorCommandCenter();       
+       
         CyberCommunicationCenter nasa = new CyberCommunicationCenter();
         DataManipulationService db = new DataManipulationService();
 
@@ -49,9 +50,18 @@ public class Mainframe {
         
         SensorInterface commandcenter = new SensorCommandCenter();
         WebserverInterface cybercenter = new CyberCommunicationCenter();
+        // uncoment stuf you need 
         
+        /*
+        // for amazon server 
         Naming.rebind("rmi://52.56.199.233:1337/sensorcommandcenter", (Remote) commandcenter);
-        Naming.rebind("rmi://52.56.199.233:1337/cybercommunicationscenter", (Remote) cybercenter);
+        Naming.rebind("rmi://52.56.199.233:1337/cybercommunicationscenter", (Remote) cybercenter);*/
+        
+        /*
+        //fo local host
+        Naming.rebind("rmi://localhost:1337/sensorcommandcenter", (Remote) commandcenter);
+        Naming.rebind("rmi://localhost:1337/cybercommunicationscenter", (Remote) cybercenter);
+        */
         
         System.out.println("Everything should be running now.");
         

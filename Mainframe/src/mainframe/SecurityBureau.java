@@ -18,18 +18,11 @@ import javax.xml.ws.Service;
  * @author nb
  */
 @WebService(endpointInterface = "mainframe.UserAuthenticationInterface")
-public class SecurityBureau extends UnicastRemoteObject implements UserAuthenticationInterface{
+public class SecurityBureau implements UserAuthenticationInterface{
 
     SensorCommandCenter nsa;
     CyberCommunicationCenter nasa;
     DataManipulationService db;
-    
-    public SecurityBureau() throws MalformedURLException, java.rmi.RemoteException {
-        URL url = new URL("http://ubuntu4.javabog.dk:9901/kontotjeneste?wsdl");
-        QName qname = new QName("https://niklasbuhl.xyz/sensorinfrastructure/", "UserAuthenticationInterfaceService");
-        Service service = Service.create(url, qname);
-        UserAuthenticationInterface g = service.getPort(UserAuthenticationInterface.class);
-    }
 
     // Backgroundcheck User
     

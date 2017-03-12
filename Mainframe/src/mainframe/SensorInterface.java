@@ -11,7 +11,9 @@ package mainframe;
  */
 public interface SensorInterface extends java.rmi.Remote {
     
-    boolean transferData(String username, String password, String data);
+    boolean transferData(String username, String password, String data) throws java.rmi.RemoteException;
+    boolean isThereNewData() throws java.rmi.RemoteException;
+    public String getData() throws java.rmi.RemoteException;
 
     //public Object addTogether();
     

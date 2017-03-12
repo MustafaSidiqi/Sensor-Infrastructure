@@ -29,7 +29,7 @@ public class SensorCommandCenter extends UnicastRemoteObject implements SensorIn
     }
     
     @Override
-    public boolean transferData(String username, String password, String data) { // Listen to sensors
+    public boolean transferData(String username, String password, String data) throws java.rmi.RemoteException{ // Listen to sensors
         
         System.out.println("Incomming Data!");
         
@@ -49,11 +49,11 @@ public class SensorCommandCenter extends UnicastRemoteObject implements SensorIn
         
     }
     
-    public boolean isThereNewData() {
+    public boolean isThereNewData() throws java.rmi.RemoteException{
         return this.incommingBuffer.isEmpty();
     }
     
-    public String getData() {
+    public String getData()throws java.rmi.RemoteException {
         return this.incommingBuffer.remove();
     }
 }

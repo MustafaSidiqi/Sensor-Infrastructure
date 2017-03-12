@@ -8,6 +8,7 @@ package SQL_forbindelse;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -136,7 +137,15 @@ public class DB {
     }    
     
     public ArrayList<SensorData> directSQL(String sql){
-        return getData(sql);
+        
+        // securing for abuse
+        String temp_sql = sql.toLowerCase();
+        if(!temp_sql.contains("update") && !temp_sql.contains("delete") && !temp_sql.contains("insert") && !temp_sql.contains("create") && !temp_sql.contains("alter")){
+            return getData(sql);
+        }
+        else{
+            return null;
+        }
     }
     
     
