@@ -4,8 +4,9 @@
     Author     : Mustafa
 --%>
 
+<%@page import="brugerautorisation.transport.soap.Brugeradmin"%>
 <%@page import="brugerautorisation.data.Bruger"%>
-<%@page import="brugerautorisation.transport.rmi.Brugeradmin"%>
+
 <%@page import="mainframe.UserAuthenticationInterface"%>
 <%@page import="javax.xml.ws.Service"%>
 <%@page import="javax.xml.namespace.QName"%>
@@ -21,14 +22,32 @@
     <body>
         <h1>Request data from database:</h1>
         <%
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
 
+
+            URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
+            QName qname = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
+            Service service = Service.create(url, qname);
+            Brugeradmin ba = service.getPort(Brugeradmin.class);
+
+            //ba.sendGlemtAdgangskodeEmail("jacno", "Dette er en test, husk at skifte kode");
+            // ba.ændrAdgangskode("jacno", "kode3stljl", "xxx");
+            try {
+            String user = request.getParameter("username");
+            String pass = request.getParameter("password");
+                // String newpass = request.getParameter("newpass");
+                //ba.ændrAdgangskode(user, pass, newpass);
+                Bruger b = ba.hentBruger(user, pass);
+                out.println("Fik bruger = " + b);
+                out.println(pass);
+                System.out.println(b);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         %>
     <tbody>
         <tr>
-            <td>Username</td>
-            <td></td>
+            <td>Logged in as: </td>
+            <td>  </td> 
         </tr>
         <tr>
             <td>Password</td>

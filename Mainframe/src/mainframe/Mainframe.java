@@ -50,8 +50,8 @@ public class Mainframe {
         SensorInterface commandcenter = new SensorCommandCenter();
         WebserverInterface cybercenter = new CyberCommunicationCenter();
         
-        Naming.rebind("rmi://52.56.199.233/sensorcommandcenter", (Remote) commandcenter);
-        Naming.rebind("rmi://52.56.199.233/cybercommunicationscenter", (Remote) cybercenter);
+        Naming.rebind("rmi://52.56.199.233:1337/sensorcommandcenter", (Remote) commandcenter);
+        Naming.rebind("rmi://52.56.199.233:1337/cybercommunicationscenter", (Remote) cybercenter);
         
         System.out.println("Everything should be running now.");
         

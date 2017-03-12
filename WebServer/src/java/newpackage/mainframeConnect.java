@@ -5,13 +5,18 @@
  */
 package newpackage;
 
+import brugerautorisation.data.Bruger;
+import brugerautorisation.transport.soap.Brugeradmin;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 
 /**
  *
@@ -43,7 +48,8 @@ public class mainframeConnect extends HttpServlet {
             out.println("<h1>Servlet mainframeConnect at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-            
+
+            /*
         String requestedSensor = request.getParameter("Sensor");
         String requesteddataFrom = request.getParameter("dataFrom");
         String requesteddataTo = request.getParameter("dataTo");
@@ -51,11 +57,35 @@ public class mainframeConnect extends HttpServlet {
         System.out.println(requestedSensor);
         System.out.println(requesteddataFrom);
         System.out.println(requesteddataTo);
+             */
+            String un = request.getParameter("username");
+            String pw = request.getParameter("password");
 
-            
+            out.println(un);
+            out.println(pw);
+
+            URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
+            QName qname = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
+            Service service = Service.create(url, qname);
+            Brugeradmin ba = service.getPort(Brugeradmin.class);
+
+            //ba.sendGlemtAdgangskodeEmail("jacno", "Dette er en test, husk at skifte kode");
+            // ba.ændrAdgangskode("jacno", "kode3stljl", "xxx");
+            try {
+
+                // String newpass = request.getParameter("newpass");
+                //ba.ændrAdgangskode(user, pass, newpass);
+                Bruger b = ba.hentBruger(un, pw);
+                out.println("Fik bruger = " + b);
+                out.println(b);
+                System.out.println(b);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-/*
+
+    /*
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -71,18 +101,18 @@ public class mainframeConnect extends HttpServlet {
     }
 }
 
-*/
+     */
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -96,9 +126,12 @@ public class mainframeConnect extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        System.out.println("sd");
+        
     }
 
     /**
@@ -107,7 +140,7 @@ public class mainframeConnect extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
