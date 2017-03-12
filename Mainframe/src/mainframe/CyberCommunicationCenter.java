@@ -7,7 +7,6 @@ package mainframe;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-<<<<<<< HEAD
 import java.rmi.*;
 import brugerautorisation.transport.soap.Brugeradmin;
 import java.net.MalformedURLException;
@@ -16,9 +15,8 @@ import java.rmi.server.UnicastRemoteObject;
 import javax.jws.WebService;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-=======
 
->>>>>>> edd13b634a6a3c47513abe04065cb7f9dc7c8f34
+
 /**
  *
  * @author nb
@@ -27,9 +25,7 @@ public class CyberCommunicationCenter extends UnicastRemoteObject implements Web
 
     SecurityBureau cia;
     //YO
-<<<<<<< HEAD
 
-=======
     public String username; 
     public String password; 
     // angiv om hvad det er for nogle variabler dvs public eller private eller protected. 
@@ -37,7 +33,6 @@ public class CyberCommunicationCenter extends UnicastRemoteObject implements Web
     SensorCommandCenter nsa;
     DataManipulationService db;
     
->>>>>>> edd13b634a6a3c47513abe04065cb7f9dc7c8f34
     
     // Authenticate User
 
