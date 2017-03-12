@@ -61,9 +61,15 @@ public class SecurityBureau extends UnicastRemoteObject implements UserAuthentic
      * 
      *  
 
+        
+        URL url = new URL("http://ubuntu4.javabog.dk:9901/kontotjeneste?wsdl");
+        QName qname = new QName("http://galgeleg/", "GalgelegImplService");
+        Service service = Service.create(url, qname);
+        UserAuthenticationInterface g = service.getPort(UserAuthenticationInterface.class);
+
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Log in!");
+        System.out.println("Du skal logge ind før, at du kan spille Galgeleg");
         boolean isLoggedIn = false;
         while (!isLoggedIn) {
 
