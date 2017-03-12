@@ -48,8 +48,10 @@ public class Mainframe {
         SensorArsenal arsenal = new SensorArsenal();
         
         SensorInterface commandcenter = new SensorCommandCenter();
+        WebserverInterface cybercenter = new CyberCommunicationCenter();
         
         Naming.rebind("rmi://52.56.199.233/sensorcommandcenter", (Remote) commandcenter);
+        Naming.rebind("rmi://52.56.199.233/cybercommunicationscenter", (Remote) cybercenter);
 
     }
     
