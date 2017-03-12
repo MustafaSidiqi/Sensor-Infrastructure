@@ -22,7 +22,7 @@ public class MainframeKlient {
         WebserverInterface WSI;
         try {
             System.setSecurityManager(new RMISecurityManager());
-            WSI = (WebserverInterface)Naming.lookup("rmi://localhost/cybercommunicationscenter");
+            WSI = (WebserverInterface)Naming.lookup("rmi://localhost:1099/cybercommunicationscenter");
             WSI.cyberLogin("s153158", "password");
 
         } catch (Exception e) {

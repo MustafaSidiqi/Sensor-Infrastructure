@@ -24,15 +24,11 @@ public class CyberCommunicationCenter extends UnicastRemoteObject implements Web
     
     SensorCommandCenter nsa;
     DataManipulationService db;
-<<<<<<< HEAD
-    //Constructor
-    CyberCommunicationCenter () throws RemoteException {   }
-=======
-    
+
     public CyberCommunicationCenter()throws java.rmi.RemoteException{
     }
->>>>>>> f5bfdc86cd154d16ca2978bee36e17f88faac632
-    
+
+
     // Authenticate User
 
     //NOT FINSHED
