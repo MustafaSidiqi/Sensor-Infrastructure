@@ -45,13 +45,17 @@ public class Mainframe {
         
         java.rmi.registry.LocateRegistry.createRegistry(1337); // start i server-JVM
         
-        SensorArsenal arsenal = new SensorArsenal();
+        //SensorArsenal arsenal = new SensorArsenal();
         
         SensorInterface commandcenter = new SensorCommandCenter();
         WebserverInterface cybercenter = new CyberCommunicationCenter();
         
         Naming.rebind("rmi://52.56.199.233/sensorcommandcenter", (Remote) commandcenter);
         Naming.rebind("rmi://52.56.199.233/cybercommunicationscenter", (Remote) cybercenter);
+        
+        System.out.println("Everything should be running now.");
+        
+        
 
     }
     

@@ -14,10 +14,10 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class SensorGatherImpl extends UnicastRemoteObject implements SensorGatherI {
-
+    private String dataString = "";
     //private SensorGatherLogik logik;
     //private Brugeradmin BI;
-    private ArrayList<Integer> sensorData = new ArrayList<>();
+    private ArrayList<String> sensorData = new ArrayList<>();
     //private ArrayList<Integer> temp = new ArrayList<>();
     private int dataAmount;
     private boolean isDataSent = false;
@@ -49,13 +49,13 @@ public class SensorGatherImpl extends UnicastRemoteObject implements SensorGathe
     }
 
     @Override
-    public void storeData(Integer x) {
+    public void storeData(String x) {
         sensorData.add(x);
         dataAmount++;
     }
 
     @Override
-    public ArrayList<Integer> getSensorData() {
+    public ArrayList<String> getSensorData() {
         //temp.clear();
         //temp = sensorData;
         //sensorData.clear();
@@ -83,6 +83,13 @@ public class SensorGatherImpl extends UnicastRemoteObject implements SensorGathe
     }
 */
 
+    @Override
+    public String addTogether(){
+        dataString = "1 LYNGBY ".concat(sensorType).concat(" ").concat(sensorUnit).concat(" ");
+        //1 LYNGBY TEMPERATURE CELSIUS 23,07 2017-03-13 15:01:26 25
+        return dataString;
+    }
+    
     @Override
     public String getUsername() throws RemoteException {
        return username;

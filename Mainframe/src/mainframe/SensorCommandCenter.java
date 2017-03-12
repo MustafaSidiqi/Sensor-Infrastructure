@@ -30,12 +30,20 @@ public class SensorCommandCenter extends UnicastRemoteObject implements SensorIn
     
     @Override
     public boolean transferData(String username, String password, String data) { // Listen to sensors
+        
+        System.out.println("Incomming Data!");
+        
+        System.out.println("Background checking user...");
 
         if(cia.login(username, password) && listeningToSensors) {
+            System.out.println("Access Granted!");
+            System.out.println("Data: ");
             System.out.println(data);
             incommingBuffer.add(data);
+            System.out.println("End of transmission.");
             return TRUE;
         } else {
+            System.out.println("Access Denied!");
             return FALSE;
         }
         

@@ -7,6 +7,15 @@ package mainframe;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.rmi.*;
+import brugerautorisation.transport.soap.Brugeradmin;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.rmi.server.UnicastRemoteObject;
+import javax.jws.WebService;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
 
 /**
  *
@@ -16,6 +25,7 @@ public class CyberCommunicationCenter extends UnicastRemoteObject implements Web
 
     SecurityBureau cia;
     //YO
+
     public String username; 
     public String password; 
     // angiv om hvad det er for nogle variabler dvs public eller private eller protected. 
@@ -25,14 +35,14 @@ public class CyberCommunicationCenter extends UnicastRemoteObject implements Web
     
     
     // Authenticate User
+
+    //NOT FINSHED
+    @Override
+    public boolean cyberLogin(String username, String password) throws RemoteException {
+        return cia.login(username, password);
+    };
+    //NOT FINSHED YET
     
-    public void setUsername(String a) throws RemoteException {
-        this.username = a; 
-    }
-    
-    public void setPassword(String b) throws RemoteException {
-        this.username = b; 
-    }
     
     /*
     public boolean receiveLoginInfo(String username, String password) {

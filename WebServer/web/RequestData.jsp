@@ -4,6 +4,13 @@
     Author     : Mustafa
 --%>
 
+<%@page import="brugerautorisation.data.Bruger"%>
+<%@page import="brugerautorisation.transport.rmi.Brugeradmin"%>
+<%@page import="mainframe.UserAuthenticationInterface"%>
+<%@page import="javax.xml.ws.Service"%>
+<%@page import="javax.xml.namespace.QName"%>
+<%@page import="javax.xml.namespace.QName"%>
+<%@page import="java.net.URL"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,17 +21,18 @@
     <body>
         <h1>Request data from database:</h1>
         <%
-            String username = request.getParameter("usrename");
+            String username = request.getParameter("username");
             String password = request.getParameter("password");
+
         %>
     <tbody>
         <tr>
             <td>Username</td>
-            <td><%= username%></td>
+            <td></td>
         </tr>
         <tr>
             <td>Password</td>
-            <td> <%= password%></td>
+            <td> </td>
         </tr>
     </tbody>
 </table>
