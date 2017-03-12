@@ -5,10 +5,18 @@
  */
 package mainframe;
 
+import java.net.MalformedURLException;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
 /**
  *
  * @author nb
  */
+@WebService
 public interface UserAuthenticationInterface {
-    
+        @WebMethod boolean login(String name, String pass);
+        //@WebMethod boolean instantiateLogin() throws MalformedURLException;
+        //@WebMethod void nulstil();
+        //@WebMethod String log();
 }

@@ -11,8 +11,12 @@ package mainframe;
  */
 public class DataManipulationService {
     
+    public SecurityBureau cia;
+    
     // Upload Data
     
     // Request Data
+    SensorCommandCenter nsa;
+    CyberCommunicationCenter nasa;
     
 }
