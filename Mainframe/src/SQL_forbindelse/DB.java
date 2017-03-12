@@ -18,12 +18,26 @@ import java.util.logging.Logger;
  * used to connect to sql server and manupulate data. 
  */
 public class DB {
-
+    private String std_dbname = "jdbc:mysql://sensordb.cfdquak6nbpb.eu-west-2.rds.amazonaws.com:3306/SensorDB";
+    private String std_uname = "sensorDatabase";
+    private String std_password = "sensor2017";
     private Connection con;
     private String DBName = "SensorDB";
     SimpleDateFormat simpleDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private ArrayList<SensorData> data; 
-    /**
+
+    public DB() throws Exception {
+
+        try {
+            con = DriverManager.getConnection(std_dbname, std_uname, std_password);
+        } catch (SQLException e) {
+            throw new IllegalStateException("Cannot connect the database!" + e.getMessage());
+        }
+        makeDB();
+        data = new ArrayList<SensorData>();
+    }
+    
+        /**
      * 
      * @param dbname
      * @param uname
