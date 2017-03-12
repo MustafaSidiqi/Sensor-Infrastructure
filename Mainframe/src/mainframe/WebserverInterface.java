@@ -13,7 +13,11 @@ import java.rmi.RemoteException;
  */
 public interface WebserverInterface extends java.rmi.Remote {
     
+<<<<<<< HEAD
     public boolean cyberLogin(String username, String password) throws RemoteException;
+=======
+    public boolean cyberLogin(String username, String password) throws java.rmi.RemoteException;
+>>>>>>> f5bfdc86cd154d16ca2978bee36e17f88faac632
     
     //public void setPassword(String password) throws RemoteException;    
 

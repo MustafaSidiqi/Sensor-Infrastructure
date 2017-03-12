@@ -23,7 +23,7 @@ public class SensorCommandCenter extends UnicastRemoteObject implements SensorIn
     CyberCommunicationCenter nasa;
     DataManipulationService db;
     
-    SensorCommandCenter() {
+    public SensorCommandCenter() throws java.rmi.RemoteException {
         this.listeningToSensors = FALSE;
         incommingBuffer = new LinkedList<>();
     }

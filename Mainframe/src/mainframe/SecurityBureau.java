@@ -24,7 +24,7 @@ public class SecurityBureau extends UnicastRemoteObject implements UserAuthentic
     CyberCommunicationCenter nasa;
     DataManipulationService db;
     
-    SecurityBureau() throws MalformedURLException {
+    public SecurityBureau() throws MalformedURLException, java.rmi.RemoteException {
         URL url = new URL("http://ubuntu4.javabog.dk:9901/kontotjeneste?wsdl");
         QName qname = new QName("https://niklasbuhl.xyz/sensorinfrastructure/", "UserAuthenticationInterfaceService");
         Service service = Service.create(url, qname);
