@@ -6,6 +6,7 @@
 package SQL_forbindelse;
 
 import StartLoadSer.EnumSerialize;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  *
  * used to connect to sql server and manupulate data.
  */
-public class DB {
+public class DB extends UnicastRemoteObject implements sql_interface{
 
     private String std_dbname = "jdbc:mysql://sensordb.cfdquak6nbpb.eu-west-2.rds.amazonaws.com:3306/SensorDB";
     private String std_uname = "sensorDatabase";
@@ -89,55 +90,55 @@ public class DB {
      * @param ID
      * @return array with SensorData object.
      */
-    public ArrayList<DataStruct> getAllBySensorID(int ID) {
+    public ArrayList<DataStruct> getAllBySensorID(int ID) throws java.rmi.RemoteException {
 
         String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = " + ID;
         return getData(req);
     }
 
-    public ArrayList<DataStruct> getIntervalBySensorID(int ID, Date start, Date end) {
+    public ArrayList<DataStruct> getIntervalBySensorID(int ID, Date start, Date end) throws java.rmi.RemoteException {
 
         String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = " + ID + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
 
-    public ArrayList<DataStruct> getAllByType(int type) {
+    public ArrayList<DataStruct> getAllByType(int type) throws java.rmi.RemoteException {
 
         String req = "SELECT * FROM `sensordata` WHERE `Type` = " + type;
         return getData(req);
     }
 
-    public ArrayList<DataStruct> getIntervalByType(int type, Date start, Date end) {
+    public ArrayList<DataStruct> getIntervalByType(int type, Date start, Date end) throws java.rmi.RemoteException {
 
         String req = "SELECT * FROM `sensordata` WHERE `Type` = " + type + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
 
-    public ArrayList<DataStruct> getAllByLocation(String loc) {
+    public ArrayList<DataStruct> getAllByLocation(String loc) throws java.rmi.RemoteException {
 
         String req = "SELECT * FROM `sensordata` WHERE `Location` = " + loc;
         return getData(req);
     }
 
-    public ArrayList<DataStruct> getIntervalByLocation(String loc, Date start, Date end) {
+    public ArrayList<DataStruct> getIntervalByLocation(String loc, Date start, Date end) throws java.rmi.RemoteException {
 
         String req = "SELECT * FROM `sensordata` WHERE `Location` = " + loc + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
 
-    public ArrayList<DataStruct> getAllByDate(Date d) {
+    public ArrayList<DataStruct> getAllByDate(Date d) throws java.rmi.RemoteException {
 
         String req = "SELECT * FROM `sensordata` WHERE `Date` = " + d;
         return getData(req);
     }
 
-    public ArrayList<DataStruct> getIntervalByDate(Date start, Date end) {
+    public ArrayList<DataStruct> getIntervalByDate(Date start, Date end) throws java.rmi.RemoteException {
 
         String req = "SELECT * FROM `sensordata` WHERE `Date` >= '" + start + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
 
-    public ArrayList<DataStruct> directSQL(String sql) {
+    public ArrayList<DataStruct> directSQL(String sql) throws java.rmi.RemoteException {
 
         // securing for abuse
         String temp_sql = sql.toLowerCase();
