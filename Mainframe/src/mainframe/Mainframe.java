@@ -38,7 +38,7 @@ public class Mainframe {
         // test if mustafa can connect to DB
         java.rmi.registry.LocateRegistry.createRegistry(5050); // start i server-JVM
         rmi_SQL_server k = new rmi_SQL_server(readHash());
-	Naming.rebind("rmi://localhost/kontotjeneste", k);
+	Naming.rebind("rmi://localhost:5050/SQL", k);
         
         /*
         db.cia = cia;
@@ -73,7 +73,7 @@ public class Mainframe {
       */  
         //for local host
         //Naming.rebind("rmi://localhost:1337/sensorcommandcenter", (Remote) commandcenter);
-        Naming.rebind("rmi://localhost:6666/cybercommunicationscenter", (Remote) cybercenter);
+       // Naming.rebind("rmi://localhost:1337/cybercommunicationscenter", (Remote) cybercenter);
         
         
         System.out.println("Everything should be running now.");/**/
