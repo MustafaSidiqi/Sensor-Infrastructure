@@ -52,10 +52,10 @@ public class Mainframe {
         WebserverInterface cybercenter = new CyberCommunicationCenter();
         // uncoment stuf you need 
         
-        /*
+    
         // for amazon server 
         Naming.rebind("rmi://52.56.199.233:1337/sensorcommandcenter", (Remote) commandcenter);
-        Naming.rebind("rmi://52.56.199.233:1337/cybercommunicationscenter", (Remote) cybercenter);*/
+        Naming.rebind("rmi://52.56.199.233:1337/cybercommunicationscenter", (Remote) cybercenter);
         
         
         //for local host

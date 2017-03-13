@@ -5,6 +5,8 @@
  */
 package mainframe;
 
+import java.rmi.RemoteException;
+
 /**
  *
  * @author nb
@@ -19,7 +21,7 @@ public class DataManipulationService {
     SensorCommandCenter nsa;
     CyberCommunicationCenter nasa;
     
-   public void storeData() {
+   public void storeData() throws RemoteException {
        
        String newData ="";
        if(nsa.isThereNewData()) newData = nsa.getData();
