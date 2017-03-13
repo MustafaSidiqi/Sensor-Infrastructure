@@ -7,7 +7,6 @@ package StartLoadSer;
 
 import static StartLoadSer.writeSer.writeS;
 import java.util.Hashtable;
-
 /**
  *
  * @author taras

@@ -21,7 +21,7 @@ public class Mainframe {
         
         System.out.println("Hello, World!");
         // hvis den næste linje virker for jer så det godt... men den virker ikke for mig... 
-        // ArrayList<SensorDataStruct> data;
+        ArrayList<DataStruct> data;
         // Amazon IP server: 52.56.199.233
         
         SecurityBureau cia = new SecurityBureau();
@@ -29,7 +29,11 @@ public class Mainframe {
        
         CyberCommunicationCenter nasa = new CyberCommunicationCenter();
         DataManipulationService db = new DataManipulationService(readHash());
-        //data = db.getAllByType(0);
+        data = db.getAllBySensorID(1); 
+        for(DataStruct d : data){
+            System.out.println(d.objToString());
+        }
+        /*
         db.cia = cia;
         nsa.cia = cia;
         nasa.cia = cia;
@@ -65,7 +69,7 @@ public class Mainframe {
         Naming.rebind("rmi://localhost:1337/cybercommunicationscenter", (Remote) cybercenter);
         
         
-        System.out.println("Everything should be running now.");
+        System.out.println("Everything should be running now.");/**/
     }
     
 }

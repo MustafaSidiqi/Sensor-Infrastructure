@@ -26,7 +26,7 @@ public class DB {
     private Connection con;
     private String DBName = "SensorDB";
     SimpleDateFormat simpleDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    private ArrayList<SensorDataStruct> data;
+    private ArrayList<DataStruct> data;
     private EnumSerialize enum_db;
 
     public DB(EnumSerialize es) throws Exception {
@@ -37,7 +37,7 @@ public class DB {
             throw new IllegalStateException("Cannot connect the database!" + e.getMessage());
         }
         makeDB();
-        data = new ArrayList<SensorDataStruct>();
+        data = new ArrayList<DataStruct>();
 
     }
 
@@ -59,7 +59,7 @@ public class DB {
             throw new IllegalStateException("Cannot connect the database!" + e.getMessage());
         }
         makeDB();
-        data = new ArrayList<SensorDataStruct>();
+        data = new ArrayList<DataStruct>();
     }
 
     /**
@@ -89,55 +89,55 @@ public class DB {
      * @param ID
      * @return array with SensorData object.
      */
-    public ArrayList<SensorDataStruct> getAllBySensorID(int ID) {
+    public ArrayList<DataStruct> getAllBySensorID(int ID) {
 
         String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = " + ID;
         return getData(req);
     }
 
-    public ArrayList<SensorDataStruct> getIntervalBySensorID(int ID, Date start, Date end) {
+    public ArrayList<DataStruct> getIntervalBySensorID(int ID, Date start, Date end) {
 
         String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = " + ID + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
 
-    public ArrayList<SensorDataStruct> getAllByType(int type) {
+    public ArrayList<DataStruct> getAllByType(int type) {
 
         String req = "SELECT * FROM `sensordata` WHERE `Type` = " + type;
         return getData(req);
     }
 
-    public ArrayList<SensorDataStruct> getIntervalByType(int type, Date start, Date end) {
+    public ArrayList<DataStruct> getIntervalByType(int type, Date start, Date end) {
 
         String req = "SELECT * FROM `sensordata` WHERE `Type` = " + type + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
 
-    public ArrayList<SensorDataStruct> getAllByLocation(String loc) {
+    public ArrayList<DataStruct> getAllByLocation(String loc) {
 
         String req = "SELECT * FROM `sensordata` WHERE `Location` = " + loc;
         return getData(req);
     }
 
-    public ArrayList<SensorDataStruct> getIntervalByLocation(String loc, Date start, Date end) {
+    public ArrayList<DataStruct> getIntervalByLocation(String loc, Date start, Date end) {
 
         String req = "SELECT * FROM `sensordata` WHERE `Location` = " + loc + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
 
-    public ArrayList<SensorDataStruct> getAllByDate(Date d) {
+    public ArrayList<DataStruct> getAllByDate(Date d) {
 
         String req = "SELECT * FROM `sensordata` WHERE `Date` = " + d;
         return getData(req);
     }
 
-    public ArrayList<SensorDataStruct> getIntervalByDate(Date start, Date end) {
+    public ArrayList<DataStruct> getIntervalByDate(Date start, Date end) {
 
         String req = "SELECT * FROM `sensordata` WHERE `Date` >= '" + start + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
 
-    public ArrayList<SensorDataStruct> directSQL(String sql) {
+    public ArrayList<DataStruct> directSQL(String sql) {
 
         // securing for abuse
         String temp_sql = sql.toLowerCase();
@@ -177,13 +177,13 @@ public class DB {
 
     }
 
-    public ArrayList<SensorDataStruct> getData(String s) {
+    public ArrayList<DataStruct> getData(String s) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = null;
             rs = stmt.executeQuery(s);
             while (rs.next()) {
-                SensorDataStruct d = new SensorDataStruct();
+                DataStruct d = new DataStruct();
                 d.setSD(rs,enum_db);
                 data.add(d);
 

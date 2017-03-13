@@ -26,7 +26,7 @@ public class test_sql {
         d.setYear(d.getYear()-1900);
         
         // creates new data sample 
-        test.insertData(2, "stue", 2, 3, 4,"2017-11-12 22:00:00" , 25);
+       // test.insertData(2, "stue", 2, 3, 4,"2017-11-12 22:00:00" , 25);
         
         //saves into array List ArrayList<SensorData> /// get all elements where sensor id is 2
         test.getAllBySensorID(1);

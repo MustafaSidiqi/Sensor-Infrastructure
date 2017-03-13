@@ -68,11 +68,4 @@ public class DataManipulationService extends DB {
 
     }
     
-   public void storeData() throws RemoteException {
-       
-       String newData ="";
-       if(nsa.isThereNewData()) newData = nsa.getData();
-       System.out.println(newData);
-   }
-    
 }

@@ -16,8 +16,7 @@ import java.util.logging.Logger;
  *
  * @author taras
  */
-class SensorDataStruct {
-
+public class DataStruct {
     public int Data_ID;
     public int Sensor_ID;
     public String Location;
@@ -29,7 +28,7 @@ class SensorDataStruct {
     public Timestamp Date;
     public int Checksum;
 
-    public SensorDataStruct() {
+    public DataStruct() {
 
     }
 
@@ -47,7 +46,7 @@ class SensorDataStruct {
             Date = (Timestamp) obj.getObject(7);
             Checksum = (int) obj.getObject(8);
         } catch (SQLException ex) {
-            Logger.getLogger(SensorDataStruct.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataStruct.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
