@@ -9,25 +9,27 @@ package mainframe;
  *
  * @author nb
  */
-
+import SQL_forbindelse.*;
+import static StartLoadSer.readSer.readHash;
 import static java.lang.Boolean.TRUE;
 import java.rmi.Naming;
 import java.rmi.Remote;
+import java.util.ArrayList;
 
 public class Mainframe {
 
     public static void main(String[] args) throws Exception {
         
         System.out.println("Hello, World!");
-        
+        ArrayList<SensorDataStruct> data;
         // Amazon IP server: 52.56.199.233
         
         SecurityBureau cia = new SecurityBureau();
         SensorCommandCenter nsa = new SensorCommandCenter();       
        
         CyberCommunicationCenter nasa = new CyberCommunicationCenter();
-        DataManipulationService db = new DataManipulationService();
-
+        DataManipulationService db = new DataManipulationService(readHash());
+        data = db.getAllByType(0);
         db.cia = cia;
         nsa.cia = cia;
         nasa.cia = cia;
