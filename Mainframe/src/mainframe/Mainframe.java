@@ -9,6 +9,7 @@ package mainframe;
  *
  * @author nb
  */
+import SQL_RMI.rmi_SQL_server;
 import SQL_forbindelse.*;
 import static StartLoadSer.readSer.readHash;
 import java.rmi.Naming;
@@ -33,6 +34,12 @@ public class Mainframe {
         for(DataStruct d : data){
             System.out.println(d.objToString());
         }
+        
+        // test if mustafa can connect to DB
+        java.rmi.registry.LocateRegistry.createRegistry(5050); // start i server-JVM
+        rmi_SQL_server k = new rmi_SQL_server(readHash());
+	Naming.rebind("rmi://localhost/kontotjeneste", k);
+        
         /*
         db.cia = cia;
         nsa.cia = cia;
