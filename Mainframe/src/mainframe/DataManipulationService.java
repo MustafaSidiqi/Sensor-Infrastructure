@@ -5,15 +5,11 @@
  */
 package mainframe;
 
-<<<<<<< HEAD
 import SQL_forbindelse.*;
 import StartLoadSer.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-=======
 import java.rmi.RemoteException;
->>>>>>> 68e61cf2f7c3f1a725baf34e56cb71bf31e3ad2a
-
 /**
  *
  * @author nb
@@ -26,7 +22,6 @@ public class DataManipulationService extends DB {
     // Request Data
     SensorCommandCenter nsa;
     CyberCommunicationCenter nasa;
-<<<<<<< HEAD
     private EnumSerialize enum_db;
 
     public DataManipulationService(EnumSerialize e) throws Exception {
@@ -72,7 +67,6 @@ public class DataManipulationService extends DB {
         }
 
     }
-=======
     
    public void storeData() throws RemoteException {
        
@@ -81,5 +75,4 @@ public class DataManipulationService extends DB {
        System.out.println(newData);
    }
     
->>>>>>> 68e61cf2f7c3f1a725baf34e56cb71bf31e3ad2a
 }
