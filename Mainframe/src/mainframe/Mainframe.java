@@ -44,7 +44,7 @@ public class Mainframe {
         nsa.db = db;
         nasa.db = db;
         
-        java.rmi.registry.LocateRegistry.createRegistry(1337); // start i server-JVM
+        java.rmi.registry.LocateRegistry.createRegistry(6666); // start i server-JVM
         
         //SensorArsenal arsenal = new SensorArsenal();
         
@@ -52,15 +52,15 @@ public class Mainframe {
         WebserverInterface cybercenter = new CyberCommunicationCenter();
         // uncoment stuf you need 
         
-    
+    /*
         // for amazon server 
         Naming.rebind("rmi://52.56.199.233:1337/sensorcommandcenter", (Remote) commandcenter);
         Naming.rebind("rmi://52.56.199.233:1337/cybercommunicationscenter", (Remote) cybercenter);
         
-        
+      */  
         //for local host
         //Naming.rebind("rmi://localhost:1337/sensorcommandcenter", (Remote) commandcenter);
-        Naming.rebind("rmi://localhost:1337/cybercommunicationscenter", (Remote) cybercenter);
+        Naming.rebind("rmi://localhost:6666/cybercommunicationscenter", (Remote) cybercenter);
         
         
         System.out.println("Everything should be running now.");

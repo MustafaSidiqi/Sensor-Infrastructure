@@ -5,13 +5,17 @@
  */
 package newpackage;
 
-import brugerautorisation.data.Bruger;
-import brugerautorisation.transport.soap.Brugeradmin;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +41,7 @@ public class mainframeConnect extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, RemoteException, NotBoundException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -45,7 +49,19 @@ public class mainframeConnect extends HttpServlet {
             String un = request.getParameter("username");
             String pw = request.getParameter("password");
             boolean validUser = false;
-            WebserverInterface WSI;
+            //WebserverInterface WSI;
+
+            GalgelegI spil = null;
+            boolean aktiv = false;
+            try {
+                Registry registry = LocateRegistry.getRegistry("ubuntu4.javabog.dk", 53518);
+                spil = (GalgelegI) registry.lookup("GalgelegI15351");
+                //    spil.nulstil();
+                spil.logStatus();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             /*
             try {
                 System.setSecurityManager(new RMISecurityManager());
@@ -64,15 +80,32 @@ public class mainframeConnect extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet mainframeConnect at " + request.getContextPath() + "</h1>");
-            
-            validUser = true;
+
+            //validUser = spil.loggedIn(un, pw);
+            System.out.println(aktiv);
+
+            out.println("This is aktiv " + aktiv);
+            System.out.println(aktiv);
+            /*
             if (validUser == true) {
                 out.println("Welcome " + un + " <meta http-equiv=refresh content=2;URL=\"requestData.jsp\">");
             } else {
                 out.println("You have entered a wrong username " + un + " <meta http-equiv=refresh content=5;URL=\"login.jsp\">");
                 out.println("<br><br/> Redirecting...");
             }
-            out.println(validUser);
+             */
+            if (!aktiv) {
+                aktiv = spil.loggedIn("jacno", "xxx");
+            }
+            if (aktiv == true) {
+                out.println("Welcome " + un + " <meta http-equiv=refresh content=2;URL=\"requestData.jsp\">");
+
+            } else {
+                out.println("You have entered a wrong username " + un + " <meta http-equiv=refresh content=5;URL=\"login.jsp\">");
+                out.println("<br><br/> Redirecting...");
+            }
+
+            out.println("This is vailduser" + validUser);
             out.println("</body>");
             out.println("</html>");
 
@@ -107,8 +140,12 @@ public class mainframeConnect extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+            throws ServletException, IOException, RemoteException {
+        try {
+            processRequest(request, response);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(mainframeConnect.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -122,7 +159,13 @@ public class mainframeConnect extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (RemoteException ex) {
+            Logger.getLogger(mainframeConnect.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(mainframeConnect.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         System.out.println("sd");
 

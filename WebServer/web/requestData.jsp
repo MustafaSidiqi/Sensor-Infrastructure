@@ -4,7 +4,6 @@
     Author     : Mustafa
 --%>
 
-<%@page import="brugerautorisation.transport.soap.Brugeradmin"%>
 <%@page import="brugerautorisation.data.Bruger"%>
 
 <%@page import="mainframe.UserAuthenticationInterface"%>
