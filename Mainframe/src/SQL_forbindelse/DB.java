@@ -177,7 +177,7 @@ public class DB {
 
     }
 
-    public ArrayList<DataStruct> getData(String s) {
+    private ArrayList<DataStruct> getData(String s) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = null;
@@ -188,7 +188,7 @@ public class DB {
                 data.add(d);
 
                 // test function....
-                d.printData();
+                //d.printData();
             }
             rs.close();
         } catch (SQLException ex) {
