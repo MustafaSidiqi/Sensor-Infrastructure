@@ -73,23 +73,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        </title>\r\n");
       out.write("    </head>\r\n");
       out.write("    <body>\r\n");
-      out.write("                ");
-
-            boolean aktiv = false;
-            GalgelegI spil;
-            try {
-                Registry registry = LocateRegistry.getRegistry("ubuntu4.javabog.dk", 53518);
-                 spil = (GalgelegI) registry.lookup("GalgelegI15351");
-                //    spil.nulstil();
-                spil.logStatus();
-     
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        
-      out.write("\r\n");
-      out.write("        <form name=\"loginForm\" action=\"login.jsp\" method=\"POST\">\r\n");
+      out.write("        <form name=\"loginForm\" action=\"loginRMI\" method=\"POST\">\r\n");
       out.write("            <table border=\"0\" cellspacing=\"5\" cellpadding=\"5\">\r\n");
       out.write("\r\n");
       out.write("                <tbody>\r\n");
@@ -107,24 +91,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    </tr>\r\n");
       out.write("                </tbody>\r\n");
       out.write("            </table> \r\n");
-      out.write("        </form>\r\n");
-      out.write("                ");
-
-            String brugernavn = request.getParameter("username");
-            String adgangskode = request.getParameter("password");
-            
-            if (!aktiv) {
-                aktiv = spil.loggedIn(brugernavn, adgangskode);
-            }
-            if (aktiv == true) {
-                out.println("Welcome " + brugernavn + " <meta http-equiv=refresh content=2;URL=\"requestData.jsp\">");
-
-            } else {
-                out.println("You have entered a wrong username " + brugernavn + " <meta http-equiv=refresh content=5;URL=\"login.jsp\">");
-                out.println("<br><br/> Redirecting...");            }
-        
-      out.write("\r\n");
-      out.write("        \r\n");
+      out.write("        </form> \r\n");
       out.write("    </body>\r\n");
       out.write("    \r\n");
       out.write("</html>");

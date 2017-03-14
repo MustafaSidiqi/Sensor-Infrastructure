@@ -36,13 +36,8 @@ public class Mainframe {
 
         java.rmi.registry.LocateRegistry.createRegistry(5050); // start i server-JVM
         sql_interface k = new DB(readHash());
-<<<<<<< HEAD
 	Naming.rebind("rmi://localhost:5050/SQL", (Remote)k);
         
-=======
-        Naming.rebind("rmi://localhost:5050/sql2", (Remote) k);
-
->>>>>>> f8d7a6e0cddf64cb64eafa5d9daadfd9f633e10c
         /*
         db.cia = cia;
         nsa.cia = cia;
@@ -76,13 +71,9 @@ public class Mainframe {
          */
         //for local host
         //Naming.rebind("rmi://localhost:1337/sensorcommandcenter", (Remote) commandcenter);
-<<<<<<< HEAD
        // Naming.rebind("rmi://localhost:1337/cybercommunicationscenter", (Remote) cybercenter);
         
         
-=======
-       // Naming.rebind("rmi://localhost:1337/cybercommunicationscenter", (Remote) cybercenter);       
->>>>>>> f8d7a6e0cddf64cb64eafa5d9daadfd9f633e10c
         System.out.println("Everything should be running now.");/**/
     }
 

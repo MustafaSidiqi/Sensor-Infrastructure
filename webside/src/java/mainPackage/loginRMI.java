@@ -8,11 +8,10 @@ package mainPackage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.NotBoundException;
-import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -25,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mustafa Sidiqi
  */
-@WebServlet(name = "requestSqlData", urlPatterns = {"/requestSqlData"})
-public class requestSqlData extends HttpServlet {
+@WebServlet(name = "loginRMI", urlPatterns = {"/loginRMI"})
+public class loginRMI extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,46 +37,51 @@ public class requestSqlData extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        ArrayList<DataStruct> stuff;
+            throws ServletException, IOException, RemoteException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet requestSqlData</title>");
+            out.println("<title>Servlet loginRMI</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet requestSqlData at " + request.getContextPath() + "</h1>");
-            /*
-            String dateFrom = request.getParameter("fromDate");
-            String dateTo = request.getParameter("toDate");
-            String location = request.getParameter("location");
-            String sensor = request.getParameter("sensor");
-            String sensorID = request.getParameter("sensorID");
-            */
-            try {
-                out.println("test01");
+            out.println("<h1>Servlet loginRMI at " + request.getContextPath() + "</h1>");
 
-                sql_interface k = (sql_interface) Naming.lookup("rmi://localhost:5050/sql2");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+
+            out.println(username);
+            out.println(password);
+
+            boolean aktiv = false;
+            //GalgelegI spil = null;
+            out.println("test01");
+            try {
+                Registry registry = LocateRegistry.getRegistry("ubuntu4.javabog.dk", 53518);
                 out.println("test02");
-                stuff = k.getAllBySensorID(1);
+                GalgelegI spil = (GalgelegI) registry.lookup("GalgelegI:15351");
                 out.println("test03");
-                for (DataStruct d : stuff) {
-                    System.out.println(d.objToString());
-                    out.println("This is stuff, much wow" + stuff);
+
+                if (!aktiv) {
+                    aktiv = spil.loggedIn(username, password);
                 }
-            } catch (NotBoundException ex) {
-                Logger.getLogger(requestSqlData.class.getName()).log(Level.SEVERE, null, ex);
-                out.println("test04");
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(requestSqlData.class.getName()).log(Level.SEVERE, null, ex);
-                out.println("test05");
-            } catch (RemoteException ex) {
-                Logger.getLogger(requestSqlData.class.getName()).log(Level.SEVERE, null, ex);
-                out.println("test06");
+                //    spil.nulstil();
+                spil.logStatus();
+
+            } catch (MalformedURLException | NotBoundException | RemoteException e) {
+                e.printStackTrace();
+            }
+
+
+
+            if (aktiv == true) {
+                out.println("Welcome " + username + " <meta http-equiv=refresh content=10;URL=\"requestData.jsp\">");
+
+            } else {
+                out.println("You have entered a wrong username " + username + " <meta http-equiv=refresh content=5;URL=\"login.jsp\">");
+                out.println("<br><br/> Redirecting...");
             }
 
             out.println("</body>");
