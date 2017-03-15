@@ -16,7 +16,7 @@ import java.io.ObjectOutputStream;
  */
 public class writeSer {
     public static void writeS(EnumSerialize hs){       
-    try {
+    try {   
          FileOutputStream fileOut = new FileOutputStream("hash.ser");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(hs);

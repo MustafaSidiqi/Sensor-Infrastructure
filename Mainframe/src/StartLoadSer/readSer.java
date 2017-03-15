@@ -5,6 +5,7 @@
  */
 package StartLoadSer;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,6 +28,8 @@ public class readSer {
             fileIn.close();
         } catch (IOException i) {
             i.printStackTrace();
+            File f = new File("hash.ser");
+            
             return new EnumSerialize();
         } catch (ClassNotFoundException c) {
             System.out.println("EnumSerialize class not found");
