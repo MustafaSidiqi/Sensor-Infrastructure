@@ -90,63 +90,46 @@ public class DB extends UnicastRemoteObject implements sql_interface{
      * @param ID
      * @return array with SensorData object.
      */
-    @Override
     public ArrayList<DataStruct> getAllBySensorID(int ID){
 
         String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = " + ID;
         return getData(req);
     }
-
-    @Override
     public ArrayList<DataStruct> getIntervalBySensorID(int ID, Date start, Date end){
 
         String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = " + ID + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
-
-    @Override
     public ArrayList<DataStruct> getAllByType(int type){
 
         String req = "SELECT * FROM `sensordata` WHERE `Type` = " + type;
         return getData(req);
     }
-
-    @Override
     public ArrayList<DataStruct> getIntervalByType(int type, Date start, Date end){
 
         String req = "SELECT * FROM `sensordata` WHERE `Type` = " + type + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
-
-    @Override
     public ArrayList<DataStruct> getAllByLocation(String loc){
 
         String req = "SELECT * FROM `sensordata` WHERE `Location` = " + loc;
         return getData(req);
     }
-
-    @Override
     public ArrayList<DataStruct> getIntervalByLocation(String loc, Date start, Date end){
 
         String req = "SELECT * FROM `sensordata` WHERE `Location` = " + loc + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
-
-    @Override
     public ArrayList<DataStruct> getAllByDate(Date d){
 
         String req = "SELECT * FROM `sensordata` WHERE `Date` = " + d;
         return getData(req);
     }
-
-    @Override
     public ArrayList<DataStruct> getIntervalByDate(Date start, Date end){
 
         String req = "SELECT * FROM `sensordata` WHERE `Date` >= '" + start + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
-
-    @Override
     public ArrayList<DataStruct> directSQL(String sql){
 
         // securing for abuse
@@ -221,5 +204,85 @@ public class DB extends UnicastRemoteObject implements sql_interface{
         }
        
     }*/
+    
+    
+    //// this is for RMI 
+    
+    @Override
+    public ArrayList<String> getAllBySensorID_RMI(int ID){
+
+        String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = " + ID;
+        return DataStructToString(getData(req));
+    }
+
+    @Override
+    public ArrayList<String> getIntervalBySensorID_RMI(int ID, Date start, Date end){
+
+        String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = " + ID + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
+        return DataStructToString(getData(req));
+    }
+
+    @Override
+    public ArrayList<String> getAllByType_RMI(int type){
+
+        String req = "SELECT * FROM `sensordata` WHERE `Type` = " + type;
+        return DataStructToString(getData(req));
+    }
+
+    @Override
+    public ArrayList<String> getIntervalByType_RMI(int type, Date start, Date end){
+
+        String req = "SELECT * FROM `sensordata` WHERE `Type` = " + type + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
+        return DataStructToString(getData(req));
+    }
+
+    @Override
+    public ArrayList<String> getAllByLocation_RMI(String loc){
+
+        String req = "SELECT * FROM `sensordata` WHERE `Location` = " + loc;
+        return DataStructToString(getData(req));
+    }
+
+    @Override
+    public ArrayList<String> getIntervalByLocation_RMI(String loc, Date start, Date end){
+
+        String req = "SELECT * FROM `sensordata` WHERE `Location` = " + loc + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
+        return DataStructToString(getData(req));
+    }
+
+    @Override
+    public ArrayList<String> getAllByDate_RMI(Date d){
+
+        String req = "SELECT * FROM `sensordata` WHERE `Date` = " + d;
+        return DataStructToString(getData(req));
+    }
+
+    @Override
+    public ArrayList<String> getIntervalByDate_RMI(Date start, Date end){
+
+        String req = "SELECT * FROM `sensordata` WHERE `Date` >= '" + start + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
+        return DataStructToString(getData(req));
+    }
+
+    @Override
+    public ArrayList<String> directSQL_RMI(String sql){
+
+        // securing for abuse
+        String temp_sql = sql.toLowerCase();
+        if (!temp_sql.contains("update") && !temp_sql.contains("delete") && !temp_sql.contains("insert") && !temp_sql.contains("create") && !temp_sql.contains("alter")) {
+            return DataStructToString(getData(sql));
+        } else {
+            return null;
+        }
+    }
+
+    private ArrayList<String> DataStructToString(ArrayList<DataStruct> data) {
+        ArrayList<String> temp = new ArrayList<>();
+        for(DataStruct d: data){
+            temp.add(d.objToString());
+        }
+        return temp;
+    }
+    
 
 }

@@ -39,7 +39,7 @@ public class requestSqlData extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<DataStruct> stuff;
+        ArrayList<String> stuff;
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -62,11 +62,12 @@ public class requestSqlData extends HttpServlet {
                 out.println("test01");
 
                 sql_interface k = (sql_interface) Naming.lookup("rmi://localhost:5050/sql2");
+                
                 out.println("test02");
-                stuff = k.getAllBySensorID(1);
+                stuff = k.getAllBySensorID_RMI(1);
                 out.println("test03");
-                for (DataStruct d : stuff) {
-                    System.out.println(d.objToString());
+                for (String d : stuff) {
+                    System.out.println(d);
                     out.println("This is stuff, much wow" + stuff);
                 }
             } catch (NotBoundException ex) {

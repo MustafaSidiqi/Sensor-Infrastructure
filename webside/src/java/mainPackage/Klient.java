@@ -54,7 +54,7 @@ public class Klient {
             //   System.setSecurityManager(new RMISecurityManager());
             //}
             //sql_interface k = (sql_interface) Naming.lookup("rmi://localhost:5050/SQL");
-            sql_interface k = (sql_interface) Naming.lookup("rmi://localhost/SQL");
+            sql_interface k = (sql_interface) Naming.lookup("rmi://localhost/SQLshit");
 
             System.out.println("test02");
             /*

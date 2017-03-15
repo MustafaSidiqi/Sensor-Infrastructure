@@ -15,13 +15,13 @@ import java.util.ArrayList;
  */
 public interface sql_interface extends java.rmi.Remote{
     
-    ArrayList<DataStruct> getAllBySensorID(int ID)                                  throws java.rmi.RemoteException;
-    ArrayList<DataStruct> getIntervalBySensorID(int ID, Date start, Date end)       throws java.rmi.RemoteException;
-    ArrayList<DataStruct> getAllByType(int type)                                    throws java.rmi.RemoteException;
-    ArrayList<DataStruct> getIntervalByType(int type, Date start, Date end)         throws java.rmi.RemoteException;
-    ArrayList<DataStruct> getAllByLocation(String loc)                              throws java.rmi.RemoteException;
-    ArrayList<DataStruct> getIntervalByLocation(String loc, Date start, Date end)   throws java.rmi.RemoteException;
-    ArrayList<DataStruct> getAllByDate(Date d)                                      throws java.rmi.RemoteException;
-    ArrayList<DataStruct> getIntervalByDate(Date start, Date end)                   throws java.rmi.RemoteException;
-    ArrayList<DataStruct> directSQL(String sql)                                     throws java.rmi.RemoteException;
+    ArrayList<String> getAllBySensorID_RMI(int ID)                                  throws java.rmi.RemoteException;
+    ArrayList<String> getIntervalBySensorID_RMI(int ID, Date start, Date end)       throws java.rmi.RemoteException;
+    ArrayList<String> getAllByType_RMI(int type)                                    throws java.rmi.RemoteException;
+    ArrayList<String> getIntervalByType_RMI(int type, Date start, Date end)         throws java.rmi.RemoteException;
+    ArrayList<String> getAllByLocation_RMI(String loc)                              throws java.rmi.RemoteException;
+    ArrayList<String> getIntervalByLocation_RMI(String loc, Date start, Date end)   throws java.rmi.RemoteException;
+    ArrayList<String> getAllByDate_RMI(Date d)                                      throws java.rmi.RemoteException;
+    ArrayList<String> getIntervalByDate_RMI(Date start, Date end)                   throws java.rmi.RemoteException;
+    ArrayList<String> directSQL_RMI(String sql)                                     throws java.rmi.RemoteException;
 }

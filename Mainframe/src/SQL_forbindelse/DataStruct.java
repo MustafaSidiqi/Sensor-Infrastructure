@@ -6,6 +6,7 @@
 package SQL_forbindelse;
 
 import StartLoadSer.EnumSerialize;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author taras
  */
-public class DataStruct {
+public class DataStruct{
     public int Data_ID;
     public int Sensor_ID;
     public String Location;
