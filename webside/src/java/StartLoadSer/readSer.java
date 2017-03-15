@@ -5,6 +5,7 @@
  */
 package StartLoadSer;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,7 +34,6 @@ public class readSer {
             c.printStackTrace();
             return null;
         }
-
         return hs;
     }
 }

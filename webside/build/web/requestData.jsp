@@ -18,7 +18,6 @@
     </head>
     <body>
         <h1>Request data from database:</h1>
-
         <form action="requestSqlData" method="POST">
 
             <table border="0" width="3" cellspacing="4" cellpadding="6">

@@ -49,14 +49,14 @@ public class Klient {
         try {
             System.out.println("test01");
 
-            //System.getProperty("java.security.policy");
-            //if (System.getSecurityManager() == null) {
-            //   System.setSecurityManager(new RMISecurityManager());
-            //}
+            System.getProperty("java.security.policy");
+            if (System.getSecurityManager() == null) {
+               System.setSecurityManager(new RMISecurityManager());
+            }
             //sql_interface k = (sql_interface) Naming.lookup("rmi://localhost:5050/SQL");
-            sql_interface k = (sql_interface) Naming.lookup("rmi://localhost/SQLshit");
-
-            System.out.println("test02");
+            sql_interface k = (sql_interface) Naming.lookup("rmi://localhost/SQL");
+           System.out.println("test02");
+ 
             /*
             ArrayList<DataStruct> stuff = k.getAllBySensorID(1);
             System.out.println("test03");
