@@ -5,16 +5,14 @@
  */
 package mainPackage;
 
-import brugerautorisation.data.Bruger;
-import brugerautorisation.transport.rmi.Brugeradmin;
-import java.net.URL;
+import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.rmi.NotBoundException;
+import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Scanner;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,6 +30,8 @@ public class Klient {
         //    spil.nulstil();
         // spil.hentOrdFraDr();
         //    spil.logStatus();
+        /*      
+        
         GalgelegI spil = null;
         ArrayList<String> highscore = new ArrayList();
         String input = "";
@@ -45,7 +45,40 @@ public class Klient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+         */
+        try {
+            System.out.println("test01");
+            System.getProperty("java.security.policy");
+            if (System.getSecurityManager() == null) {
+                System.setSecurityManager(new RMISecurityManager());
+            }
 
+            //sql_interface k = (sql_interface) Naming.lookup("rmi://localhost:5050/SQL");
+            sql_interface k = (sql_interface)Naming.lookup("rmi://localhost:5050/SQL");
+
+
+            System.out.println("test02");
+            /*
+            ArrayList<DataStruct> stuff = k.getAllBySensorID(1);
+            System.out.println("test03");
+            for (DataStruct d : stuff) {
+                System.out.println(d.objToString());
+                System.out.println("This is stuff, much wow" + stuff);
+            }
+            */
+        } catch (NotBoundException ex) {
+            Logger.getLogger(requestSqlData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("test04");
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(requestSqlData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("test05");
+        } catch (RemoteException ex) {
+            Logger.getLogger(requestSqlData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("test06");
+        }
+
+
+        /*
         Scanner keyboard = new Scanner(System.in);
         while (true) {
             if (input.equals("9")){
@@ -103,5 +136,8 @@ public class Klient {
                 }
             }
         }
+        
+    }
+         */
     }
 }

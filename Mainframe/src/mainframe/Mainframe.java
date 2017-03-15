@@ -37,6 +37,20 @@ public class Mainframe {
         java.rmi.registry.LocateRegistry.createRegistry(5050); // start i server-JVM
         sql_interface k = new DB(readHash());
 	Naming.rebind("rmi://localhost:5050/SQL", (Remote)k);
+        // TEST KODE FOR SQL RMI FORBINDELSE 
+        ////////////////////////////////////////////////////////////////
+        /*
+        	Brugerdatabase db = Brugerdatabase.getInstans();
+                
+		System.out.println("Publicerer Brugeradmin over RMI");
+		BrugeradminImpl impl = new BrugeradminImpl();
+		impl.db = db;
+		java.rmi.registry.LocateRegistry.createRegistry(1099); // start rmiregistry i server-JVM
+		Naming.rebind("rmi://localhost/brugeradmin", impl);
+		System.out.println("Brugeradmin publiceret over RMI");
+        */
+
+        ///////////////////////////////////////////////////////////////////////
         
         /*
         db.cia = cia;
