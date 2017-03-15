@@ -5,6 +5,9 @@
  */
 package mainPackage;
 
+import SQL_forbindelse.DB;
+import SQL_forbindelse.DataStruct;
+import static StartLoadSer.readSer.readHash;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -57,7 +60,8 @@ public class requestSqlData extends HttpServlet {
             String location = request.getParameter("location");
             String sensor = request.getParameter("sensor");
             String sensorID = request.getParameter("sensorID");
-            */
+             */
+ /*
             try {
                 out.println("test01");
 
@@ -81,9 +85,25 @@ public class requestSqlData extends HttpServlet {
                 out.println("test06");
             }
 
+             */
+            ArrayList<DataStruct> data;
+
+            DB test;
+            try {
+                test = new DB("jdbc:mysql://sensordb.cfdquak6nbpb.eu-west-2.rds.amazonaws.com:3306/SensorDB", "sensorDatabase", "sensor2017", readHash());
+                //test = new DB("jdbc:mysql://localhost:3306/sensor_test","root","");
+
+                data = test.getAllBySensorID(1);
+                data.forEach((d) -> {
+                    out.println(d.objToString());
+                });
+            } catch (RemoteException ex) {
+                out.println(ex.getMessage());
+            }
             out.println("</body>");
             out.println("</html>");
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
