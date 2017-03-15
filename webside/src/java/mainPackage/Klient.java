@@ -59,6 +59,8 @@ public class Klient {
             if (System.getSecurityManager() == null) {
                System.setSecurityManager(new RMISecurityManager());
             }
+            
+            
             System.out.println("test02");
             /*
             ArrayList<DataStruct> stuff = k.getAllBySensorID(1);
