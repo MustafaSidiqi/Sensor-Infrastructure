@@ -62,7 +62,7 @@ public class Klient {
             System.out.println("test03");
             for (DataStruct d : stuff) {
                 System.out.println(d.objToString());
-                System.out.println("This is stuff, much wow" + stuff);
+                System.out.println("This is stuff, much wowtest" + stuff);
             }
              */
         } catch (NotBoundException ex) {
