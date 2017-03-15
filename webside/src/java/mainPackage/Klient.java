@@ -48,14 +48,13 @@ public class Klient {
          */
         try {
             System.out.println("test01");
-            System.getProperty("java.security.policy");
-            if (System.getSecurityManager() == null) {
-                System.setSecurityManager(new RMISecurityManager());
-            }
 
+            //System.getProperty("java.security.policy");
+            //if (System.getSecurityManager() == null) {
+            //   System.setSecurityManager(new RMISecurityManager());
+            //}
             //sql_interface k = (sql_interface) Naming.lookup("rmi://localhost:5050/SQL");
-            sql_interface k = (sql_interface)Naming.lookup("rmi://localhost:5050/SQL");
-
+            sql_interface k = (sql_interface) Naming.lookup("rmi://localhost/SQL");
 
             System.out.println("test02");
             /*
@@ -65,7 +64,7 @@ public class Klient {
                 System.out.println(d.objToString());
                 System.out.println("This is stuff, much wow" + stuff);
             }
-            */
+             */
         } catch (NotBoundException ex) {
             Logger.getLogger(requestSqlData.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("test04");

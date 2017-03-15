@@ -34,9 +34,9 @@ public class Mainframe {
             System.out.println(d.objToString());
         }
 
-        java.rmi.registry.LocateRegistry.createRegistry(5050); // start i server-JVM
+        java.rmi.registry.LocateRegistry.createRegistry(1099); // start i server-JVM
         sql_interface k = new DB(readHash());
-	Naming.rebind("rmi://localhost:5050/SQL", (Remote)k);
+	Naming.rebind("rmi://localhost/SQLshit", (Remote)k);
         // TEST KODE FOR SQL RMI FORBINDELSE 
         ////////////////////////////////////////////////////////////////
         /*

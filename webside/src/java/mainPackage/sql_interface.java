@@ -13,13 +13,14 @@ import java.util.ArrayList;
  * @author taras
  */
 public interface sql_interface extends java.rmi.Remote{
-    public ArrayList<DataStruct> getAllBySensorID(int ID) throws java.rmi.RemoteException;
-    public ArrayList<DataStruct> getIntervalBySensorID(int ID, Date start, Date end) throws java.rmi.RemoteException;
-    public ArrayList<DataStruct> getAllByType(int type) throws java.rmi.RemoteException;
-    public ArrayList<DataStruct> getIntervalByType(int type, Date start, Date end) throws java.rmi.RemoteException;
-    public ArrayList<DataStruct> getAllByLocation(String loc) throws java.rmi.RemoteException;
-    public ArrayList<DataStruct> getIntervalByLocation(String loc, Date start, Date end) throws java.rmi.RemoteException;
-    public ArrayList<DataStruct> getAllByDate(Date d) throws java.rmi.RemoteException;
-    public ArrayList<DataStruct> getIntervalByDate(Date start, Date end) throws java.rmi.RemoteException;
-    public ArrayList<DataStruct> directSQL(String sql) throws java.rmi.RemoteException;
+    
+    ArrayList<DataStruct> getAllBySensorID(int ID)                                  throws java.rmi.RemoteException;
+    ArrayList<DataStruct> getIntervalBySensorID(int ID, Date start, Date end)       throws java.rmi.RemoteException;
+    ArrayList<DataStruct> getAllByType(int type)                                    throws java.rmi.RemoteException;
+    ArrayList<DataStruct> getIntervalByType(int type, Date start, Date end)         throws java.rmi.RemoteException;
+    ArrayList<DataStruct> getAllByLocation(String loc)                              throws java.rmi.RemoteException;
+    ArrayList<DataStruct> getIntervalByLocation(String loc, Date start, Date end)   throws java.rmi.RemoteException;
+    ArrayList<DataStruct> getAllByDate(Date d)                                      throws java.rmi.RemoteException;
+    ArrayList<DataStruct> getIntervalByDate(Date start, Date end)                   throws java.rmi.RemoteException;
+    ArrayList<DataStruct> directSQL(String sql)                                     throws java.rmi.RemoteException;
 }
