@@ -12,6 +12,7 @@ package mainframe;
 import SQL_forbindelse.*;
 import static StartLoadSer.readSer.readHash;
 import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
 import java.rmi.Remote;
 import java.util.ArrayList;
 
@@ -34,9 +35,14 @@ public class Mainframe {
             System.out.println(d.objToString());
         }
 
+
         java.rmi.registry.LocateRegistry.createRegistry(1099); // start i server-JVM
-        sql_interface k = new DB(readHash());
-	Naming.rebind("rmi://localhost/SQLshit", (Remote)k);
+        
+       sql_interface k = new DB(readHash());
+       Naming.rebind("rmi://localhost/SQL", (Remote) k);
+        
+        
+        
         // TEST KODE FOR SQL RMI FORBINDELSE 
         ////////////////////////////////////////////////////////////////
         /*
@@ -48,10 +54,9 @@ public class Mainframe {
 		java.rmi.registry.LocateRegistry.createRegistry(1099); // start rmiregistry i server-JVM
 		Naming.rebind("rmi://localhost/brugeradmin", impl);
 		System.out.println("Brugeradmin publiceret over RMI");
-        */
+         */
 
         ///////////////////////////////////////////////////////////////////////
-        
         /*
         db.cia = cia;
         nsa.cia = cia;
@@ -85,8 +90,7 @@ public class Mainframe {
          */
         //for local host
         //Naming.rebind("rmi://localhost:1337/sensorcommandcenter", (Remote) commandcenter);
-       // Naming.rebind("rmi://localhost:1337/cybercommunicationscenter", (Remote) cybercenter);
-        
+        // Naming.rebind("rmi://localhost:1337/cybercommunicationscenter", (Remote) cybercenter);
         System.out.println("Everything should be running now.");/**/
     }
 
