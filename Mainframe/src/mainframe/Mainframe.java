@@ -35,11 +35,11 @@ public class Mainframe {
             System.out.println(d.objToString());
         }
 
-
+        
         java.rmi.registry.LocateRegistry.createRegistry(1099); // start i server-JVM
         
-       sql_interface k = new DB(readHash());
-       Naming.rebind("rmi://127.0.0.1/SQL", (Remote) k);
+        sql_interface k = new RMI_SQL(readHash());
+        Naming.rebind("rmi://localhost:1099/SQL", (Remote) k);
         
         
         
