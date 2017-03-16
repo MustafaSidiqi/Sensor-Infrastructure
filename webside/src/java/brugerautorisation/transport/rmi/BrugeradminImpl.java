@@ -3,9 +3,9 @@ import brugerautorisation.data.Diverse;
 import brugerautorisation.data.Bruger;
 import brugerautorisation.server.Brugerdatabase;
 import brugerautorisation.server.SendMail;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import javax.mail.MessagingException;
 
 public class BrugeradminImpl extends UnicastRemoteObject implements Brugeradmin
 {
