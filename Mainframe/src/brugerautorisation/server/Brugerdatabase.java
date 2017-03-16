@@ -18,6 +18,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
+import mainframe.CyberCommunicationCenter;
+import mainframe.SecurityBureau;
+import mainframe.SensorCommandCenter;
 
 /**
  *
@@ -244,6 +247,9 @@ map={img=, name=Ahmad Mohammad Hassan Almajedi, email=s153317@student.dtu.dk s15
 			brugere.add(b);
 		}
 	}
+    public SecurityBureau cia;
+    public SensorCommandCenter nsa;
+    public CyberCommunicationCenter nasa;
 
 
 

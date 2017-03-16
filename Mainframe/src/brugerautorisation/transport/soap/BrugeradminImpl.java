@@ -6,11 +6,13 @@ import brugerautorisation.server.Brugerdatabase;
 import brugerautorisation.server.SendMail;
 import javax.jws.WebService;
 import javax.mail.MessagingException;
+import mainframe.SecurityBureau;
 
 @WebService(endpointInterface = "brugerautorisation.transport.soap.Brugeradmin")
 public class BrugeradminImpl implements Brugeradmin {
-	Brugerdatabase db;
-
+	public Brugerdatabase db;
+        public SecurityBureau cia;
+        
 	@Override
 	public Bruger hentBruger(String brugernavn, String adgangskode) {
 		return db.hentBruger(brugernavn, adgangskode);
