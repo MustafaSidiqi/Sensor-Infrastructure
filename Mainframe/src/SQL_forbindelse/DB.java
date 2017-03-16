@@ -6,7 +6,6 @@
 package SQL_forbindelse;
 
 import StartLoadSer.EnumSerialize;
-import java.rmi.server.UnicastRemoteObject;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,9 +26,16 @@ public class DB {
     private Connection con;
     private String DBName = "SensorDB";
     SimpleDateFormat simpleDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    private ArrayList<DataStruct> data;
     private EnumSerialize enum_db;
-
+    
+    /**
+     * 
+     * @param es Serializeble object to data translation
+     * @throws java.rmi.RemoteException 
+     * 
+     * This function connects to database.
+     * If there is no data then it will create a new table for data
+     */
     public DB(EnumSerialize es) throws java.rmi.RemoteException {
         enum_db = es;
         try {
@@ -38,8 +44,6 @@ public class DB {
             throw new IllegalStateException("Cannot connect the database!" + e.getMessage());
         }
         makeDB();
-        data = new ArrayList<DataStruct>();
-
     }
 
     /**
@@ -60,7 +64,6 @@ public class DB {
             throw new IllegalStateException("Cannot connect the database!" + e.getMessage());
         }
         makeDB();
-        data = new ArrayList<DataStruct>();
     }
 
     /**
@@ -72,6 +75,8 @@ public class DB {
      * @param value - value of the data
      * @param s - date as a string type 2017-03-12 22:00:00
      * @param chsm - check sum inserts data into the table
+     * 
+     * Inserts data into DB 
      */
     public void insertData(int SensID, String loc, int type, int unit, float value, String s, int chsm) {
         try {
@@ -88,48 +93,103 @@ public class DB {
     /**
      *
      * @param ID
-     * @return array with SensorData object.
+     * @return array with SensorData object that are requested by ID
      */
     public ArrayList<DataStruct> getAllBySensorID(int ID){
 
         String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = " + ID;
         return getData(req);
     }
+    /**
+     * 
+     * @param ID
+     * @param start
+     * @param end
+     * @return 
+     * 
+     * Returns ArrayList<DataStruct> by  Sensor ID and date interval
+     */
     public ArrayList<DataStruct> getIntervalBySensorID(int ID, Date start, Date end){
 
         String req = "SELECT * FROM `sensordata` WHERE `Sensor_ID` = " + ID + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
+    
+    /**
+     * 
+     * @param type
+     * @return ArrayList<DataStruct> by Sensor Data type
+     */
     public ArrayList<DataStruct> getAllByType(int type){
 
         String req = "SELECT * FROM `sensordata` WHERE `Type` = " + type;
         return getData(req);
     }
+    /**
+     * 
+     * @param type
+     * @param start
+     * @param end
+     * @return ArrayList<DataStruct> by Sensor Data type and date intervall
+     */
     public ArrayList<DataStruct> getIntervalByType(int type, Date start, Date end){
 
         String req = "SELECT * FROM `sensordata` WHERE `Type` = " + type + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
+    
+    /**
+     * 
+     * @param loc
+     * @return ArrayList<DataStruct>  by sensor location 
+     */
     public ArrayList<DataStruct> getAllByLocation(String loc){
 
         String req = "SELECT * FROM `sensordata` WHERE `Location` = " + loc;
         return getData(req);
     }
+    
+    /**
+     * 
+     * @param loc
+     * @param start
+     * @param end
+     * @return ArrayList<DataStruct>  by sensor location and date intervall 
+     */
     public ArrayList<DataStruct> getIntervalByLocation(String loc, Date start, Date end){
 
         String req = "SELECT * FROM `sensordata` WHERE `Location` = " + loc + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
+    
+    /**
+     * 
+     * @param d
+     * @return ArrayList<DataStruct> by date 
+     */
     public ArrayList<DataStruct> getAllByDate(Date d){
 
         String req = "SELECT * FROM `sensordata` WHERE `Date` = " + d;
         return getData(req);
     }
+    
+    /**
+     * 
+     * @param start
+     * @param end
+     * @return ArrayList<DataStruct>  by date intervall 
+     */
     public ArrayList<DataStruct> getIntervalByDate(Date start, Date end){
 
         String req = "SELECT * FROM `sensordata` WHERE `Date` >= '" + start + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
+    
+    /**
+     * 
+     * @param sql here you can write direct SQL command 
+     * @return ArrayList<DataStruct> 
+     */
     public ArrayList<DataStruct> directSQL(String sql){
 
         // securing for abuse
@@ -144,7 +204,7 @@ public class DB {
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     /**
-     * Create a table the server
+     * Create a table on the server
      */
     private void makeDB() {
         Statement stmt;
@@ -169,12 +229,20 @@ public class DB {
         }
 
     }
-
+    
+    /**
+     * 
+     * @param s
+     * @return ArrayList<DataStruct>
+     * 
+     * This Executes sql command given by prev functions
+     */
     private ArrayList<DataStruct> getData(String s) {
+        ArrayList<DataStruct> data = new ArrayList<DataStruct>();
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = null;
-            rs = stmt.executeQuery(s);
+            rs = stmt.executeQuery(s);            
             while (rs.next()) {
                 DataStruct d = new DataStruct();
                 d.setSD(rs,enum_db);
@@ -188,8 +256,23 @@ public class DB {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return data;
+    }    
+     
+    /**
+     * 
+     * @param data 
+     * @return  
+     * Translates object into string 
+     */
+    public ArrayList<String> DataStructToString(ArrayList<DataStruct> data) {
+        ArrayList<String> temp = new ArrayList<>();
+        for(DataStruct d: data){
+            temp.add(d.objToString());
+        }
+        return temp;
     }
-/* // this will delete the db (there is an error asck taras if you want to delete db)
+    
+    /* // this will delete the db (there is an error asck taras if you want to delete db)
     void drop() {
         
         Statement stmt;
@@ -204,14 +287,5 @@ public class DB {
         }
        
     }*/
-    
-     
-    public ArrayList<String> DataStructToString(ArrayList<DataStruct> data) {
-        ArrayList<String> temp = new ArrayList<>();
-        for(DataStruct d: data){
-            temp.add(d.objToString());
-        }
-        return temp;
-    }
 
 }

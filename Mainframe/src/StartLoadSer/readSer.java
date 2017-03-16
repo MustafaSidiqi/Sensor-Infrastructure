@@ -5,12 +5,9 @@
  */
 package StartLoadSer;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 /**
  *
@@ -18,6 +15,13 @@ import java.io.ObjectOutputStream;
  */
 public class readSer {
 
+    /**
+     * This is used to read Serialized Object and returnes this object
+     * Object is used to translate data from int to string 
+     * Object has 4 hash tables
+     * @return
+     *      
+     */
     public static EnumSerialize readHash(){
         EnumSerialize hs = null;
         try {
@@ -26,15 +30,12 @@ public class readSer {
             hs = (EnumSerialize) in.readObject();
             in.close();
             fileIn.close();
-        } catch (IOException i) {
-            i.printStackTrace();
-            File f = new File("hash.ser");
-            
+        } catch (IOException i) {            
             return new EnumSerialize();
         } catch (ClassNotFoundException c) {
             System.out.println("EnumSerialize class not found");
             c.printStackTrace();
-            return null;
+            return hs;
         }
 
         return hs;
