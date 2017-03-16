@@ -13,6 +13,7 @@ public class Kontoklient implements java.io.Serializable{
         // Amazon IP server: 52.56.199.233
          sql_interface db = (sql_interface) Naming.lookup("rmi://localhost:53067/WEB_SQL");
         data = db.getAllBySensorID_RMI(1);
+        //data = db.getAllByLocation_RMI("0");
         for (String d : data) {
             System.out.println(d);
         }

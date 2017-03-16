@@ -46,22 +46,39 @@ public class myServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet myServlet at " + request.getContextPath() + "</h1>");
             out.println("Getting data from database");
-            String[] arg = null;
+
             //  KontoI k =(KontoI) Naming.lookup("rmi://javabog.dk:20099/kontotjeneste");
             //System.setSecurityManager(new RMISecurityManager());
-            
-            String tempSensorID = request.getParameter("sensorID");
-
-            ArrayList<String> data;
+            ArrayList<String> data = null;
             // Amazon IP server: 52.56.199.233
             sql_interface db = (sql_interface) Naming.lookup("rmi://localhost:53067/WEB_SQL");
-            data = db.getAllBySensorID_RMI(3);
-            out.println("<br>");
-            for (String d : data) {
-                out.println(d + "<br>");
-                System.out.println(d);
-            }
 
+            if (request.getParameter("getSensordata") != null) {
+                int SensorID = Integer.parseInt(request.getParameter("sensorID"));
+                data = db.getAllBySensorID_RMI(1);
+
+            } else if (request.getParameter("getLocationData") != null) {
+                String temp = request.getParameter("location");
+                data = db.getAllByLocation_RMI(temp);
+
+            } else if (request.getParameter("getDateData") != null) {
+
+            } else {
+                // ???
+
+            }
+                out.println("<br>");
+                for (String d : data) {
+                    out.println(d + "<br>");
+                    System.out.println(d);
+                }
+            out.println("<a href=\"index.html\">\n"
+                    + "   <button> Home </button>\n"
+                    + "</a>");
+
+            out.println("<a href=\"requestData.jsp\">\n"
+                    + "   <button> Back </button>\n"
+                    + "</a>");
             out.println("</body>");
             out.println("</html>");
         }

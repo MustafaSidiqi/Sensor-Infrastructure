@@ -4,7 +4,6 @@
     Author     : Mustafa
 --%>
 
-<%@page import="brugerautorisation.data.Bruger"%>
 <%@page import="javax.xml.ws.Service"%>
 <%@page import="javax.xml.namespace.QName"%>
 <%@page import="javax.xml.namespace.QName"%>
@@ -36,17 +35,17 @@
                         </td>
                         <td>To:</td>
                         <td><input type="date" name="toDate"></td>
-                        <td></td>
+                        <td><input type="submit" value="Request" name="getDateData" /></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Location: </td>
                         <td><select name="location">
                                 <option>Location</option>
-                                <option>DTU Lyngby</option>
-                                <option>DTU Ballerup</option>
-                            </select></td>
-                        <td></td>
+                                <option value="Lyngby">DTU Lyngby</option>
+                                <option value="stue">DTU stue</option>
+                            </td>
+                            <td></select><input type="submit" value="Request" name="getLocationData" /></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -61,7 +60,7 @@
                             </select>
 
                         </td>
-                        <td></td>
+                        <td><input type="submit" value="Request" name="getSensordata" /></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -76,7 +75,6 @@
                     </tr>
                     <tr>
                         <td>    <input type="reset" value="Clear" /></td>
-                        <td>    <input type="submit" value="Request" /></td>
                         <td></td>
                         <td></td>
                         <td></td>
