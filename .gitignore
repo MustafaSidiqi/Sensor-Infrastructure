@@ -8,3 +8,19 @@
 /WebServer/nbproject/private/
 /WebServer/build/
 /WebServer/dist/
+<<<<<<< Updated upstream
+/webside/dist/
+=======
+<<<<<<< HEAD
+/SensorSentinelC/dist/
+/SensorSentinelC/build/
+/AmazonMainframe/nbproject/private/
+/AmazonMainframe/build/
+/AmazonMainframe/dist/
+/LocalSensor/nbproject/private/
+/LocalSensor/build/
+/LocalSensor/dist/
+=======
+/webside/dist/
+>>>>>>> origin/master
+>>>>>>> Stashed changes
