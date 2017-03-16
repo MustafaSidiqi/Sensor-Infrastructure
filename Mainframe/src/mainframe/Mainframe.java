@@ -38,7 +38,6 @@ public class Mainframe {
         
         try {
             java.rmi.registry.LocateRegistry.createRegistry(53067); // start i server-JVM
-
             sql_interface webSQL = new RMI_SQL(readHash());
             
             // local Host 
@@ -52,7 +51,7 @@ public class Mainframe {
             
             /*
             // this is for Amazon Server             
-            System.setProperty("java.rmi.server.hostname", "ubuntu4.javabog.dk");
+            System.setProperty("java.rmi.server.hostname", "sample-env.ppddn7aigu.eu-west-2.elasticbeanstalk.com");
             Naming.rebind("rmi://localhost:53067/WEB_SQL", webSQL);/**/
             
             System.out.println("Started RMI SQL_server ");

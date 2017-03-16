@@ -12,14 +12,18 @@ import java.util.Hashtable;
  * @author taras
  */
 public class EnumSerialize implements java.io.Serializable{
-
+    
     public Hashtable<Integer, String> enumType_i;
     public Hashtable<String, Integer> enumType_s;
     public Hashtable<Integer, String> enumUnit_i;
     public Hashtable<String, Integer> enumUnit_s;
     private int lastTypeID;
     private int lastUnitID;
-
+    /**
+     * Creates new object with 4 hashtables and 2 int
+     * Hash tables for translating data from int to string and back 
+     * 
+     */
     public EnumSerialize() {
         enumType_i = new Hashtable<>();
         enumType_s = new Hashtable<>();
@@ -30,7 +34,14 @@ public class EnumSerialize implements java.io.Serializable{
         lastUnitID = 0;
     }
         
-
+    /**
+     * 
+     * @param s String that has Sensor type
+     * @return returns id for new Sensor type
+     * 
+     * This takes string and maps into integer
+     * Used to translate int to Sensor type 
+     */
     public int setNewType(String s) {
         int temp = lastTypeID;
         enumType_i.put(temp, s);
@@ -42,6 +53,13 @@ public class EnumSerialize implements java.io.Serializable{
         return temp;
     }
     
+    /**
+     * 
+     * @param s String 
+     * @return 
+     * 
+     * Sets new Unit gives id to a unit 
+     */
     public int setNewUnit(String s) {
         int temp2 = lastUnitID;
         enumUnit_i.put(temp2, s);

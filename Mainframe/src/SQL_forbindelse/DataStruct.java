@@ -6,7 +6,6 @@
 package SQL_forbindelse;
 
 import StartLoadSer.EnumSerialize;
-import java.rmi.server.UnicastRemoteObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -29,10 +28,7 @@ public class DataStruct{
     public Timestamp Date;
     public int Checksum;
 
-    public DataStruct() {
-
-    }
-
+    
     public void setSD(ResultSet obj, EnumSerialize enm){
 
         try {
@@ -51,10 +47,16 @@ public class DataStruct{
         }
 
     }
-    // this is test function.... dont use this in finished project 
+    /**
+     * Test function 
+     */
     public void printData(){
         System.out.println("Data_ID = "+Data_ID+" Sensor_ID = "+Sensor_ID+" Location = "+Location+" Type = "+Type+" Unit = "+Unit+" Date = "+Date+" Checksum = "+Checksum);
     } 
+    /**
+     * Object to String
+     * @return 
+     */
     public String objToString(){
         return (Data_ID+" "+Sensor_ID+" "+Location+" "+Type_s+" "+Unit_s+" "+Date+" "+Checksum);
     }
