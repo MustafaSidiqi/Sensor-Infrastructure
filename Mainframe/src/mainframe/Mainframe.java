@@ -11,14 +11,19 @@ package mainframe;
  */
 import SQL_forbindelse.*;
 import static StartLoadSer.readSer.readHash;
+import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Mainframe {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)throws Exception
+    {
 
         System.out.println("Hello, World!");
         // hvis den næste linje virker for jer så det godt... men den virker ikke for mig... 
@@ -29,17 +34,34 @@ public class Mainframe {
         SensorCommandCenter nsa = new SensorCommandCenter();
 
         CyberCommunicationCenter nasa = new CyberCommunicationCenter();
-        DataManipulationService db = new DataManipulationService(readHash());
-        data = db.getAllBySensorID(1);
-        for (DataStruct d : data) {
-            System.out.println(d.objToString());
-        }
+        DataManipulationService db = new DataManipulationService(readHash());        
+        
+        try {
+            java.rmi.registry.LocateRegistry.createRegistry(53067); // start i server-JVM
 
-        
-        java.rmi.registry.LocateRegistry.createRegistry(1099); // start i server-JVM
-        
-        sql_interface k = new RMI_SQL(readHash());
-        Naming.rebind("rmi://localhost:1099/SQL", (Remote) k);
+            sql_interface webSQL = new RMI_SQL(readHash());
+            
+            // local Host 
+            java.rmi.registry.LocateRegistry.createRegistry(5367);
+            Naming.rebind("rmi://localhost:53067/WEB_SQL", webSQL); /**/
+
+            /*
+            // this is for Jacobs server 
+            System.setProperty("java.rmi.server.hostname", "ubuntu4.javabog.dk");
+            Naming.rebind("rmi://localhost:53067/WEB_SQL", webSQL);/**/
+            
+            /*
+            // this is for Amazon Server             
+            System.setProperty("java.rmi.server.hostname", "ubuntu4.javabog.dk");
+            Naming.rebind("rmi://localhost:53067/WEB_SQL", webSQL);/**/
+            
+            System.out.println("Started RMI SQL_server ");
+           
+        }catch (RemoteException ex) {
+            Logger.getLogger(Mainframe.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (MalformedURLException ex) {
+                Logger.getLogger(Mainframe.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         
