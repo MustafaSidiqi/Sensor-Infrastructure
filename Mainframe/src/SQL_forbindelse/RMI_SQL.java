@@ -45,11 +45,12 @@ public class RMI_SQL extends UnicastRemoteObject implements sql_interface{
     }
 
     /**
+     * returns ArrayList<String> of requested data by Id and interval
      * 
      * @param ID id 
      * @param start Start date Interval 
      * @param end   End Date Interval 
-     * @return ArrayList<String> of requested data
+     * @return 
      */
     @Override
     public ArrayList<String> getIntervalBySensorID_RMI(int ID, Date start, Date end){

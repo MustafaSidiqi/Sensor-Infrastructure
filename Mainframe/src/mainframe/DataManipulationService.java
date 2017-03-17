@@ -7,8 +7,6 @@ package mainframe;
 
 import SQL_forbindelse.*;
 import StartLoadSer.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.rmi.RemoteException;
 /**
  *
@@ -24,20 +22,22 @@ public class DataManipulationService extends DB {
     CyberCommunicationCenter nasa;
     private EnumSerialize enum_db;
 
-    public DataManipulationService(EnumSerialize e) throws Exception {
+    public DataManipulationService(EnumSerialize e) throws RemoteException {
         super(e);
         enum_db = e;
 
     }
 
-    public void storeData(String login, String pasword) throws Exception {
+    public void storeData() throws Exception {
 
         String newData = "";
-        if (nsa.isThereNewData()) {
+        if (!nsa.isThereNewData()) {
             newData = nsa.getData();
+            nsa.incommingBuffer.clear();
+        }else{
+            return;
         }
-
-        if (cia.login(login, pasword)) {
+        
             String[] parts = newData.split(" ");
             try {
                 int S_ID = Integer.parseInt(parts[0]);
@@ -64,7 +64,7 @@ public class DataManipulationService extends DB {
                 System.out.println("Erro String in DataManipulationServicee");
             }
             // 1 LYNGBY TEMPERATURE CELSIUS 23,07 2017-03-13 15:01:26 25
-        }
+        
 
     }
     

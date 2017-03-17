@@ -19,12 +19,12 @@ import java.util.LinkedList;
 public class SensorCommandCenter extends UnicastRemoteObject implements SensorInterface {
     public SecurityBureau cia;
     boolean listeningToSensors;
-    private final Queue<String> incommingBuffer;
+    public final Queue<String> incommingBuffer;
     CyberCommunicationCenter nasa;
     DataManipulationService db;
     
     public SensorCommandCenter() throws java.rmi.RemoteException {
-        this.listeningToSensors = FALSE;
+        this.listeningToSensors = TRUE;
         incommingBuffer = new LinkedList<>();
     }
     
