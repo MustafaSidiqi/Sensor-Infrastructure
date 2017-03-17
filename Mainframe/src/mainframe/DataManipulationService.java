@@ -18,26 +18,28 @@ public class DataManipulationService extends DB {
 
     // Upload Data
     // Request Data
-    SensorCommandCenter nsa;
-    CyberCommunicationCenter nasa;
+    public SensorCommandCenter nsa;
+    public CyberCommunicationCenter nasa;
     private EnumSerialize enum_db;
 
     public DataManipulationService(EnumSerialize e) throws RemoteException {
         super(e);
         enum_db = e;
+        nsa = null;
 
     }
 
     public void storeData() throws Exception {
-
-        String newData = "";
-        if (!nsa.isThereNewData()) {
-            newData = nsa.getData();
-            nsa.incommingBuffer.clear();
-        }else{
+        if(nsa == null) {
+            System.out.println("No DB connection");
             return;
         }
-        
+         
+        String newData = "";
+        if (nsa.isThereNewData()) {
+            return;
+        }
+            newData = nsa.getData();
             String[] parts = newData.split(" ");
             try {
                 int S_ID = Integer.parseInt(parts[0]);

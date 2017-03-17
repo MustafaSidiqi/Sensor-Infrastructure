@@ -8,52 +8,62 @@ package mainframe;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.LinkedList;
 //import java.util.ArrayList;
 import java.util.Queue;
-import java.util.LinkedList;
 
 /**
  *
  * @author nb
  */
 public class SensorCommandCenter extends UnicastRemoteObject implements SensorInterface {
+
     public SecurityBureau cia;
     boolean listeningToSensors;
-    public final Queue<String> incommingBuffer;
+    private Queue<String> incommingBuffer;
     CyberCommunicationCenter nasa;
     DataManipulationService db;
-    
+    private final Object lock = new Object();
+
     public SensorCommandCenter() throws java.rmi.RemoteException {
         this.listeningToSensors = TRUE;
-        incommingBuffer = new LinkedList<>();
+        incommingBuffer = new LinkedList<String>();
     }
-    
+
     @Override
-    public boolean transferData(String username, String password, String data) throws java.rmi.RemoteException{ // Listen to sensors
-        
+    public boolean transferData(String username, String password, String data) throws java.rmi.RemoteException { // Listen to sensors
+
         System.out.println("Incomming Data!");
-        
+
         System.out.println("Background checking user...");
 
-        if(cia.login(username, password) && listeningToSensors) {
+        if (cia.login(username, password) && listeningToSensors) {
             System.out.println("Access Granted!");
-            System.out.println("Data: ");
+            System.out.print("Data: ");
             System.out.println(data);
-            incommingBuffer.add(data);
+            synchronized (lock) {
+                incommingBuffer.add(data);
+            }
             System.out.println("End of transmission.");
+
             return TRUE;
+
         } else {
             System.out.println("Access Denied!");
             return FALSE;
         }
-        
+
     }
-    
-    public boolean isThereNewData() throws java.rmi.RemoteException{
-        return this.incommingBuffer.isEmpty();
+
+    public boolean isThereNewData() throws java.rmi.RemoteException {
+        return (incommingBuffer.isEmpty());
     }
-    
-    public String getData()throws java.rmi.RemoteException {
-        return this.incommingBuffer.remove();
+
+    public String getData() throws java.rmi.RemoteException {
+        String temp;
+        synchronized (lock) {
+            temp = incommingBuffer.remove();
+        }
+        return temp;
     }
 }

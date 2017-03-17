@@ -11,13 +11,10 @@ package mainframe;
  */
 import SQL_forbindelse.*;
 import static StartLoadSer.readSer.readHash;
-import brugerautorisation.server.Brugerdatabase;
-import brugerautorisation.transport.soap.BrugeradminImpl;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,14 +62,9 @@ public class Mainframe {
 
             
             System.out.println("Everything should be running now.");/**/
-            while(true){
-                try {
-                    SendData.storeData();
-                } catch (Exception ex) {
-                    System.out.println("Error Data format");
-                    Logger.getLogger(Mainframe.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            
+            (new Thread(new StoreData(SendData))).start();
+    
         } catch (RemoteException ex) {
             Logger.getLogger(Mainframe.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MalformedURLException ex) {

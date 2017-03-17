@@ -1,4 +1,4 @@
-package sensorGather;
+package mainframe;
 
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
@@ -17,7 +17,7 @@ public class SensorGatherKlient {
     private static final String sensorID = "1";
     private static final String sensorType = "Temperature";
     private static final String sensorUnit = "Celcius";
-    private static final String sensorLocation = "Lyngby";
+    private static final String sensorLocation = "Test";
     
     static String timeStamp;
     
@@ -25,7 +25,7 @@ public class SensorGatherKlient {
         //System.setSecurityManager(new RMISecurityManager());
 
         //SensorGatherI g = (SensorGatherI) Naming.lookup("rmi://localhost/kontotjeneste");
-        SensorInterface g = (SensorInterface) Naming.lookup("rmi://localhost:53712/SensorCommandCenter");
+        SensorInterface g = (SensorInterface) Naming.lookup("rmi://localhost:53712/sensorcommandcenter");
         String stringData;
 
         while (true) {
