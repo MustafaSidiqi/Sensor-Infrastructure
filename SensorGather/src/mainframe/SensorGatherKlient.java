@@ -29,12 +29,12 @@ public class SensorGatherKlient {
         String stringData;
 
         while (true) {
-            timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+            timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
             Random rand = new Random();
-            int value = rand.nextInt(20);
+            float value = rand.nextInt(20);
             Thread.sleep(3000);
 
-            stringData = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Integer.toString(value)).concat(" ").concat(timeStamp);
+            stringData = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Float.toString(value)).concat(" ").concat(timeStamp).concat(" ").concat("25");
             sent = g.transferData(username, password, stringData);
             if(sent){
                 System.out.println("shit is sent mofoka");
@@ -42,7 +42,8 @@ public class SensorGatherKlient {
             else {
                 System.out.println("shit is NOT sent");
             }
-            //System.out.println("String :" + stringData);
+            System.out.println("String :" + stringData);
+            // 1 LYNGBY TEMPERATURE CELSIUS 23,07 2017-03-13 15:01:26 25
         }
     }
 }
