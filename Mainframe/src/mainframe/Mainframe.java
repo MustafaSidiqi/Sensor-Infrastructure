@@ -32,7 +32,7 @@ public class Mainframe {
             java.rmi.registry.LocateRegistry.createRegistry(53067);
             /**/
 
- /*
+ 
             // this is for Jacobs server 
             System.setProperty("java.rmi.server.hostname", "ubuntu4.javabog.dk");/**/
 

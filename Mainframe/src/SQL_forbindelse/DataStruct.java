@@ -58,6 +58,6 @@ public class DataStruct{
      * @return 
      */
     public String objToString(){
-        return (Data_ID+" "+Sensor_ID+" "+Location+" "+Type_s+" "+Unit_s+" "+Date+" "+Checksum);
+        return (Data_ID+" "+Sensor_ID+" "+Location+" "+Type_s+" "+Unit_s+" "+Value+" "+Date+" "+Checksum);
     }
 }

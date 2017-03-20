@@ -11,7 +11,8 @@ public class Kontoklient implements java.io.Serializable{
         
                 ArrayList<String> data;
         // Amazon IP server: 52.56.199.233
-         sql_interface db = (sql_interface) Naming.lookup("rmi://localhost:53067/WEB_SQL");
+        //sql_interface db = (sql_interface) Naming.lookup("rmi://localhost:53067/WEB_SQL");
+        sql_interface db = (sql_interface) Naming.lookup("rmi://ubuntu4.javabog.dk:53067/WEB_SQL");
         data = db.getAllBySensorID_RMI(1);
         for (String d : data) {
             System.out.println(d);
