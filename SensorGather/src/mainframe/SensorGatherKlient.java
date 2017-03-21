@@ -37,10 +37,10 @@ public class SensorGatherKlient {
             stringData = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Float.toString(value)).concat(" ").concat(timeStamp).concat(" ").concat("25");
             sent = g.transferData(username, password, stringData);
             if(sent){
-                System.out.println("shit is sent mofoka");
+                System.out.println("Send!");
             }
             else {
-                System.out.println("shit is NOT sent");
+                System.out.println("Failed!");
             }
             System.out.println("String :" + stringData);
             // 1 LYNGBY TEMPERATURE CELSIUS 23,07 2017-03-13 15:01:26 25
