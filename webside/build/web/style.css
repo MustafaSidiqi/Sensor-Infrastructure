@@ -40,12 +40,24 @@ body {
     
 }
 
+.login {
+
+    color: #000000;
+    float: right;
+    padding-right: 40px;
+    font-size: 16px;
+    font-weight: bold;
+
+}
 .logo > a {
     text-decoration: none; 
     color: #000000;
 }
 
-
+.login > a {
+    text-decoration: none; 
+    color: #000000;
+}
 .banner {
     width: 100%;
     display: block;
