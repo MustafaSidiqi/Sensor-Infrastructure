@@ -14,6 +14,7 @@ import java.sql.Statement;
  *
  * @author taras
  */
+
 public class ExpDataControler {
     private String std_dbname = "jdbc:mysql://localhost/";
     private String std_uname = "root";
