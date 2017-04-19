@@ -14,8 +14,28 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>User Login page</title>
+                <link rel="stylesheet" type="text/css" href="style.css">
+
     </head>
     <body>
+        <ul class="nav">
+
+            <div class="logo">
+                <a href="#">LOGO </a>
+            </div>
+
+
+            <li> <a href="index.html"> Home </a></li>
+            <li> <a href="index.html"> About </a></li>
+            <li> <a href=""> Services </a></li>
+            <li> <a href=""> Contact</a></li>
+
+        </ul>
+        <div class="banner">
+            <img class="banner-image" src="img/mountain.jpg">
+        </div>
+
+
         <h1>Request data from database:</h1>
         <form action="myServlet" method="POST">
 
