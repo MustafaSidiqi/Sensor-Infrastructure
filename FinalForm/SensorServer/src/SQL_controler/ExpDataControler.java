@@ -14,25 +14,21 @@ import java.sql.Statement;
  *
  * @author taras
  */
-public class DataControler {
+public class ExpDataControler {
     private String std_dbname = "jdbc:mysql://localhost/";
-    private String SensorData = "SensorData";
     private String std_uname = "root";
     private String std_password = "";
-    private Connection con_Data;
+    private String ExpSensorData = "ExpSensorData";
+    private Connection con_Exp_Data;
     
-    /**
-     * 
-     */
-    public DataControler(){
-        try {
-            con_Data = DriverManager.getConnection(std_dbname+SensorData, std_uname, std_password);
-            System.out.println("Connected to SensorData Database");
-
+    public ExpDataControler(){
+        try{
+            con_Exp_Data = DriverManager.getConnection(std_dbname+ExpSensorData, std_uname, std_password);
+            System.out.println("Connected to ExpSensorData Database");
+               
+            Statement stmt_exp_data;
             
-            Statement stmt_data;
-            
-            String sql = "CREATE TABLE IF NOT EXISTS `"+SensorData+"` ("
+            String sql = "CREATE TABLE IF NOT EXISTS `"+ExpSensorData+"` ("
                     + "`Data_ID` int(11) NOT NULL AUTO_INCREMENT,"
                     + "`Sensor_ID` int(11) NOT NULL,"
                     + "`Location` text NOT NULL,"
@@ -43,14 +39,11 @@ public class DataControler {
                     + "`Checksum` int(11) NOT NULL,"
                     + " PRIMARY KEY (`Data_ID`)"
                     + ") ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
-            
-            stmt_data = con_Data.createStatement();
-            stmt_data.executeUpdate(sql);
-            
+                       
+            stmt_exp_data = con_Exp_Data.createStatement();             
+            stmt_exp_data.executeUpdate(sql);
         } catch (SQLException ex) {
             throw new IllegalStateException("Cannot connect the database!" + ex.getMessage());
         }
-        
-        
     }
 }

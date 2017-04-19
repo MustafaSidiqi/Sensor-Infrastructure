@@ -6,6 +6,9 @@
 package sensorserver;
 
 import SQL_controler.DataControler;
+import SQL_controler.ExpDataControler;
+import SQL_controler.SensorControler;
+import SQL_controler.UserControler;
 
 /**
  *
@@ -18,6 +21,9 @@ public class SensorServer {
      */
     public static void main(String[] args) {
         DataControler d = new DataControler();
+        ExpDataControler k = new ExpDataControler();
+        SensorControler s = new SensorControler();
+        UserControler u = new UserControler();
     }
     
 }
