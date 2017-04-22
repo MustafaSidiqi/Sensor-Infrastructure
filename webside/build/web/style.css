@@ -2,12 +2,12 @@ body {
     margin: 0;
     padding:   0;
     font-family: 'Arial', serif; 
+    font-size: 16px;
 }
 
 .nav {
 
-    background-color: #ffffff;
-    color: #000000;
+    color: lightblue;
     list-style: none; 
     text-align: center;
     padding: 20px 0 20px 0;  
@@ -23,12 +23,12 @@ body {
 
 .nav > li > a {
     text-decoration: none; 
-    color: #000000;
+    color: black;
 
 }
 
 .nav > li > a:hover {
-    color: #c1c1c1; 
+    color: lightblue; 
 }
 
 .logo {
@@ -88,7 +88,7 @@ body {
 .services1 {
 
     width: 298px;
-    border: 1px solid #c1c1c1;
+    border: 2px solid #c1c1c1;
     margin: -20px 30px;
     padding: 0 5px; 
     float: left;
@@ -114,8 +114,8 @@ body {
 h1 {
     font-size: 20px; 
     font-weight: blod;
-    background-color: #c1c1c1;
-    color: #636363;
+    background-color: lightblue;
+    color: black;
     padding: 10px 0;
     margin: 0 -6px;
 }
@@ -128,14 +128,14 @@ h1 {
 .heading {
     text-align: center;
     font-size: 25px;
-    color: #636363;
+    color: black;
     margin: -40 0 40px 0;
     padding-top: 200px;
 
 }
 
 .image:hover {
-    opacity: 0.2;
+    opacity: 0.5;
     max-width: 200px;
     margin-top: 15px;
 
