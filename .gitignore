@@ -29,4 +29,11 @@
 /rmi_jakob_test/dist/
 /FinalForm/SensorServer/nbproject/private/
 /FinalForm/SensorServer/build/
+<<<<<<< HEAD
 /FinalForm/SensorServer/dist/
+=======
+/SensorInfrastructure/nbproject/private/
+/soapLearning/nbproject/private/
+/JavaApplication10/nbproject/private/
+/apiLearning/nbproject/private/
+>>>>>>> e64f0b3e7085ed9c91e8e87349a51ee57e9bcfce
