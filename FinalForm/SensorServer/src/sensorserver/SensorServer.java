@@ -47,13 +47,7 @@ public class SensorServer {
         SensorImpl si = new SensorImpl();// creates object for RMI Sensor data tranfer            
         Naming.rebind("rmi://localhost:53712/sensorimpl", (Remote) si);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-    try {
-                DataControl database1 = new DataControl("sensordata");
-                DataControl database2 = new DataControl("expsensordata");
-        } catch (SQLException ex) {
-                Logger.getLogger(SensorServer.class.getName()).log(Level.SEVERE, null, ex);
-            }
+       
        
     }
 
