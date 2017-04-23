@@ -14,11 +14,11 @@ import java.sql.Statement;
  *
  * @author taras
  */
-public class DataControler {
-    private String std_dbname = "jdbc:mysql://localhost/";
+public class DataControler extends Sql_functions {
+    private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/Data";
     private String SensorData = "SensorData";
     private String std_uname = "root";
-    private String std_password = "";
+    private String std_password = "sensorDB";
     private Connection con_Data;
     
     /**
@@ -26,7 +26,7 @@ public class DataControler {
      */
     public DataControler(){
         try {
-            con_Data = DriverManager.getConnection(std_dbname+SensorData, std_uname, std_password);
+            con_Data = DriverManager.getConnection(std_dbname, std_uname, std_password);
             System.out.println("Connected to SensorData Database");
 
             
@@ -36,8 +36,8 @@ public class DataControler {
                     + "`Data_ID` int(11) NOT NULL AUTO_INCREMENT,"
                     + "`Sensor_ID` int(11) NOT NULL,"
                     + "`Location` text NOT NULL,"
-                    + "`Type` int(11) NOT NULL,"
-                    + "`Unit` int(11) NOT NULL,"
+                    + "`Type` text NOT NULL,"
+                    + "`Unit` text NOT NULL,"
                     + "`Value` float(11) NOT NULL,"
                     + "`Date` timestamp NOT NULL,"
                     + "`Checksum` int(11) NOT NULL,"
@@ -51,6 +51,6 @@ public class DataControler {
             throw new IllegalStateException("Cannot connect the database!" + ex.getMessage());
         }
         
-        
+        super.Sql_setup(std_dbname, con_Data);
     }
 }

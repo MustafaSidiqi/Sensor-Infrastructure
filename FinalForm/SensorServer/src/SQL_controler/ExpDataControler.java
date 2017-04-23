@@ -14,11 +14,15 @@ import java.sql.Statement;
  *
  * @author taras
  */
-public class ExpDataControler {
+public class ExpDataControler extends Sql_functions{
     private String std_dbname = "jdbc:mysql://localhost/";
     private String std_uname = "root";
-    private String std_password = "";
-    private String ExpSensorData = "ExpSensorData";
+    private String std_password = "";/**/
+    /*
+    private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
+    private String std_uname = "kamael2015";
+    private String std_password = "simplePas";/**/
+    private String ExpSensorData = "expsensordata";
     private Connection con_Exp_Data;
     
     public ExpDataControler(){
@@ -32,8 +36,8 @@ public class ExpDataControler {
                     + "`Data_ID` int(11) NOT NULL AUTO_INCREMENT,"
                     + "`Sensor_ID` int(11) NOT NULL,"
                     + "`Location` text NOT NULL,"
-                    + "`Type` int(11) NOT NULL,"
-                    + "`Unit` int(11) NOT NULL,"
+                    + "`Type` text NOT NULL,"
+                    + "`Unit` text NOT NULL,"
                     + "`Value` float(11) NOT NULL,"
                     + "`Date` timestamp NOT NULL,"
                     + "`Checksum` int(11) NOT NULL,"
@@ -45,5 +49,6 @@ public class ExpDataControler {
         } catch (SQLException ex) {
             throw new IllegalStateException("Cannot connect the database!" + ex.getMessage());
         }
+        super.Sql_setup(ExpSensorData, con_Exp_Data);
     }
 }

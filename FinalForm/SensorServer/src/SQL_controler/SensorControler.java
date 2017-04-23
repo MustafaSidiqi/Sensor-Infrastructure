@@ -15,9 +15,9 @@ import java.sql.Statement;
  * @author taras
  */
 public class SensorControler {
-    private String std_dbname = "jdbc:mysql://localhost/";
-    private String std_uname = "root";
-    private String std_password = "";
+    private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
+    private String std_uname = "kamael2015";
+    private String std_password = "simplePas";
     private String SensorDB = "SensorDB";
     private Connection con_sensor;
     
