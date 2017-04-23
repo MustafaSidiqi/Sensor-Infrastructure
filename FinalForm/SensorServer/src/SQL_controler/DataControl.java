@@ -5,13 +5,13 @@
  */
 package SQL_controler;
 
+import SensorDataType.SensorDataType;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -214,19 +214,10 @@ public class DataControl {
             Statement stmt = con.createStatement(); // creates new sql statment
             ResultSet rs = null;
             rs = stmt.executeQuery(s);  //executes query  
+            SensorDataType test = new SensorDataType();
             while (rs.next()) {         // while more data to read 
-                
-                //String date =""+t.getYear()+t.getMonth()+t.getDate();
-                String d =  (int)rs.getObject(1)       +" "+
-                            (int) rs.getObject(2)      +" "+
-                            (String) rs.getObject(3)   +" "+
-                            (String) rs.getObject(4)   +" "+
-                            (String) rs.getObject(5)   +" "+
-                            (float) rs.getObject(6)    +" "+
-                            (Timestamp) rs.getObject(7)+" "+
-                            (int) rs.getObject(8);  
-
-                data.add(d);
+                test.UpdateAll(rs);
+                data.add(test.objToString());
             }
             rs.close();
         } catch (SQLException ex) {
