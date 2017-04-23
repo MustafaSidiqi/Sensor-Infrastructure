@@ -14,12 +14,7 @@ import java.sql.Statement;
  *
  * @author taras
  */
-<<<<<<< HEAD
 public class ExpDataControler extends Sql_functions{
-=======
-
-public class ExpDataControler {
->>>>>>> e64f0b3e7085ed9c91e8e87349a51ee57e9bcfce
     private String std_dbname = "jdbc:mysql://localhost/";
     private String std_uname = "root";
     private String std_password = "";/**/
