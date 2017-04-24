@@ -1,4 +1,3 @@
-<%@page import="mainPackage.GalgelegI"%>
 <%@page import="java.rmi.registry.Registry"%>
 <%@page import="java.rmi.registry.LocateRegistry"%>
 <%@page import="java.rmi.registry.LocateRegistry"%>
@@ -7,23 +6,49 @@
 <%@page import="java.net.URL"%>
 <%@page import="java.net.URL"%>
 <%@page import="javax.xml.namespace.QName"%>
-<%@page import="brugerautorisation.data.Bruger"%>
 
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256"
          pageEncoding="windows-1256"
          %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+<DOCTYPE html>
+    <html>
 
-<html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
-        <title>Login Page 
-        </title>
+
+        <title> SensorInfrastructure</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
-    <body>
+
+    <body background="img/background.png">
+        <ul class="nav">
+
+            <div class="login">
+                <a href="login.jsp">LOGIN </a>
+            </div>
+
+
+            <div class="logo">
+                <a href="#">LOGO </a>
+            </div>
+
+
+
+            <li> <a href="index.html"> Home </a></li>
+            <li> <a href="index.html"> About </a></li>
+            <li> <a href=""> Services </a></li>
+            <li> <a href=""> Contact</a></li>
+
+
+
+        </ul>
+
+
+
+
+        <div class="heading">Login </div>
+
         <form name="loginForm" action="loginRMI" method="POST">
             <table border="0" cellspacing="5" cellpadding="5">
 
@@ -43,6 +68,9 @@
                 </tbody>
             </table> 
         </form> 
+
+
     </body>
     
 </html>
+    </html>
