@@ -5,12 +5,13 @@
  */
 package SQL_controler;
 
+import SensorDataType.SensorDataType;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -18,15 +19,48 @@ import java.util.logging.Logger;
  *
  * @author taras
  */
-public class Sql_functions {
+public class DataControl {
+    
+    private String std_dbname = "jdbc:mysql://localhost/";
+    private String std_uname = "root";
+    private String std_password = "";
+    /**/
+    /*
+    private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
+    private String std_uname = "kamael2015";
+    private String std_password = "simplePas";/**/
+    
     private String DBName;
     private Connection con;
-     
-    protected void Sql_setup(String dbName, Connection con_link){
-        con = con_link;
-        DBName = dbName;
-    } 
-
+    
+    
+    public DataControl(String dbName) throws SQLException{
+            DBName = dbName;
+            
+        try{
+            con = DriverManager.getConnection(std_dbname+dbName, std_uname, std_password);
+            System.out.println("Connected to ExpSensorData Database");
+               
+            Statement stmt_exp_data;
+            
+            String sql = "CREATE TABLE IF NOT EXISTS `"+dbName+"` ("
+                    + "`Data_ID` int(11) NOT NULL AUTO_INCREMENT,"
+                    + "`Sensor_ID` int(11) NOT NULL,"
+                    + "`Location` text NOT NULL,"
+                    + "`Type` text NOT NULL,"
+                    + "`Unit` text NOT NULL,"
+                    + "`Value` float(11) NOT NULL,"
+                    + "`Date` timestamp NOT NULL,"
+                    + "`Checksum` int(11) NOT NULL,"
+                    + " PRIMARY KEY (`Data_ID`)"
+                    + ") ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+                       
+            stmt_exp_data = con.createStatement();             
+            stmt_exp_data.executeUpdate(sql);
+        } catch (SQLException ex) {
+            throw new IllegalStateException("Cannot connect the database!" + ex.getMessage());
+        }
+    }
     /**
      *
      * @param SensID - What sensor is writing
@@ -180,19 +214,10 @@ public class Sql_functions {
             Statement stmt = con.createStatement(); // creates new sql statment
             ResultSet rs = null;
             rs = stmt.executeQuery(s);  //executes query  
+            SensorDataType test = new SensorDataType();
             while (rs.next()) {         // while more data to read 
-                
-                //String date =""+t.getYear()+t.getMonth()+t.getDate();
-                String d =  (int)rs.getObject(1)       +" "+
-                            (int) rs.getObject(2)      +" "+
-                            (String) rs.getObject(3)   +" "+
-                            (String) rs.getObject(4)   +" "+
-                            (String) rs.getObject(5)   +" "+
-                            (float) rs.getObject(6)    +" "+
-                            (Timestamp) rs.getObject(7)+" "+
-                            (int) rs.getObject(8);  
-
-                data.add(d);
+                test.UpdateAll(rs);
+                data.add(test.objToString());
             }
             rs.close();
         } catch (SQLException ex) {

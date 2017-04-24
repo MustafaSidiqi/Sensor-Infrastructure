@@ -5,15 +5,16 @@
  */
 package sensorserver;
 
-import SQL_controler.DataControler;
-import SQL_controler.ExpDataControler;
-import SQL_controler.SensorControler;
+import SQL_controler.*;
 import SQL_controler.UserControler;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,7 +47,8 @@ public class SensorServer {
         SensorImpl si = new SensorImpl();// creates object for RMI Sensor data tranfer            
         Naming.rebind("rmi://localhost:53712/sensorimpl", (Remote) si);
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+       
+       
     }
 
 }
