@@ -5,12 +5,18 @@
  */
 package sensorserver;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
+import java.io.UnsupportedEncodingException;
+
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
 import java.util.LinkedList;
 //import java.util.ArrayList;
 import java.util.Queue;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  *
@@ -18,6 +24,15 @@ import java.util.Queue;
  */
 public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
 
+        //Michaels ting til AES encryption og handshake af sensor////////////////////////////////////////////////////
+    static String IV = "AAAAAAAAAAAAAAAA";
+    static String nonsense = "0a1b2c3d4e5f6789"; //(SKAL RANDOMIZES)
+    static String decodedNonsense;
+    static String XORNonsenseS;
+    static String publicKey = "0123456789abcdef"; //(SKAL RANDOMIZES)
+    static XORStrings x = new XORStrings(); //object of XOR functions
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     public UserAuthentication ua;
     boolean listeningToSensors;
     private Queue<String> incommingBuffer;
@@ -27,35 +42,66 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     private final Object lock = new Object();
 
     public SensorImpl() throws java.rmi.RemoteException {
-        this.listeningToSensors = TRUE;
+        this.listeningToSensors = true;
         incommingBuffer = new LinkedList<String>();
     }
 
     @Override
-    public boolean transferData(String username, String password, String data) throws java.rmi.RemoteException { // Listen to sensors
+    public boolean transferDataRMI(String username, String password, String data) throws java.rmi.RemoteException { // Listen to sensors
 
         System.out.println("Incomming Data!");
 
         System.out.println("Background checking user...");
 
-        if (ua.login(username, password) && listeningToSensors) {
+        //if (ua.login(username, password) && listeningToSensors) {
             System.out.println("Access Granted!");
             System.out.print("Data: ");
             System.out.println(data);
-            synchronized (lock) {
-                incommingBuffer.add(data);
-            }
+            //synchronized (lock) {
+            //    incommingBuffer.add(data);
+            //}
             System.out.println("End of transmission.");
 
-            return TRUE;
+          //  return TRUE;
 
-        } else {
-            System.out.println("Access Denied!");
-            return FALSE;
-        }
-
+//        } else {
+  //          System.out.println("Access Denied!");
+ //           return FALSE;
+   //     }
+        return true;
     }
 
+    boolean requestConnection() throws java.rmi.RemoteException {
+        return true;
+    }
+    String getNonsense() throws java.rmi.RemoteException{
+        return nonsense;
+    }
+    String getPublicKey() throws java.rmi.RemoteException{
+        return publicKey;
+    }
+    byte[] sendCipherInonsense(byte[] encryptedMessage) throws java.rmi.RemoteException, Exception{
+        Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding", "SunJCE");
+        SecretKeySpec key = new SecretKeySpec(encryptionKey.getBytes("UTF-8"), "AES");
+        cipher.init(Cipher.DECRYPT_MODE, key,new IvParameterSpec(IV.getBytes("UTF-8")));
+        return new String(cipher.doFinal(cipherText),"UTF-8");
+  }
+
+    @Override
+    public boolean isThereNewData() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getData() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    }
+    byte[] sendCipherHash(byte[] cipher )throws java.rmi.RemoteException{
+        
+    }
+    
+    
     public boolean isThereNewData() throws java.rmi.RemoteException {
         return (incommingBuffer.isEmpty());
     }

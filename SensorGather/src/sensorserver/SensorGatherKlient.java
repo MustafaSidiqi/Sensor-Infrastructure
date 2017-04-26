@@ -8,7 +8,7 @@ import java.util.Random;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-//import mainframe.SensorInterface;
+//import mainframe.SensorInterfaceRMI;
 //import java.util.Scanner;
 
 public class SensorGatherKlient {
@@ -22,19 +22,21 @@ public class SensorGatherKlient {
     private static final String sensorUnit = "Celcius";
     private static final String sensorLocation = "Test";
     static String timeStamp;
+    static boolean access = false;
+    static boolean idle = true;
 
     //encryption
     static String IV = "AAAAAAAAAAAAAAAA"; //on both server and client
     static String nonsense;
     static String inonsense = "fedcba9876543210"; //inonsense local string in client (has to be randomized)
-    static String XORNonsenseC; //The XOR'ed string of inonsense and nonsense (client (client token)
+    static String XORNonsenseC = "0"; //The XOR'ed string of inonsense and nonsense (client (client token)
     static String publicKey; //recieved from server (has to be randomized)
     static String handshakeLog; //log of handshake for hashing
     static XORStrings x = new XORStrings(); //object of XOR functions
 
-    public static void main(String[] args) throws Exception /*NoSuchAlgorithmException, NotBoundException, MalformedURLException, RemoteException, InterruptedException */{
+    public static void main(String[] args) throws Exception /*NoSuchAlgorithmException, NotBoundException, MalformedURLException, RemoteException, InterruptedException */ {
         //System.setSecurityManager(new RMISecurityManager());
-        SensorInterface g = (SensorInterface) Naming.lookup("rmi://localhost:53712/sensorimpl");
+        SensorInterfaceRMI g = (SensorInterfaceRMI) Naming.lookup("rmi://localhost:53712/sensorimpl");
         String stringData;
 
         /*
@@ -78,8 +80,60 @@ public class SensorGatherKlient {
         }
 
         System.out.println("Hex format : " + sb.toString());
-        */
-        while (true) {
+         */
+        if (XORNonsenseC != "0") //has to be equal to something
+        {
+            access = true;
+        } else {
+            System.out.println("Beginning handshake.");
+            handshakeLog = publicKey;
+            handshakeLog = handshakeLog.concat(" " + nonsense);
+            while (idle) {
+                idle = g.requestConnection();
+                Thread.sleep(2000);
+            }
+            nonsense = g.getNonsense();
+            publicKey = g.getPublicKey();
+            XORNonsenseC = x.encode(nonsense, inonsense);
+
+            System.out.println("inonsense          " + inonsense);
+            System.out.println("nonsense:          " + nonsense);
+            System.out.println("XOR'ed nonsense:   " + XORNonsenseC);
+
+            try {
+                byte[] cipher = encrypt(inonsense, publicKey);
+
+                handshakeLog = handshakeLog.concat(" " + cipher.toString());
+
+                System.out.print("cipher:            ");
+
+                for (int i = 0; i < cipher.length; i++) {
+                    System.out.print(new Integer(cipher[i]) + " ");
+                }
+                
+                System.out.print("Sending Cipher inonsense");
+                g.sendCipherInonsense(cipher);
+                
+                byte[] cipherHash = encrypt(handshakeLog, publicKey);
+
+                System.out.print("cipher for handshake:");
+
+                for (int i = 0; i < cipherHash.length; i++) {
+                    System.out.print(new Integer(cipher[i]) + " ");
+                }
+                
+                System.out.print("Sending Cipher hash");
+                g.sendCipherHash(cipherHash);
+
+                access = true;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        while (access) {
             timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
             Random rand = new Random();
             float value = rand.nextInt(20);
@@ -105,4 +159,5 @@ public class SensorGatherKlient {
     }
 
     // 1 LYNGBY TEMPERATURE CELSIUS 23,07 2017-03-13 15:01:26 25
+
 }
