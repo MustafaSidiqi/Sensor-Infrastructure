@@ -36,4 +36,15 @@
 /soapLearning/nbproject/private/
 /JavaApplication10/nbproject/private/
 /apiLearning/nbproject/private/
+<<<<<<< HEAD
+/soapLearning/build/
+/soapLearning/dist/
+=======
 >>>>>>> e64f0b3e7085ed9c91e8e87349a51ee57e9bcfce
+>>>>>>> origin/master
+/soapHelloWorld/nbproject/private/
+/soapHelloWorld/build/
+/soapHelloWorld/dist/
+/soapClientLearning/nbproject/private/
+/soapClientLearning/build/
+/soapClientLearning/dist/

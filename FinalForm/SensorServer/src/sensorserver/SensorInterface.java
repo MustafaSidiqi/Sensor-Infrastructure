@@ -5,14 +5,24 @@
  */
 package sensorserver;
 
+//import mainframe.*;
+
 /**
  *
- * @author MSC
+ * @author nb
  */
 public interface SensorInterface extends java.rmi.Remote {
     
     boolean transferData(String username, String password, String data) throws java.rmi.RemoteException;
-    boolean isThereNewData() throws java.rmi.RemoteException;
-    public String getData() throws java.rmi.RemoteException;
+    boolean requestConnection() throws java.rmi.RemoteException;
+    String getNonsense() throws java.rmi.RemoteException;
+    String getPublicKey() throws java.rmi.RemoteException;
+    void sendCipherInonsense(byte[] cipher) throws java.rmi.RemoteException;
+    void sendLogHashCipher(byte[] hashLog )throws java.rmi.RemoteException;
+    
+    //boolean isThereNewData() throws java.rmi.RemoteException;
+    //public String getData() throws java.rmi.RemoteException;
 
+    //public Object addTogether();
+    
 }

@@ -25,14 +25,7 @@ public class SensorServer {
     /**
      * @param args the command line arguments
      */
-    //Michaels ting til AES encryption og handshake af sensor////////////////////////////////////////////////////
-    static String IV = "AAAAAAAAAAAAAAAA";
-    static String nonsense = "0a1b2c3d4e5f6789"; //(SKAL RANDOMIZES)
-    static String decodedNonsense;
-    static String XORNonsenseS;
-    static String publicKey = "0123456789abcdef"; //(SKAL RANDOMIZES)
-    static XORStrings x = new XORStrings(); //object of XOR functions
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     public static void main(String[] args) throws NoSuchAlgorithmException, RemoteException, MalformedURLException {
         //DataControler d = new DataControler();

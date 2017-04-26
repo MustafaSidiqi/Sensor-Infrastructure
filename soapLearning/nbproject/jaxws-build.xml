@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${libs.jaxws21.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-hello" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/hello"/>
+        <property name="wsdl-hello" location="xml-resources/web-service-references/hello/wsdl/localhost_9999/ws/hello.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/hello" destdir="${build.generated.dir}/jax-wsCache/hello" wsdl="${wsdl-hello}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:9999/ws/hello?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-hello}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/hello"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/hello">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-hello" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/hello"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/helloworld"/>
+    </target>
+    <target name="wsimport-client-hello_1" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/hello_1"/>
+        <property name="wsdl-hello_1" location="xml-resources/web-service-references/hello_1/wsdl/localhost_9999/ws/hello.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/hello_1" destdir="${build.generated.dir}/jax-wsCache/hello_1" wsdl="${wsdl-hello_1}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:9999/ws/hello?wsdl" xnocompile="true" xendorsed="true" package="helloWorldClient">
+            <depends file="${wsdl-hello_1}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/hello_1"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/hello_1">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-hello_1" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/hello_1"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/helloWorldClient"/>
+    </target>
+    <target name="wsimport-client-hello_2" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/hello_2"/>
+        <property name="wsdl-hello_2" location="xml-resources/web-service-references/hello_2/wsdl/ubuntu4.javabog.dk_5735/hello.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/hello_2" destdir="${build.generated.dir}/jax-wsCache/hello_2" wsdl="${wsdl-hello_2}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://ubuntu4.javabog.dk:5735/hello?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-hello_2}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/hello_2"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/hello_2">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-hello_2" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/hello_2"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/soaphelloworld"/>
+    </target>
+    <target name="wsimport-client-hello_3" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/hello_3"/>
+        <property name="wsdl-hello_3" location="xml-resources/web-service-references/hello_3/wsdl/ubuntu4.javabog.dk_5735/hello.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/hello_3" destdir="${build.generated.dir}/jax-wsCache/hello_3" wsdl="${wsdl-hello_3}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://ubuntu4.javabog.dk:5735/hello?wsdl" xnocompile="true" xendorsed="true" package="helloWorldClientJavabog">
+            <depends file="${wsdl-hello_3}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/hello_3"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/hello_3">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-hello_3" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/hello_3"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/helloWorldClientJavabog"/>
+    </target>
+    <target name="wsimport-client-hello_4" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/hello_4"/>
+        <property name="wsdl-hello_4" location="xml-resources/web-service-references/hello_4/wsdl/ubuntu4.javabog.dk_5735/hello.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/hello_4" destdir="${build.generated.dir}/jax-wsCache/hello_4" wsdl="${wsdl-hello_4}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://ubuntu4.javabog.dk:5735/hello?wsdl" xnocompile="true" xendorsed="true" package="helloWorldClient">
+            <depends file="${wsdl-hello_4}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/hello_4"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/hello_4">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-hello_4" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/hello_4"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/helloWorldClient"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-hello, wsimport-client-hello_1, wsimport-client-hello_2, wsimport-client-hello_3, wsimport-client-hello_4"/>
+</project>

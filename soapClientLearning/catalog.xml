@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://ubuntu4.javabog.dk:5735/hello?wsdl" uri="xml-resources/web-service-references/hello/wsdl/ubuntu4.javabog.dk_5735/hello.wsdl"/>
+</catalog>

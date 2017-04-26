@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
-//import mainframe.CyberCommunicationCenter;
+//import sensorserver.CyberCommunicationCenter;
 import sensorserver.UserAuthentication;
 import sensorserver.SensorImpl;
 
@@ -248,7 +248,7 @@ map={img=, name=Ahmad Mohammad Hassan Almajedi, email=s153317@student.dtu.dk s15
 		}
 	}
     public UserAuthentication ua;
-    public SensorImpl nsa;
+    public SensorImpl si;
     //public CyberCommunicationCenter nasa;
 
 
