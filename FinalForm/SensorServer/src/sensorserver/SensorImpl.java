@@ -14,10 +14,6 @@ import java.util.LinkedList;
 //import java.util.ArrayList;
 import java.util.Queue;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
 /**
  *
  * @author MSC
@@ -31,7 +27,11 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     static String decodedNonsense;
     static String XORNonsenseS;
     static String publicKey = "0123456789abcdef"; //(SKAL RANDOMIZES)
-    static XORStrings x = new XORStrings(); //object of XOR functions
+    static String handshakeLogHash;
+    
+    
+    static XORStrings x; //object of XOR functions
+    static Crypt c;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     public UserAuthentication ua;
@@ -48,31 +48,30 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     }
 
     @Override
-    public boolean transferDataRMI(String username, String password, String data) throws java.rmi.RemoteException { // Listen to sensors
+    public boolean transferData(String username, String password, String data) throws java.rmi.RemoteException { // Listen to sensors
 
         System.out.println("Incomming Data!");
 
         System.out.println("Background checking user...");
 
-        //if (ua.login(username, password) && listeningToSensors) {
+        if (ua.login(username, password) && listeningToSensors) {
             System.out.println("Access Granted!");
             System.out.print("Data: ");
             System.out.println(data);
-            //synchronized (lock) {
-            //    incommingBuffer.add(data);
-            //}
+            synchronized (lock) {
+                incommingBuffer.add(data);
+            }
             System.out.println("End of transmission.");
 
-          //  return TRUE;
+            return true;
 
-//        } else {
-  //          System.out.println("Access Denied!");
- //           return FALSE;
-   //     }
-        return true;
+        } else {
+           System.out.println("Access Denied!");
+            return false;
+        }
     }
 
-    /*
+        //Cryptographi functions
     boolean requestConnection() throws java.rmi.RemoteException {
         return true;
     }
@@ -81,30 +80,17 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     }
     String getPublicKey() throws java.rmi.RemoteException{
         return publicKey;
+    }    
+    
+    void sendLogHashCipher(byte[] logHash )throws java.rmi.RemoteException, Exception{
+        handshakeLogHash = c.decrypt(logHash, publicKey);
     }
-    byte[] sendCipherInonsense(byte[] encryptedMessage) throws java.rmi.RemoteException, Exception{
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "SunJCE");
-        SecretKeySpec key = new SecretKeySpec(publicKey.getBytes("UTF-8"), "AES");
-        cipher.init(Cipher.DECRYPT_MODE, key,new IvParameterSpec(IV.getBytes("UTF-8")));
-        String inonsense = String(cipher.doFinal(encryptedMessage),"UTF-8");
-  }
-
-    @Override
-    public boolean isThereNewData() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    void sendCipherInonsense(byte[] cipher )throws java.rmi.RemoteException, Exception{
+        decodedNonsense = c.decrypt(cipher, publicKey);
+        x.encode(decodedNonsense, nonsense);
     }
 
-    @Override
-    public String getData() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    }
-    byte[] sendCipherHash(byte[] cipher )throws java.rmi.RemoteException{
-        
-    }
-*/
-    
-    
     public boolean isThereNewData() throws java.rmi.RemoteException {
         return (incommingBuffer.isEmpty());
     }
