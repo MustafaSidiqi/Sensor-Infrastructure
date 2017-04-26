@@ -140,7 +140,7 @@ public class SensorGatherKlient {
             Thread.sleep(3000);
 
             stringData = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Float.toString(value)).concat(" ").concat(timeStamp).concat(" ").concat("25");
-            sent = g.transferData(username, password, stringData);
+            sent = g.transferDataRMI(username, password, stringData);
             if (sent) {
                 System.out.println("Send!");
             } else {
