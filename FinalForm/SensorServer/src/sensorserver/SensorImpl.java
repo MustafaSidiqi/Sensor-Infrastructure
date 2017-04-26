@@ -71,6 +71,7 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
         return true;
     }
 
+    /*
     boolean requestConnection() throws java.rmi.RemoteException {
         return true;
     }
@@ -81,10 +82,10 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
         return publicKey;
     }
     byte[] sendCipherInonsense(byte[] encryptedMessage) throws java.rmi.RemoteException, Exception{
-        Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding", "SunJCE");
-        SecretKeySpec key = new SecretKeySpec(encryptionKey.getBytes("UTF-8"), "AES");
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "SunJCE");
+        SecretKeySpec key = new SecretKeySpec(publicKey.getBytes("UTF-8"), "AES");
         cipher.init(Cipher.DECRYPT_MODE, key,new IvParameterSpec(IV.getBytes("UTF-8")));
-        return new String(cipher.doFinal(cipherText),"UTF-8");
+        String inonsense = String(cipher.doFinal(encryptedMessage),"UTF-8");
   }
 
     @Override
@@ -100,6 +101,7 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     byte[] sendCipherHash(byte[] cipher )throws java.rmi.RemoteException{
         
     }
+*/
     
     
     public boolean isThereNewData() throws java.rmi.RemoteException {
