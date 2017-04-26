@@ -22,6 +22,7 @@ import javax.crypto.spec.SecretKeySpec;
  *
  * @author MSC
  */
+
 public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
 
         //Michaels ting til AES encryption og handshake af sensor////////////////////////////////////////////////////
