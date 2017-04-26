@@ -19,31 +19,32 @@ import java.util.logging.Logger;
  *
  * @author taras
  */
-public class DataControl {
-    
+public class DataControler {
+    /*
     private String std_dbname = "jdbc:mysql://localhost/";
     private String std_uname = "root";
     private String std_password = "";
     /**/
-    /*
-    private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
-    private String std_uname = "kamael2015";
-    private String std_password = "simplePas";/**/
     
-    private String DBName;
+    private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
+    private String std_uname = "root";
+    private String std_password = "sensorDB";/**/
+    
+    private String DBName = "DataBase";
+    private String DB_table;
     private Connection con;
     
     
-    public DataControl(String dbName) throws SQLException{
-            DBName = dbName;
+    public DataControler(String dbName) throws SQLException{
+            DB_table = dbName;
             
         try{
-            con = DriverManager.getConnection(std_dbname+dbName, std_uname, std_password);
+            con = DriverManager.getConnection(std_dbname+DBName, std_uname, std_password);
             System.out.println("Connected to ExpSensorData Database");
                
             Statement stmt_exp_data;
             
-            String sql = "CREATE TABLE IF NOT EXISTS `"+dbName+"` ("
+            String sql = "CREATE TABLE IF NOT EXISTS `"+DB_table+"` ("
                     + "`Data_ID` int(11) NOT NULL AUTO_INCREMENT,"
                     + "`Sensor_ID` int(11) NOT NULL,"
                     + "`Location` text NOT NULL,"
@@ -78,7 +79,7 @@ public class DataControl {
             
             /// dette funktion kan opdateres....... så det gemmer alt på et hug 
             Statement stmt = con.createStatement();
-            String sql = "INSERT INTO `" + DBName + "`.`"+DBName+"` "
+            String sql = "INSERT INTO `" + DBName + "`.`"+DB_table+"` "
                     + "(`Data_ID`, `Sensor_ID`, `Location`, `Type`, `Unit`, `Value`, `Date`, `Checksum`) VALUES "
                     + "(NULL, '" + SensID + "', '" + loc + "', '" + type + "', '" + unit + "', '" + value + "', '" + s + "', '" + chsm + "');";
             stmt.executeUpdate(sql);
@@ -95,7 +96,7 @@ public class DataControl {
      */
     public ArrayList<String> getAllBySensorID(int ID){
 
-        String req = "SELECT * FROM `"+DBName+"` WHERE `Sensor_ID` = " + ID;
+        String req = "SELECT * FROM `"+DB_table+"` WHERE `Sensor_ID` = " + ID;
         return getData(req);
     }
     /**
@@ -105,22 +106,22 @@ public class DataControl {
      * @param end
      * @return 
      * 
-     * Returns ArrayList<DataStruct> by  Sensor ID and date interval
+     * Returns ArrayList<String> by  Sensor ID and date interval
      */
     public ArrayList<String> getIntervalBySensorID(int ID, Date start, Date end){
 
-        String req = "SELECT * FROM `"+DBName+"` WHERE `Sensor_ID` = " + ID + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
+        String req = "SELECT * FROM `"+DB_table+"` WHERE `Sensor_ID` = " + ID + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
     
     /**
      * 
      * @param type
-     * @return ArrayList<DataStruct> by Sensor Data type
+     * @return ArrayList<String> by Sensor Data type
      */
     public ArrayList<String> getAllByType(int type){
 
-        String req = "SELECT * FROM `"+DBName+"` WHERE `Type` = " + type;
+        String req = "SELECT * FROM `"+DB_table+"` WHERE `Type` = " + type;
         return getData(req);
     }
     /**
@@ -128,22 +129,22 @@ public class DataControl {
      * @param type
      * @param start
      * @param end
-     * @return ArrayList<DataStruct> by Sensor Data type and date intervall
+     * @return ArrayList<String> by Sensor Data type and date intervall
      */
     public ArrayList<String> getIntervalByType(int type, Date start, Date end){
 
-        String req = "SELECT * FROM `"+DBName+"` WHERE `Type` = " + type + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
+        String req = "SELECT * FROM `"+DB_table+"` WHERE `Type` = " + type + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
     
     /**
      * 
      * @param loc
-     * @return ArrayList<DataStruct>  by sensor location 
+     * @return ArrayList<String>  by sensor location 
      */
     public ArrayList<String> getAllByLocation(String loc){
 
-        String req = "SELECT * FROM `"+DBName+"` WHERE `Location` = " + loc;
+        String req = "SELECT * FROM `"+DB_table+"` WHERE `Location` = " + loc;
         return getData(req);
     }
     
@@ -152,22 +153,22 @@ public class DataControl {
      * @param loc
      * @param start
      * @param end
-     * @return ArrayList<DataStruct>  by sensor location and date intervall 
+     * @return ArrayList<String>  by sensor location and date intervall 
      */
     public ArrayList<String> getIntervalByLocation(String loc, Date start, Date end){
 
-        String req = "SELECT * FROM `"+DBName+"` WHERE `Location` = " + loc + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
+        String req = "SELECT * FROM `"+DB_table+"` WHERE `Location` = " + loc + " and `Date` >= '" + start.toString() + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
     
     /**
      * 
      * @param d
-     * @return ArrayList<DataStruct> by date 
+     * @return ArrayList<String> by date 
      */
     public ArrayList<String> getAllByDate(Date d){
 
-        String req = "SELECT * FROM `"+DBName+"` WHERE `Date` = " + d;
+        String req = "SELECT * FROM `"+DB_table+"` WHERE `Date` = " + d;
         return getData(req);
     }
     
@@ -175,18 +176,18 @@ public class DataControl {
      * 
      * @param start
      * @param end
-     * @return ArrayList<DataStruct>  by date intervall 
+     * @return ArrayList<String>  by date intervall 
      */
     public ArrayList<String> getIntervalByDate(Date start, Date end){
 
-        String req = "SELECT * FROM `"+DBName+"` WHERE `Date` >= '" + start + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
+        String req = "SELECT * FROM `"+DB_table+"` WHERE `Date` >= '" + start + " 00:00:00' and `Date` <= '" + end + " 23:59:59'";
         return getData(req);
     }
     
     /**
      * 
      * @param sql here you can write direct SQL command 
-     * @return ArrayList<DataStruct> 
+     * @return ArrayList<String> 
      */
     public ArrayList<String> directSQL(String sql){
 

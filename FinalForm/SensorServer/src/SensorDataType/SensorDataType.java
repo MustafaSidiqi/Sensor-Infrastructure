@@ -62,7 +62,7 @@ public class SensorDataType {
             throw new SQLException("ERROR converting object and " + ex.getMessage());
         }
     }
-    public void UpdateAll(String s){
+    public void UpdateAll(String s)throws NumberFormatException{
     String[] parts = s.split(" ");
 
         try {
