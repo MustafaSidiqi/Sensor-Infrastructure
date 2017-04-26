@@ -17,12 +17,10 @@ public interface SensorInterface extends java.rmi.Remote {
     boolean requestConnection() throws java.rmi.RemoteException;
     String getNonsense() throws java.rmi.RemoteException;
     String getPublicKey() throws java.rmi.RemoteException;
-    byte[] sendCipherInonsense(byte[] cipher) throws java.rmi.RemoteException;
-    byte[] sendLogHashCipher(byte[] hashLog )throws java.rmi.RemoteException;
+    void sendCipherInonsense(byte[] cipher) throws java.rmi.RemoteException;
+    void sendLogHashCipher(byte[] hashLog )throws java.rmi.RemoteException;
     
     //boolean isThereNewData() throws java.rmi.RemoteException;
     //public String getData() throws java.rmi.RemoteException;
 
-    //public Object addTogether();
-    
 }

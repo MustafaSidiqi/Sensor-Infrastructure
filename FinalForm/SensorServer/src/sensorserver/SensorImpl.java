@@ -13,6 +13,12 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 //import java.util.ArrayList;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  *
@@ -25,11 +31,9 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     static String IV = "AAAAAAAAAAAAAAAA";
     static String nonsense = "0a1b2c3d4e5f6789"; //(SKAL RANDOMIZES)
     static String decodedNonsense;
-    static String XORNonsenseS;
+    static String XORNonsense;
     static String publicKey = "0123456789abcdef"; //(SKAL RANDOMIZES)
-    static String handshakeLogHash;
-    
-    
+    static String handshakeLogHash; 
     static XORStrings x; //object of XOR functions
     static Crypt c;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,52 +58,54 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
 
         System.out.println("Background checking user...");
 
-        if (ua.login(username, password) && listeningToSensors) {
+        //if (ua.login(username, password) && listeningToSensors) {
             System.out.println("Access Granted!");
             System.out.print("Data: ");
             System.out.println(data);
-            synchronized (lock) {
-                incommingBuffer.add(data);
-            }
+            //synchronized (lock) {
+            //    incommingBuffer.add(data);
+            //}
             System.out.println("End of transmission.");
 
-            return true;
+          //  return TRUE;
 
-        } else {
-           System.out.println("Access Denied!");
-            return false;
-        }
-    }
-
-        //Cryptographi functions
-    boolean requestConnection() throws java.rmi.RemoteException {
+//        } else {
+  //          System.out.println("Access Denied!");
+ //           return FALSE;
+   //     }
         return true;
     }
-    String getNonsense() throws java.rmi.RemoteException{
+
+    @Override
+    public boolean requestConnection() throws java.rmi.RemoteException {
+        return true;
+    }
+    
+    @Override
+    public String getNonsense() throws java.rmi.RemoteException{
         return nonsense;
     }
-    String getPublicKey() throws java.rmi.RemoteException{
+    
+    @Override
+    public String getPublicKey() throws java.rmi.RemoteException{
         return publicKey;
-    }    
-    
-    void sendLogHashCipher(byte[] logHash )throws java.rmi.RemoteException, Exception{
-        handshakeLogHash = c.decrypt(logHash, publicKey);
     }
     
-    void sendCipherInonsense(byte[] cipher )throws java.rmi.RemoteException, Exception{
-        decodedNonsense = c.decrypt(cipher, publicKey);
-        x.encode(decodedNonsense, nonsense);
-    }
-
-    public boolean isThereNewData() throws java.rmi.RemoteException {
-        return (incommingBuffer.isEmpty());
-    }
-
-    public String getData() throws java.rmi.RemoteException {
-        String temp;
-        synchronized (lock) {
-            temp = incommingBuffer.remove();
+    @Override
+    public void sendCipherInonsense(byte[] encryptedMessage) throws java.rmi.RemoteException {
+        try {
+            XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey));
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        return temp;
+    }
+
+    @Override
+    public void sendLogHashCipher(byte[] hashLog) throws RemoteException {
+        try {
+            handshakeLogHash = c.decrypt(hashLog, publicKey);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
