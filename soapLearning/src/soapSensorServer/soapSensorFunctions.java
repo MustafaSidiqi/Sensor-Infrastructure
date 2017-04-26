@@ -7,7 +7,7 @@ package soapSensorServer;
 
 import javax.jws.WebService;
 
-@WebService(endpointInterface = "soapSensorServer.soapSensorFunctions")
+@WebService(endpointInterface = "soapSensorServer.soapSensorInterface")
 public class soapSensorFunctions implements soapSensorInterface {
     
     @Override

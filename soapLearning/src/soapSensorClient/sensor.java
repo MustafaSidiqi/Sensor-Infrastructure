@@ -20,9 +20,9 @@ public class sensor {
     
     public static void main(String[] args) throws Exception {
         
-        URL url = new URL("http://localhost:9997/ws/sensor?wsdl");
+        URL url = new URL("http://localhost:9999/ws/sensor?wsdl");
                 
-        QName qname = new QName("http://soapSensorServer/", "soapSensorServices");
+        QName qname = new QName("http://soapSensorServer/", "soapSensorFunctionsService");
 
         Service service = Service.create(url, qname);
 

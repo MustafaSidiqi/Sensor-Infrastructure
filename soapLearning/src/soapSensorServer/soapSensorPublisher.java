@@ -17,7 +17,13 @@ public class soapSensorPublisher {
         
         System.out.println("Initializing Sensor Webservices...");
         
-        Endpoint.publish("http://localhost:9997/ws/sensor/", new soapSensorFunctions());
+        String http;
+        
+        http = "http://localhost:9999/ws/sensor";
+        
+        Endpoint.publish(http, new soapSensorFunctions());
+        
+        System.out.println(http);
         
         System.out.println("Done!");
     }

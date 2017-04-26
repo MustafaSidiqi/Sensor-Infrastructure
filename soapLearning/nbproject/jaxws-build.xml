@@ -50,5 +50,56 @@
         <delete dir="${build.generated.dir}/jax-wsCache/hello_1"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/helloWorldClient"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-hello, wsimport-client-hello_1"/>
+    <target name="wsimport-client-hello_2" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/hello_2"/>
+        <property name="wsdl-hello_2" location="xml-resources/web-service-references/hello_2/wsdl/ubuntu4.javabog.dk_5735/hello.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/hello_2" destdir="${build.generated.dir}/jax-wsCache/hello_2" wsdl="${wsdl-hello_2}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://ubuntu4.javabog.dk:5735/hello?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-hello_2}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/hello_2"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/hello_2">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-hello_2" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/hello_2"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/soaphelloworld"/>
+    </target>
+    <target name="wsimport-client-hello_3" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/hello_3"/>
+        <property name="wsdl-hello_3" location="xml-resources/web-service-references/hello_3/wsdl/ubuntu4.javabog.dk_5735/hello.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/hello_3" destdir="${build.generated.dir}/jax-wsCache/hello_3" wsdl="${wsdl-hello_3}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://ubuntu4.javabog.dk:5735/hello?wsdl" xnocompile="true" xendorsed="true" package="helloWorldClientJavabog">
+            <depends file="${wsdl-hello_3}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/hello_3"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/hello_3">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-hello_3" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/hello_3"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/helloWorldClientJavabog"/>
+    </target>
+    <target name="wsimport-client-hello_4" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/hello_4"/>
+        <property name="wsdl-hello_4" location="xml-resources/web-service-references/hello_4/wsdl/ubuntu4.javabog.dk_5735/hello.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/hello_4" destdir="${build.generated.dir}/jax-wsCache/hello_4" wsdl="${wsdl-hello_4}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://ubuntu4.javabog.dk:5735/hello?wsdl" xnocompile="true" xendorsed="true" package="helloWorldClient">
+            <depends file="${wsdl-hello_4}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/hello_4"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/hello_4">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-hello_4" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/hello_4"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/helloWorldClient"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-hello, wsimport-client-hello_1, wsimport-client-hello_2, wsimport-client-hello_3, wsimport-client-hello_4"/>
 </project>
