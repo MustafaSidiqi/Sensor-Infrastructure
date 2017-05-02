@@ -40,18 +40,18 @@ public class Main {
         
         // Starting all systems
         
-        System.out.println("Hello, World!");
+        System.out.println("Hello, World!\n\n");
         
         System.out.println("Starting all systems...");
         
         
         // Javabog.dk User Authentication
         
-        System.out.println("Connecting to Javabog.dk security systems...");
+        System.out.print("Connecting to Javabog.dk security systems... ");
 
         sec = new UserAuthentication();
         
-        System.out.println("Trying to login to Javabog.dk");
+        System.out.print("Trying to login to Javabog.dk...");
         
         if(sec.login("nibuh", "5;;+{Of)L#b[")) {
             
@@ -59,47 +59,47 @@ public class Main {
         
         } else {
             
-            System.out.println("Login not succesful.");
+            System.out.print("Login not succesful.");
             
         }
         
-        System.out.println("Connection to Javabog.dk established!");
+        System.out.println("Connection to Javabog.dk established!\n\n");        
         
-        
+
 
         // Databases
         
         System.out.println("Connecting to databases...");
         
-        System.out.println("Official Sensor Database...");
+        System.out.print("Official Sensor Database... ");
         
         offdata = new DataControl("offdata");
         
-        System.out.println("Experimental Sensor Database...");
+        System.out.print("Experimental Sensor Database... ");
         
         expdata = new DataControl("expdata");
         
-        System.out.println("User Database...");
+        System.out.print("User Database... ");
         
         users = new UserControl();
-        
-        System.out.println("Sensor Database...");
+
+        System.out.print("Sensor Database... ");
         
         sensors = new SensorControl();
         
-        System.out.println("All databases are connected to the system!");
+        System.out.println("All databases are connected to the system!\n\n");
         
         
 
         // Sensor System and Dock
         
-        System.out.println("Starting Sensor System and Dock");
+        System.out.println("Starting Sensor System and Dock...");
 
         sensor = new SensorSystem(sec, offdata, expdata, users, sensors);
 
         sensor.initialiseSensorDockingSystem();
         
-        System.out.println("Sensor System and Docks are up and running!");
+        System.out.println("Sensor System and Docks are up and running!\n\n");
         
         
 
@@ -113,7 +113,7 @@ public class Main {
 
         // initialize webconnection
         
-        System.out.println("Connection established");
+        //System.out.println("Connection established");
         
         
 

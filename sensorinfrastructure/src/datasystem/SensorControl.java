@@ -48,7 +48,7 @@ public class SensorControl {
         
         try{
             con_sensor = DriverManager.getConnection(std_dbname+SensorDB, std_uname, std_password);
-            System.out.println("Connected to Sensor Database");
+            System.out.println("Connected!");
                
             Statement stmt_exp_data;
             

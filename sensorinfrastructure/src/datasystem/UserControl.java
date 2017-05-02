@@ -39,7 +39,7 @@ public class UserControl {
 
         try {
             con_UserDB = DriverManager.getConnection(std_dbname + UserDB, std_uname, std_password);
-            System.out.println("Connected to User Database");
+            System.out.println("Connected!");
 
             Statement stmt_exp_data;
 

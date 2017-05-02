@@ -40,7 +40,8 @@ public class DataControl {
             
         try{
             con = DriverManager.getConnection(std_dbname+DBName, std_uname, std_password);
-            System.out.println("Connected to ExpSensorData Database");
+            
+            System.out.println("Connected!");
                
             Statement stmt_exp_data;
             
