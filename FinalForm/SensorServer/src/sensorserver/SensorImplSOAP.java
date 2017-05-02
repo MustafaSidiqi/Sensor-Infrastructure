@@ -11,6 +11,6 @@ package sensorserver;
  */
 public class SensorImplSOAP {
     
-    transferData();
+    //transferData();
     
 }

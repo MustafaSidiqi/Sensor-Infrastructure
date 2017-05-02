@@ -94,7 +94,7 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     @Override
     public void sendCipherInonsense(byte[] encryptedMessage) throws java.rmi.RemoteException {
         try {
-            XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey));
+            XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey, IV));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -103,7 +103,7 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     @Override
     public void sendLogHashCipher(byte[] hashLog) throws RemoteException {
         try {
-            handshakeLogHash = c.decrypt(hashLog, publicKey);
+            handshakeLogHash = c.decrypt(hashLog, publicKey, IV);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
