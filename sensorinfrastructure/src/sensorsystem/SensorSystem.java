@@ -30,6 +30,7 @@ public class SensorSystem {
     UserControl users;
     
     //Michaels ting til AES encryption og handshake af sensor////////////////////////////////////////////////////
+
     static String IV = "AAAAAAAAAAAAAAAA";
     static String nonsense = "0a1b2c3d4e5f6789"; //(SKAL RANDOMIZES)
     static String decodedNonsense;
@@ -38,9 +39,11 @@ public class SensorSystem {
     static String handshakeLogHash; 
     static XORStrings x; //object of XOR functions
     static Crypt c;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     boolean listeningToSensors;
+
     private Queue<String> incommingBuffer;
     
     private final Object lock = new Object();
@@ -50,9 +53,10 @@ public class SensorSystem {
         sec = _sec;
         users = _users;
         sensors = _sensors;
-        datas = _datas;
-        
+        datas = _datas;        
+
         this.listeningToSensors = true;
+
         incommingBuffer = new LinkedList<String>();
             
     }
@@ -169,7 +173,7 @@ public class SensorSystem {
 
         try {
 
-            XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey));
+            XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey, IV));
 
         } catch (Exception ex) {
 
@@ -184,15 +188,10 @@ public class SensorSystem {
     public void sendLogHashCipher(byte[] hashLog) {
     
         try {
-            handshakeLogHash = c.decrypt(hashLog, publicKey);
+            handshakeLogHash = c.decrypt(hashLog, publicKey, IV);
         } catch (Exception ex) {
         }
+
     }
-    
-    
-    
-    
-    
-    
-    
+
 }

@@ -10,5 +10,6 @@ package webcommunication;
  * @author nb
  */
 public class WebCommunication {
+   
     
 }
