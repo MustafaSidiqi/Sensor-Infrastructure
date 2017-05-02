@@ -45,7 +45,7 @@ public class DataControl {
             System.out.println("Connected to ExpSensorData Database");
                
             Statement stmt_exp_data;
-            
+             
             String sql = "CREATE TABLE IF NOT EXISTS `"+dbName+"` ("
                     + "`Data_ID` int(11) NOT NULL AUTO_INCREMENT,"
                     + "`Sensor_ID` int(11) NOT NULL,"

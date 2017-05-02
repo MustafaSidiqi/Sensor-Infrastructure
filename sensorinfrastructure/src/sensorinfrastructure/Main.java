@@ -80,7 +80,7 @@ public class Main {
         
         System.out.println("Sensor Database...");
         
-        sensors = new SensorControl();
+        //sensors = new SensorControl();
         
         System.out.println("All databases are connected to the system!");
         

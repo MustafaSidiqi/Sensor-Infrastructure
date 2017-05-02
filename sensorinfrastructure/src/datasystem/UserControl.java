@@ -19,19 +19,21 @@ import java.util.logging.Logger;
  */
 public class UserControl {
 
-    /*private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
+    private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
     private String std_uname = "kamael2015";
     private String std_password = "simplePas";
-    private String UserDB = "UserDB";/**/
+    private String UserDB = "UserDB";
+
+    /*
     private String std_dbname = "jdbc:mysql://localhost/";
     private String std_uname = "root";
     private String std_password = "";
     private String UserDB = "userdb";
+    */
+    
     private Connection con_UserDB;
-
-    /**
-     * Creates Creates Sql user controler
-     */
+    
+    
     public UserControl() {
 
         try {
