@@ -20,9 +20,9 @@ import java.util.logging.Logger;
 public class UserControl {
 
     private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
-    private String std_uname = "kamael2015";
-    private String std_password = "simplePas";
-    private String UserDB = "UserDB";
+    private String std_uname = "root";
+    private String std_password = "sensorDB";
+    private String UserDB = "DataBase";
 
     /*
     private String std_dbname = "jdbc:mysql://localhost/";
@@ -33,6 +33,7 @@ public class UserControl {
     
     private Connection con_UserDB;
     
+    private String db_table = "userdb";
     
     public UserControl() {
 

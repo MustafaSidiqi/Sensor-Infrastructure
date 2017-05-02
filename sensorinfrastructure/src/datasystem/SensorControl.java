@@ -21,19 +21,21 @@ import java.util.logging.Logger;
  * @author taras
  */
 public class SensorControl {
-    /*
-    private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
-    private String std_uname = "kamael2015";
-    private String std_password = "simplePas";
-    private String SensorDB = "SensorDB";
-    /**/
     
+    private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
+    private String std_uname = "root";
+    private String std_password = "sensorDB";
+    private String SensorDB = "DataBase";
+    
+    /*
     private String std_dbname = "jdbc:mysql://localhost/";
     private String std_uname = "root";
     private String std_password = "";
     private String SensorDB = "sensordb";
     /**/
+    
     private Connection con_sensor;
+    private String db_table = "sensordb";
     public static final int BASIC = 0;
     public static final int NOTACTIVE = 0;
     public static final int EXPERT = 1;

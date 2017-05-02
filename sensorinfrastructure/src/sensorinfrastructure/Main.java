@@ -29,7 +29,8 @@ public class Main {
     public static WebCommunication web;
     
     // Data, user and sensors database controllers
-    public static DataControl data;
+    public static DataControl offdata;
+    public static DataControl expdata;
     public static UserControl users;
     public static SensorControl sensors;
     
@@ -72,7 +73,11 @@ public class Main {
         
         System.out.println("Official Sensor Database...");
         
+        offdata = new DataControl("offdata");
+        
         System.out.println("Experimental Sensor Database...");
+        
+        expdata = new DataControl("expdata");
         
         System.out.println("User Database...");
         
@@ -80,7 +85,7 @@ public class Main {
         
         System.out.println("Sensor Database...");
         
-        //sensors = new SensorControl();
+        sensors = new SensorControl();
         
         System.out.println("All databases are connected to the system!");
         
@@ -90,7 +95,7 @@ public class Main {
         
         System.out.println("Starting Sensor System and Dock");
 
-        sensor = new SensorSystem(sec, data, users, sensors);
+        sensor = new SensorSystem(sec, offdata, expdata, users, sensors);
 
         sensor.initialiseSensorDockingSystem();
         

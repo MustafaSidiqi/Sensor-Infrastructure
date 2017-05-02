@@ -25,7 +25,8 @@ import securitysystem.UserAuthenticationInterface;
 public class SensorSystem {
     
     UserAuthentication sec;
-    DataControl datas;
+    DataControl offdata;
+    DataControl expdata;
     SensorControl sensors;
     UserControl users;
     
@@ -48,13 +49,14 @@ public class SensorSystem {
     
     private final Object lock = new Object();
     
-    public SensorSystem(UserAuthentication _sec, DataControl _datas, UserControl _users, SensorControl _sensors) throws RemoteException, NoSuchAlgorithmException {
+    public SensorSystem(UserAuthentication _sec, DataControl _offdata, DataControl _expdata, UserControl _users, SensorControl _sensors) throws RemoteException, NoSuchAlgorithmException {
         
         sec = _sec;
         users = _users;
         sensors = _sensors;
-        datas = _datas;        
-
+        offdata = _offdata;
+        expdata = _expdata;        
+    
         this.listeningToSensors = true;
 
         incommingBuffer = new LinkedList<String>();
