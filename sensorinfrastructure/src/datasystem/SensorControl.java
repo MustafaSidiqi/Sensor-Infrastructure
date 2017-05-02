@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author taras
  */
-public class SensorControler {
+public class SensorControl {
     /*
     private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
     private String std_uname = "kamael2015";
@@ -42,7 +42,7 @@ public class SensorControler {
      * Sensor controler creates table for sensors
      * @throws java.sql.SQLException
      */
-    public SensorControler() throws SQLException{
+    public SensorControl() throws SQLException{
         
         try{
             con_sensor = DriverManager.getConnection(std_dbname+SensorDB, std_uname, std_password);
@@ -110,7 +110,7 @@ public class SensorControler {
      * @param state 
      */
     public void setSensorState(int SensorID, int state){
-        if(state != SensorControler.ACTIVE && state != SensorControler.NOTACTIVE)
+        if(state != SensorControl.ACTIVE && state != SensorControl.NOTACTIVE)
             return;
         
         try {
@@ -122,7 +122,7 @@ public class SensorControler {
             }
             System.out.println("Sensor is now active");
         } catch (SQLException ex) {
-            Logger.getLogger(SensorControler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SensorControl.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("SQL ERROR...");
         }
     }
@@ -133,7 +133,7 @@ public class SensorControler {
      * @param status 
      */
     public void changeSavingStatus(int SensorID, int status){
-        if(status != SensorControler.EXPERT && status != SensorControler.BASIC){
+        if(status != SensorControl.EXPERT && status != SensorControl.BASIC){
             return;
         }
         try {
@@ -145,7 +145,7 @@ public class SensorControler {
             }
             System.out.println("Sensor is now in expert mode");
         }catch (SQLException ex) {
-            Logger.getLogger(SensorControler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SensorControl.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("SQL ERROR...");
         }
     }
@@ -155,7 +155,7 @@ public class SensorControler {
      * @param status 
      */
     public void changeStatusForALL(int ownerID, int status){
-        if(status != SensorControler.EXPERT && status != SensorControler.BASIC){
+        if(status != SensorControl.EXPERT && status != SensorControl.BASIC){
             return;
         }
         
@@ -167,7 +167,7 @@ public class SensorControler {
                 System.out.println("User with that id doesnot exist or there was nothing to change");
             }
             String m;
-            if(status == SensorControler.EXPERT){ 
+            if(status == SensorControl.EXPERT){ 
                 m = "Expert";
             }else{
                 m = "Basic";
@@ -175,7 +175,7 @@ public class SensorControler {
             
             System.out.println("Sensors for user "+ownerID+" is now in "+m+" mode");
         }catch (SQLException ex) {
-            Logger.getLogger(SensorControler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SensorControl.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("SQL ERROR...");
         }
     }

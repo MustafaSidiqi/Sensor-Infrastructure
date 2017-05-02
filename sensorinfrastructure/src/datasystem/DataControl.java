@@ -15,10 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-/**
- *
- * @author taras
- */
+
 public class DataControl {
     
     private String std_dbname = "jdbc:mysql://localhost/";
@@ -35,9 +32,11 @@ public class DataControl {
     
     
     public DataControl(String dbName) throws SQLException{
-            DBName = dbName;
+            
+        DBName = dbName;
             
         try{
+
             con = DriverManager.getConnection(std_dbname+dbName, std_uname, std_password);
             System.out.println("Connected to ExpSensorData Database");
                
@@ -57,9 +56,17 @@ public class DataControl {
                        
             stmt_exp_data = con.createStatement();             
             stmt_exp_data.executeUpdate(sql);
+ 
         } catch (SQLException ex) {
             throw new IllegalStateException("Cannot connect the database!" + ex.getMessage());
         }
+
+    }
+
+    public DataControl() {
+
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
     /**
      *
@@ -73,7 +80,9 @@ public class DataControl {
      * 
      * Inserts data into DB 
      */
+
     public void insertData(int SensID, String loc, String type, String unit, float value, String s, int chsm) {
+
         try {
             
             /// dette funktion kan opdateres....... så det gemmer alt på et hug 
@@ -82,10 +91,14 @@ public class DataControl {
                     + "(`Data_ID`, `Sensor_ID`, `Location`, `Type`, `Unit`, `Value`, `Date`, `Checksum`) VALUES "
                     + "(NULL, '" + SensID + "', '" + loc + "', '" + type + "', '" + unit + "', '" + value + "', '" + s + "', '" + chsm + "');";
             stmt.executeUpdate(sql);
+
         } catch (SQLException ex) {
+
             Logger.getLogger(ex.getMessage());
             System.out.println("no");
+
         }
+
     }
 
     /**
@@ -97,6 +110,7 @@ public class DataControl {
 
         String req = "SELECT * FROM `"+DBName+"` WHERE `Sensor_ID` = " + ID;
         return getData(req);
+
     }
     /**
      * 

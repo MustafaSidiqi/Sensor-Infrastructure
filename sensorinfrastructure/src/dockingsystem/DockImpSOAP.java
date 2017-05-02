@@ -8,20 +8,26 @@ package dockingsystem;
 import javax.jws.WebService;
 import sensorsystem.SensorSystem;
 
-@WebService(endpointInterface = "dockingsystem.sensorIntSOAP")
-public class sensorImpSOAP implements sensorIntSOAP {
+@WebService(endpointInterface = "dockingsystem.DockIntSOAP")
+public class DockImpSOAP implements DockIntSOAP {
+
+    private final SensorSystem sensorsystem;
+
+    DockImpSOAP(SensorSystem _sensorsystem) {
+       sensorsystem = _sensorsystem;
+    }
     
     @Override
     public boolean transferDataSOAP(String data) {
         
-        return SensorSystem.transferData(data);
+        return sensorsystem.transferData(data);
     }
     
     @Override
     public boolean handshakeSOAP() {
-        
-        return static SensorSystem.handshake();
+        // return Main.sensor.handshake();        
+        return sensorsystem.handshake();
     
-}
+    }
     
 }

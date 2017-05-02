@@ -8,10 +8,14 @@ package dockingsystem;
 import java.rmi.server.UnicastRemoteObject;
 import sensorsystem.SensorSystem;
 
-public class sensorImpRMI extends UnicastRemoteObject implements sensorIntRMI {
-    
-    public sensorImpRMI() throws java.rmi.RemoteException {
-        
+public class DockImpRMI extends UnicastRemoteObject implements DockIntRMI {
+
+    SensorSystem sensorsystem;
+
+    public DockImpRMI(SensorSystem _sensorsystem) throws java.rmi.RemoteException {
+
+        sensorsystem = sensorsystem;
+
         System.out.println("Hej RMI");
         
     }
@@ -19,15 +23,14 @@ public class sensorImpRMI extends UnicastRemoteObject implements sensorIntRMI {
     @Override
     public boolean transferDataRMI(String data) throws java.rmi.RemoteException {
 
-
-        return SensorSystem.transferData(data);
+        return sensorsystem.transferData(data);
 
     }
     
     @Override
     public boolean handshakeRMI() throws java.rmi.RemoteException {
         
-        return SensorSystem.handshake();
+        return sensorsystem.handshake();
         
     }
     

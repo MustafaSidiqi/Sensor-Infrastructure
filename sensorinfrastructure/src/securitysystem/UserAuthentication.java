@@ -18,23 +18,31 @@ public class UserAuthentication implements UserAuthenticationInterface{
     @Override
     public boolean login(String name, String pass) {
 
-        Brugeradmin ba;
+        Brugeradmin brugeradmin;
 
         try {
+
             URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
             QName qname = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
             Service service = Service.create(url, qname);
-            ba = service.getPort(Brugeradmin.class);
+            brugeradmin = service.getPort(Brugeradmin.class);
+
         } catch (MalformedURLException e1) {
+
             e1.printStackTrace();
             return false;
+
         }
+
         try {
-            ba.hentBruger(name, pass);
+
+            brugeradmin.hentBruger(name, pass);
             return true;
 
         } catch (IllegalArgumentException e) {
+
             e.printStackTrace();
+
         }
 
         return false;

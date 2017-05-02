@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author taras
  */
-public class UserControler {
+public class UserControl {
 
     /*private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
     private String std_uname = "kamael2015";
@@ -32,7 +32,8 @@ public class UserControler {
     /**
      * Creates Creates Sql user controler
      */
-    public UserControler() {
+    public UserControl() {
+
         try {
             con_UserDB = DriverManager.getConnection(std_dbname + UserDB, std_uname, std_password);
             System.out.println("Connected to User Database");
@@ -55,6 +56,7 @@ public class UserControler {
         } catch (SQLException ex) {
             throw new IllegalStateException("Cannot connect the User database!" + ex.getMessage());
         }
+
     }
     /**
      * tests if user exists if not then user is created 
@@ -64,6 +66,7 @@ public class UserControler {
      * @param name name of the user 
     */
     public boolean createUser(String uname, String password, String email, String name) {
+
         try {
             
             PreparedStatement prepStmt_testUser = con_UserDB.prepareStatement("SELECT * FROM userdb WHERE UserName = ? or Email = ?");
@@ -91,15 +94,18 @@ public class UserControler {
             prepStmt.setString(4, name);
             prepStmt.executeUpdate();
             return true;
+
         } catch (SQLException ex) {
             Logger.getLogger(ex.getMessage());
             System.out.println(ex.getMessage());
         }
+
         return false;
 
     }
     
     public void changePassword(String Uname, String changeParam){
+
         try {
             PreparedStatement prepStmt = con_UserDB.prepareStatement("UPDATE `userdb` SET Password=? Where UserName=? or Email = ?", Statement.SUCCESS_NO_INFO);
             prepStmt.setString(1, changeParam);
@@ -114,6 +120,7 @@ public class UserControler {
             System.out.println(ex.getMessage());
         }
         System.out.println("User "+Uname+": has changed password");
+
     }
     /**
      * returns users id, if user does not exists returns 0
@@ -121,6 +128,7 @@ public class UserControler {
      * @param password
      * @return 
      */
+
     public int getID(String user, String password){
             try {
             PreparedStatement prepStmt = con_UserDB.prepareStatement("SELECT * FROM `userdb` WHERE (`UserName` = ? or `Email` = ?) and `Password` = ? ");
@@ -135,14 +143,18 @@ public class UserControler {
             System.out.println(ex.getMessage());
             return 0;
         }
+
     }
+
     /**
      * Changes status of the user  
      * @param UserId
      * @param status 
      */
+
     public void changeStatus(int UserId, String status){
-             try {
+
+        try {
             PreparedStatement prepStmt = con_UserDB.prepareStatement("UPDATE `userdb` SET `Status`= ? WHERE `UserID` = ?");
             prepStmt.setString(1, status);
             prepStmt.setInt(2, UserId);

@@ -9,7 +9,7 @@ package dockingsystem;
  *
  * @author nb
  */
-public interface sensorIntRMI extends java.rmi.Remote {
+public interface DockIntRMI extends java.rmi.Remote {
     
     boolean transferDataRMI(String data) throws java.rmi.RemoteException;
     

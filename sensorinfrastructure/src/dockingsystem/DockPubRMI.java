@@ -10,20 +10,21 @@ import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import sensorsystem.SensorSystem;
 
 /**
  *
  * @author nb
  */
-public class sensorPubRMI {
+public class DockPubRMI {
     
-    public void publish() throws NoSuchAlgorithmException, RemoteException, MalformedURLException {
+    public static void publish(SensorSystem _sensorsystem) throws NoSuchAlgorithmException, RemoteException, MalformedURLException {
         
         System.out.println("Starting RMI Sensor Data interface");
 
         java.rmi.registry.LocateRegistry.createRegistry(53712);
 
-        sensorImpRMI si = new sensorImpRMI();// creates object for RMI Sensor data tranfer            
+        DockImpRMI si = new DockImpRMI(_sensorsystem);// creates object for RMI Sensor data tranfer            
 
         Naming.rebind("rmi://localhost:53712/sensorRMI", (Remote) si);
         

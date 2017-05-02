@@ -5,8 +5,11 @@
  */
 package sensorsystem;
 
-import dockingsystem.sensorPubRMI;
-import dockingsystem.sensorPubSOAP;
+import datasystem.DataControl;
+import datasystem.SensorControl;
+import datasystem.UserControl;
+import dockingsystem.DockPubRMI;
+import dockingsystem.DockPubSOAP;
 import static java.lang.Boolean.TRUE;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
@@ -19,32 +22,32 @@ import securitysystem.UserAuthenticationInterface;
 public class SensorSystem {
     
     UserAuthentication sec;
+    DataControl data;
+    SensorControl sensors;
+    UserControl users;
     
-    public SensorSystem(UserAuthentication _sec) throws RemoteException, NoSuchAlgorithmException {
+    public SensorSystem(UserAuthentication _sec, DataControl _data, UserControl _users, SensorControl _sensors) throws RemoteException, NoSuchAlgorithmException {
         
         sec = _sec;
+        users = _users;
+        sensors = _sensors;
         
-        initialiseSensorDockingSystem();
         
     }
     
-    static public void initialiseSensorDockingSystem() throws NoSuchAlgorithmException, RemoteException {
+    public void initialiseSensorDockingSystem() throws NoSuchAlgorithmException, RemoteException, MalformedURLException {
         
         System.out.println("Setting up sensor communication protocols...");
         
         System.out.println("Initializing SOAP...");
         
-        sensorPubSOAP.publish();
+        DockPubSOAP.publish(this);
         
         System.out.println("SOAP Running!");
         
         System.out.println("Setting up RMI...");
         
-        try {
-            sensorPubRMI.publish();
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(SensorSystem.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DockPubRMI.publish(this);
         
         System.out.println("RMI Running!");
         

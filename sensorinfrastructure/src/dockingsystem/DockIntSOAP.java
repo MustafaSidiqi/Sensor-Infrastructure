@@ -10,11 +10,13 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
 @WebService
+
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-public interface sensorIntSOAP {
+
+public interface DockIntSOAP {
     
     @WebMethod boolean transferDataSOAP(String data);
-   
     @WebMethod boolean handshakeSOAP();
     
+
 }

@@ -5,10 +5,10 @@
  */
 package sensorinfrastructure;
 
-import java.rmi.RemoteException;
-import java.security.NoSuchAlgorithmException;
+import datasystem.DataControl;
+import datasystem.SensorControl;
+import datasystem.UserControl;
 import sensorsystem.SensorSystem;
-import datasystem.DataSystem;
 import securitysystem.UserAuthentication;
 import webcommunication.WebCommunication;
 
@@ -17,14 +17,37 @@ import webcommunication.WebCommunication;
  * @author nb
  */
 public class Main {
+
     
-    public static void main(String[] args) throws NoSuchAlgorithmException, RemoteException {
+    // User Javabog.dk user authentication
+    public static UserAuthentication sec;
+    
+    // Sensor Functions given the to docking system
+    public static SensorSystem sensor;
+    
+    // Communication to the website
+    public static WebCommunication web;
+    
+    // Data, user and sensors database controllers
+    public static DataControl data;
+    public static UserControl users;
+    public static SensorControl sensors;
+    
+    // Main
+    
+    public static void main(String[] args) throws Exception {
+
+        sec = new UserAuthentication();
+        data = new DataControl();
+
+        sensor = new SensorSystem(sec, data, users, sensors);
+
+        sensor.initialiseSensorDockingSystem();
         
-        SensorSystem sensor;
-        DataSystem data;
-        WebCommunication web;
-        UserAuthentication sec;
+        //web = new WebCommunication(sec, data, users, sensors);
         
+        System.out.println("All systems are running");
+
     }
     
     public static void update() {
