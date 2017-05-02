@@ -9,6 +9,6 @@ package webcommunication;
  *
  * @author nb
  */
-public interface webIntSOAP {
+public interface WebIntSOAP {
     
 }

@@ -13,4 +13,5 @@ public interface UserAuthenticationInterface {
 
     @WebMethod public boolean login(String name, String pass);
 
+
 }

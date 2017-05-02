@@ -18,26 +18,30 @@ import java.util.logging.Logger;
 
 public class DataControl {
     
+    /*
     private String std_dbname = "jdbc:mysql://localhost/";
     private String std_uname = "root";
     private String std_password = "";
-    /**/
-    /*
+    */
+    
     private String std_dbname = "jdbc:mysql://ubuntu4.javabog.dk:53067/";
     private String std_uname = "kamael2015";
-    private String std_password = "simplePas";/**/
+    private String std_password = "simplePas";
     
     private String DBName;
     private Connection con;
     
     
     public DataControl(String dbName) throws SQLException{
+        
+        System.out.println("Connecting to " + dbName);
             
         DBName = dbName;
             
         try{
 
             con = DriverManager.getConnection(std_dbname+dbName, std_uname, std_password);
+            
             System.out.println("Connected to ExpSensorData Database");
                
             Statement stmt_exp_data;
@@ -62,6 +66,8 @@ public class DataControl {
         }
 
     }
+    
+    /*
 
     public DataControl() {
 

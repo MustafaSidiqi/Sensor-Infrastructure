@@ -22,10 +22,12 @@ public class UserAuthentication implements UserAuthenticationInterface{
 
         try {
 
+
             URL url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
             QName qname = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
             Service service = Service.create(url, qname);
             brugeradmin = service.getPort(Brugeradmin.class);
+
 
         } catch (MalformedURLException e1) {
 

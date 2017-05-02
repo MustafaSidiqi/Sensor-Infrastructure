@@ -9,7 +9,7 @@ package webcommunication;
  *
  * @author nb
  */
-public class webImpSOAP {
+public class WebImpSOAP {
     
     // Functions
     

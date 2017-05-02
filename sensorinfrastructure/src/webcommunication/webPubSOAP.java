@@ -9,7 +9,7 @@ package webcommunication;
  *
  * @author nb
  */
-public class webPubSOAP {
+public class WebPubSOAP {
     
     // WSDL Creation
     
