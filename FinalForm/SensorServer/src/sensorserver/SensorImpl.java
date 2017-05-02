@@ -27,7 +27,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
 
-        //Michaels ting til AES encryption og handshake af sensor////////////////////////////////////////////////////
+    //Michaels ting til AES encryption og handshake af sensor////////////////////////////////////////////////////
     static String IV = "AAAAAAAAAAAAAAAA";
     static String nonsense = "0a1b2c3d4e5f6789"; //(SKAL RANDOMIZES)
     static String decodedNonsense;
@@ -58,7 +58,7 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
 
         System.out.println("Background checking user...");
 
-        //if (ua.login(username, password) && listeningToSensors) {
+        if (ua.login(username, password) && listeningToSensors) {
             System.out.println("Access Granted!");
             System.out.print("Data: ");
             System.out.println(data);

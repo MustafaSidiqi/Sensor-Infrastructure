@@ -10,10 +10,13 @@ import datasystem.SensorControl;
 import datasystem.UserControl;
 import dockingsystem.DockPubRMI;
 import dockingsystem.DockPubSOAP;
+import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import securitysystem.UserAuthentication;
@@ -22,17 +25,36 @@ import securitysystem.UserAuthenticationInterface;
 public class SensorSystem {
     
     UserAuthentication sec;
-    DataControl data;
+    DataControl datas;
     SensorControl sensors;
     UserControl users;
     
-    public SensorSystem(UserAuthentication _sec, DataControl _data, UserControl _users, SensorControl _sensors) throws RemoteException, NoSuchAlgorithmException {
+    //Michaels ting til AES encryption og handshake af sensor////////////////////////////////////////////////////
+    static String IV = "AAAAAAAAAAAAAAAA";
+    static String nonsense = "0a1b2c3d4e5f6789"; //(SKAL RANDOMIZES)
+    static String decodedNonsense;
+    static String XORNonsense;
+    static String publicKey = "0123456789abcdef"; //(SKAL RANDOMIZES)
+    static String handshakeLogHash; 
+    static XORStrings x; //object of XOR functions
+    static Crypt c;
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    boolean listeningToSensors;
+    private Queue<String> incommingBuffer;
+    
+    private final Object lock = new Object();
+    
+    public SensorSystem(UserAuthentication _sec, DataControl _datas, UserControl _users, SensorControl _sensors) throws RemoteException, NoSuchAlgorithmException {
         
         sec = _sec;
         users = _users;
         sensors = _sensors;
+        datas = _datas;
         
-        
+        this.listeningToSensors = true;
+        incommingBuffer = new LinkedList<String>();
+            
     }
     
     public void initialiseSensorDockingSystem() throws NoSuchAlgorithmException, RemoteException, MalformedURLException {
@@ -61,13 +83,39 @@ public class SensorSystem {
         
     }
     
-    public boolean transferData(String data) {
+    public boolean transferData(String username, String password, String data) {
         
-        System.out.println("Transfering Data...");
+        System.out.println("Incomming Data!");
         
-        System.out.println(data);
+        System.out.println("Background checking user...");
+        
+        if (sec.login(username, password) && listeningToSensors) {
+            
+            System.out.println("Access Granted!");
+            
+            System.out.println("Transfering Data...");
 
-        return TRUE;
+            System.out.print("Data: ");
+
+            System.out.println(data);
+            
+            synchronized (lock) {
+                
+                incommingBuffer.add(data);
+            
+            }
+            
+            System.out.println("End of transmission.");
+            
+            return TRUE;            
+            
+        } else {
+            
+            System.out.println("Access Denied!");
+            
+            return FALSE;
+            
+        }
 
     }
     
@@ -97,5 +145,54 @@ public class SensorSystem {
         return TRUE;
         
     }
+    
+    public boolean requestConnection() {
+
+        return true;
+
+    }
+    
+    
+    public String getNonsense() {
+    
+        return nonsense;
+    
+    }
+    
+    public String getPublicKey() {
+
+        return publicKey;
+
+    }
+    
+    public void sendCipherInonsense(byte[] encryptedMessage) {
+
+        try {
+
+            XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey));
+
+        } catch (Exception ex) {
+
+        }
+
+    }
+    
+    /**
+     *
+     * @param hashLog
+     */
+    public void sendLogHashCipher(byte[] hashLog) {
+    
+        try {
+            handshakeLogHash = c.decrypt(hashLog, publicKey);
+        } catch (Exception ex) {
+        }
+    }
+    
+    
+    
+    
+    
+    
     
 }
