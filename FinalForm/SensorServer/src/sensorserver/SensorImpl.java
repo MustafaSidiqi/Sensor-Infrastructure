@@ -62,18 +62,17 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
             System.out.println("Access Granted!");
             System.out.print("Data: ");
             System.out.println(data);
-            //synchronized (lock) {
-            //    incommingBuffer.add(data);
-            //}
+            synchronized (lock) {
+                incommingBuffer.add(data);
+            }
             System.out.println("End of transmission.");
 
-          //  return TRUE;
+            return true;
 
-//        } else {
-  //          System.out.println("Access Denied!");
- //           return FALSE;
-   //     }
-        return true;
+        } else {
+            System.out.println("Access Denied!");
+            return false;
+        }
     }
 
     @Override
