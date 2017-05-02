@@ -9,6 +9,7 @@ import javax.jws.WebService;
 import sensorsystem.SensorSystem;
 
 @WebService(endpointInterface = "dockingsystem.DockIntSOAP")
+
 public class DockImpSOAP implements DockIntSOAP {
 
     private final SensorSystem sensorsystem;
@@ -18,9 +19,9 @@ public class DockImpSOAP implements DockIntSOAP {
     }
     
     @Override
-    public boolean transferDataSOAP(String data) {
+    public boolean transferDataSOAP(String username, String password, String data) {
         
-        return sensorsystem.transferData(data);
+        return sensorsystem.transferData(username, password, data);
     }
     
     @Override

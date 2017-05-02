@@ -15,15 +15,13 @@ public class DockImpRMI extends UnicastRemoteObject implements DockIntRMI {
     public DockImpRMI(SensorSystem _sensorsystem) throws java.rmi.RemoteException {
 
         sensorsystem = sensorsystem;
-
-        System.out.println("Hej RMI");
         
     }
     
     @Override
-    public boolean transferDataRMI(String data) throws java.rmi.RemoteException {
+    public boolean transferDataRMI(String username, String password, String data) throws java.rmi.RemoteException {
 
-        return sensorsystem.transferData(data);
+        return sensorsystem.transferData(username, password, data);
 
     }
     

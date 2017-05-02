@@ -11,7 +11,7 @@ package dockingsystem;
  */
 public interface DockIntRMI extends java.rmi.Remote {
     
-    boolean transferDataRMI(String data) throws java.rmi.RemoteException;
+    boolean transferDataRMI(String username, String password, String data) throws java.rmi.RemoteException;
     
     boolean handshakeRMI() throws java.rmi.RemoteException;
     
