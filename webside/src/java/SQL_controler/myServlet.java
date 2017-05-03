@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SQL_forbindelse;
+package SQL_controler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -51,27 +51,14 @@ public class myServlet extends HttpServlet {
             //System.setSecurityManager(new RMISecurityManager());
             ArrayList<String> data = null;
             // Amazon IP server: 52.56.199.233
-            sql_interface db = (sql_interface) Naming.lookup("rmi://localhost:53067/WEB_SQL");
+            sql_interface db = (sql_interface) Naming.lookup("rmi://localhost:53168/data");
 
             if (request.getParameter("getSensordata") != null) {
                 int SensorID = Integer.parseInt(request.getParameter("sensorID"));
-                data = db.getAllBySensorID_RMI(1);
+                data = db.CallgetAllBySensorID(0);
 
-            } else if (request.getParameter("getLocationData") != null) {
-                String temp = request.getParameter("location");
-                data = db.getAllByLocation_RMI(temp);
+            } 
 
-            } else if (request.getParameter("getDateData") != null) {
-
-            } else {
-                // ???
-
-            }
-                out.println("<br>");
-                for (String d : data) {
-                    out.println(d + "<br>");
-                    System.out.println(d);
-                }
             out.println("<a href=\"index.html\">\n"
                     + "   <button> Home </button>\n"
                     + "</a>");
