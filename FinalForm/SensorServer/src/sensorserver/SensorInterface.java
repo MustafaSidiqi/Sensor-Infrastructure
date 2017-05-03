@@ -13,7 +13,7 @@ package sensorserver;
  */
 public interface SensorInterface extends java.rmi.Remote {
     
-    boolean transferData(String username, String password, String data) throws java.rmi.RemoteException;
+    boolean transferData(String username, String password, String data, int count) throws java.rmi.RemoteException;
     boolean requestConnection() throws java.rmi.RemoteException;
     String getNonsense() throws java.rmi.RemoteException;
     String getPublicKey() throws java.rmi.RemoteException;
