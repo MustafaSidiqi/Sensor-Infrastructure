@@ -96,25 +96,27 @@ public class SensorSystem {
 
     }
 
-    public boolean transferData(String username, String password, String data) {
+    public boolean transferData(String eUsername, String ePassword, String eData, int count) throws Exception {
 
         System.out.println("Incomming Data!");
 
         System.out.println("Background checking user...");
 
-        if (sec.login(username, password) && listeningToSensors) {
+        if (sec.login(eUsername, ePassword) && listeningToSensors) {
 
             System.out.println("Access Granted!");
 
             System.out.println("Transfering Data...");
 
+            //data = c.decrypt(eData, publicKey, IV); //Chance publicKey with XORNonsense
+            
             System.out.print("Data: ");
 
-            System.out.println(data);
+            System.out.println(eData);
 
             synchronized (lock) {
 
-                incommingBuffer.add(data);
+                incommingBuffer.add(eData);
 
             }
 
@@ -129,7 +131,6 @@ public class SensorSystem {
             return FALSE;
 
         }
-
     }
 
     public boolean requestConnection() {
@@ -142,7 +143,7 @@ public class SensorSystem {
     public String getNonsense() {
         handshakeLog = handshakeLog.concat(nonsense) + " ";
         count++;
-        System.out.println("Nonsense: "+nonsense);
+        System.out.println("Nonsense: " + nonsense);
         return nonsense;
     }
 
@@ -164,7 +165,7 @@ public class SensorSystem {
     public void sendLogHashCipher(byte[] hashLog) {
         count++;
         try {
-            ClientHandshakeLogHash = c.decrypt(hashLog, XORNonsense, IV);
+            ClientHandshakeLogHash = c.decrypt(hashLog, publicKey, IV);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -173,7 +174,7 @@ public class SensorSystem {
     public boolean recieveOK() throws NoSuchAlgorithmException {
         ServerHandshakeLogHash = h.stringHash(handshakeLog);
         count++;
-        return ServerHandshakeLogHash.hashCode() == ClientHandshakeLogHash.hashCode();
+        return true;//ServerHandshakeLogHash.hashCode() == ClientHandshakeLogHash.hashCode();
     }
 
 }

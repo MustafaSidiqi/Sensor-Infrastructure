@@ -65,7 +65,7 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
 
         if (SensorImpl.count == count) {
             
-            if (ua.login(c.decrypt(eUsername, XORNonsense, IV), c.decrypt(eUsername, XORNonsense, IV)) && listeningToSensors) {
+            if (ua.login(c.decrypt(eUsername, publicKey, IV), c.decrypt(eUsername, publicKey, IV)) && listeningToSensors) { //Change public Key with XORNonsense
                 System.out.println("Access Granted!");
                 System.out.print("Data: ");
                 data = c.decrypt(eData, XORNonsense, IV);

@@ -13,7 +13,7 @@ package dockingsystem;
  */
 public interface DockIntRMI extends java.rmi.Remote {
     
-    boolean transferData(byte[] eUsername, byte[] ePassword, byte[] eData, int count) throws java.rmi.RemoteException, Exception;
+    boolean transferData(String eUsername, String ePassword, String eData, int count) throws java.rmi.RemoteException, Exception;
     boolean requestConnection() throws java.rmi.RemoteException;
     String getNonsense() throws java.rmi.RemoteException;
     String getPublicKey() throws java.rmi.RemoteException;

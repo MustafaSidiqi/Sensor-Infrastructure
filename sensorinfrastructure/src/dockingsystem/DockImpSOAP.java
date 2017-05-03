@@ -5,6 +5,8 @@
  */
 package dockingsystem;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jws.WebService;
 import sensorsystem.SensorSystem;
 
@@ -19,9 +21,13 @@ public class DockImpSOAP implements DockIntSOAP {
     }
     
     @Override
-    public boolean transferDataSOAP(String username, String password, String data) {
+    public boolean transferDataSOAP(String username, String password, String data, int count) {
         
-        return sensorsystem.transferData(username, password, data);
+        try {
+            return sensorsystem.transferData(username, password, data, count);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    return false;
     }
-    
 }

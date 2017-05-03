@@ -13,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public interface DockIntRMI extends java.rmi.Remote {
 
-    boolean transferDataRMI(String username, String password, String data) throws java.rmi.RemoteException;
+    public boolean transferDataRMI(String eUsername, String ePassword, String eData, int count) throws java.rmi.RemoteException, Exception;
 
     public boolean requestConnection() throws java.rmi.RemoteException;
 
