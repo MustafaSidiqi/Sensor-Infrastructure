@@ -1,4 +1,4 @@
-package sensorserver;
+package dockingsystem;
 
 import java.rmi.Naming;
 import java.security.MessageDigest;
@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-//import mainframe.SensorInterface;
+//import mainframe.DockIntRMI;
 //import java.util.Scanner;
 
 public class SensorGatherKlient {
@@ -45,8 +45,8 @@ public class SensorGatherKlient {
 
     public static void main(String[] args) throws Exception /*NoSuchAlgorithmException, NotBoundException, MalformedURLException, RemoteException, InterruptedException */ {
         //System.setSecurityManager(new RMISecurityManager());
-        SensorInterface g = (SensorInterface) Naming.lookup("rmi://localhost:53712/sensorimpl");
-        String stringData;
+        DockIntRMI g = (DockIntRMI) Naming.lookup("rmi://localhost:53712/sensorRMI");
+        String stringData = null;
         
         connect = g.requestConnection();
         count++;
@@ -58,6 +58,8 @@ public class SensorGatherKlient {
         handshakeLog = handshakeLog.concat(publicKey) + " " + handshakeLog.concat(nonsense);
         
         XORNonsense = x.encode(nonsense, inonsense);
+        System.out.println(XORNonsense);
+        System.out.println(publicKey);
         
         Einonsense = c.encrypt(inonsense, publicKey, IV);
         g.sendCipherInonsense(Einonsense);
@@ -65,7 +67,7 @@ public class SensorGatherKlient {
         handshakeLog = " " +handshakeLog.concat(Arrays.toString(Einonsense));
         
         handshakeLogHash = h.stringHash(handshakeLog);
-        g.sendLogHashCipher(c.encrypt(handshakeLogHash, XORNonsense, IV));
+        g.sendLogHashCipher(c.encrypt(handshakeLogHash, publicKey, IV)); //Chance to XORNonsense
         count++;
         
         access = g.recieveOK();
@@ -78,7 +80,7 @@ public class SensorGatherKlient {
 
                 stringData = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Float.toString(value)).concat(" ").concat(timeStamp).concat(" ").concat("25");
                 count++;
-                sent = g.transferData(c.encrypt(username, XORNonsense, IV), c.encrypt(password, XORNonsense, IV), c.encrypt(stringData, XORNonsense, IV), count);
+                sent = g.transferData(username, password, stringData, count); //Public key skal ændres til XORNonsense
                 if (sent) {
                     System.out.println("Send!");
                 } else {

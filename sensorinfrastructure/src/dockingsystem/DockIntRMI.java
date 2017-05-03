@@ -5,14 +5,26 @@
  */
 package dockingsystem;
 
+import java.security.NoSuchAlgorithmException;
+
 /**
  *
  * @author nb
  */
 public interface DockIntRMI extends java.rmi.Remote {
-    
-    boolean transferDataRMI(String username, String password, String data) throws java.rmi.RemoteException;
-    
-    boolean handshakeRMI() throws java.rmi.RemoteException;
-    
+
+    public boolean transferDataRMI(String eUsername, String ePassword, String eData, int count) throws java.rmi.RemoteException, Exception;
+
+    public boolean requestConnection() throws java.rmi.RemoteException;
+
+    public String getNonsense() throws java.rmi.RemoteException;
+
+    public String getPublicKey() throws java.rmi.RemoteException;
+
+    public void sendCipherInonsense(byte[] encryptedMessage) throws java.rmi.RemoteException;
+
+    public void sendLogHashCipher(byte[] hashLog) throws java.rmi.RemoteException;
+
+    public boolean recieveOK() throws NoSuchAlgorithmException, java.rmi.RemoteException;
+
 }

@@ -15,6 +15,7 @@ import static java.lang.Boolean.TRUE;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -24,179 +25,156 @@ import securitysystem.UserAuthenticationInterface;
 import ui.UserInterface;
 
 public class SensorSystem {
-    
+
     UserInterface ui;
     UserAuthentication sec;
     DataControl offdata;
     DataControl expdata;
     SensorControl sensors;
     UserControl users;
-    
-    //Michaels ting til AES encryption og handshake af sensor////////////////////////////////////////////////////
 
+    //Michaels ting til AES encryption og handshake af sensor////////////////////////////////////////////////////
     static String IV = "AAAAAAAAAAAAAAAA";
     static String nonsense = "0a1b2c3d4e5f6789"; //(SKAL RANDOMIZES)
     static String decodedNonsense;
     static String XORNonsense;
     static String publicKey = "0123456789abcdef"; //(SKAL RANDOMIZES)
-    static String handshakeLogHash; 
-    static XORStrings x; //object of XOR functions
-    static Crypt c;
+    static String ServerHandshakeLogHash;
+    static String ClientHandshakeLogHash;
+    static String handshakeLog;
+    static String data;
+    static int count = 0;
+
+    static XORStrings x = new XORStrings(); //object of XOR functions
+    static Crypt c = new Crypt();
+    static Hashing h = new Hashing();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
     boolean listeningToSensors;
 
     private Queue<String> incommingBuffer;
-    
+
     private final Object lock = new Object();
-    
+
     public SensorSystem(UserInterface _ui, UserAuthentication _sec, DataControl _offdata, DataControl _expdata, UserControl _users, SensorControl _sensors) throws RemoteException, NoSuchAlgorithmException {
-        
+
         ui = _ui;
         sec = _sec;
         users = _users;
         sensors = _sensors;
         offdata = _offdata;
-        expdata = _expdata;        
-    
+        expdata = _expdata;
+
         this.listeningToSensors = true;
 
         incommingBuffer = new LinkedList<String>();
-            
+
     }
-    
+
     public void initialiseSensorDockingSystem() throws NoSuchAlgorithmException, RemoteException, MalformedURLException {
-        
+
         System.out.println("Setting up sensor communication protocols...");
-        
+
         System.out.println("Initializing SOAP...");
-        
+
         DockPubSOAP.publish(ui.isOnline(), this);
-        
+
         System.out.println("SOAP Running!");
-        
+
         System.out.println("Setting up RMI...");
-        
+
         DockPubRMI.publish(ui.isOnline(), this);
-        
+
         System.out.println("RMI Running!");
-        
+
         System.out.println("Initializing REST...");
-        
+
         // REST Publish, Interface, Implementation...
-        
         System.out.println("REST Running!");
-        
+
         System.out.println("Sensor Communication Protocols Setup is finished!");
-        
+
     }
-    
-    public boolean transferData(String username, String password, String data) {
-        
+
+    public boolean transferData(String eUsername, String ePassword, String eData, int count) throws Exception {
+
         System.out.println("Incomming Data!");
-        
+
         System.out.println("Background checking user...");
-        
-        if (sec.login(username, password) && listeningToSensors) {
-            
+
+        if (sec.login(eUsername, ePassword) && listeningToSensors) {
+
             System.out.println("Access Granted!");
-            
+
             System.out.println("Transfering Data...");
 
+            //data = c.decrypt(eData, publicKey, IV); //Chance publicKey with XORNonsense
+            
             System.out.print("Data: ");
 
-            System.out.println(data);
-            
+            System.out.println(eData);
+
             synchronized (lock) {
-                
-                incommingBuffer.add(data);
-            
+
+                incommingBuffer.add(eData);
+
             }
-            
+
             System.out.println("End of transmission.");
-            
-            return TRUE;            
-            
+
+            return TRUE;
+
         } else {
-            
+
             System.out.println("Access Denied!");
-            
+
             return FALSE;
-            
-        }
 
-    }
-    
-    public boolean handshake() {
-        
-        System.out.println("Handshaking...");
-        
-        System.out.println("Login...");
-        
-        String username = null;
-        
-        String password = null;
-        
-        if(sec.login(username, password)) {
-            
-            System.out.println("Succes!");
-            
-        } else {
-            
-            System.out.println("Fail!");
-            
-            return false;
         }
-        
-        System.out.println("Handshake done!");
-        
-        return TRUE;
-        
     }
-    
+
     public boolean requestConnection() {
-
+        System.out.println("Sensor is requesting for connection...");
+        handshakeLog = "true ";
+        count++;
         return true;
-
     }
-    
-    
+
     public String getNonsense() {
-    
+        handshakeLog = handshakeLog.concat(nonsense) + " ";
+        count++;
+        System.out.println("Nonsense: " + nonsense);
         return nonsense;
-    
     }
-    
+
     public String getPublicKey() {
-
+        handshakeLog = handshakeLog.concat(publicKey) + " ";
         return publicKey;
-
     }
-    
+
     public void sendCipherInonsense(byte[] encryptedMessage) {
-
+        handshakeLog = handshakeLog.concat(Arrays.toString(encryptedMessage)) + " ";
+        count++;
         try {
-
             XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey, IV));
-
         } catch (Exception ex) {
-
+            ex.printStackTrace();
         }
-
     }
-    
-    /**
-     *
-     * @param hashLog
-     */
-    public void sendLogHashCipher(byte[] hashLog) {
-    
-        try {
-            handshakeLogHash = c.decrypt(hashLog, publicKey, IV);
-        } catch (Exception ex) {
-        }
 
+    public void sendLogHashCipher(byte[] hashLog) {
+        count++;
+        try {
+            ClientHandshakeLogHash = c.decrypt(hashLog, publicKey, IV);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public boolean recieveOK() throws NoSuchAlgorithmException {
+        ServerHandshakeLogHash = h.stringHash(handshakeLog);
+        count++;
+        return true;//ServerHandshakeLogHash.hashCode() == ClientHandshakeLogHash.hashCode();
     }
 
 }

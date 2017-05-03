@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /Mainframe/nbproject/private/
 /SensorSentinelJava/nbproject/private/
 /Mainframe/build/
@@ -59,3 +60,65 @@
 /RMI/dist/
 /webside_test/nbproject/private/
 /webside_test/build/
+=======
+/Mainframe/nbproject/private/
+/SensorSentinelJava/nbproject/private/
+/Mainframe/build/
+/Mainframe/dist/
+/helloWorldLearning/nbproject/private/
+/helloWorldLearning/build/
+/helloWorldLearning/dist/
+/WebServer/nbproject/private/
+/WebServer/build/
+/WebServer/dist/
+<<<<<<< Updated upstream
+/webside/dist/
+=======
+<<<<<<< HEAD
+/SensorSentinelC/dist/
+/SensorSentinelC/build/
+/AmazonMainframe/nbproject/private/
+/AmazonMainframe/build/
+/AmazonMainframe/dist/
+/LocalSensor/nbproject/private/
+/LocalSensor/build/
+/LocalSensor/dist/
+=======
+/webside/dist/
+>>>>>>> origin/master
+>>>>>>> Stashed changes
+/SensorGather/nbproject/private/
+/SensorGather/build/
+/rmi_jakob_test/dist/
+/FinalForm/SensorServer/nbproject/private/
+/FinalForm/SensorServer/build/
+<<<<<<< HEAD
+/FinalForm/SensorServer/dist/
+=======
+/SensorInfrastructure/nbproject/private/
+/soapLearning/nbproject/private/
+/JavaApplication10/nbproject/private/
+/apiLearning/nbproject/private/
+<<<<<<< HEAD
+/soapLearning/build/
+/soapLearning/dist/
+=======
+>>>>>>> e64f0b3e7085ed9c91e8e87349a51ee57e9bcfce
+>>>>>>> origin/master
+/soapHelloWorld/nbproject/private/
+/soapHelloWorld/build/
+/soapHelloWorld/dist/
+/soapClientLearning/nbproject/private/
+/soapClientLearning/build/
+/soapClientLearning/dist/
+/SensorLearning/nbproject/private/
+/SensorLearning/build/
+/SensorLearning/dist/
+/sensorinfrastructure/nbproject/private/
+/sensorinfrastructure/build/
+/sensorinfrastructure/dist/
+/RMI/nbproject/private/
+/RMI/build/
+/RMI/dist/
+/SensorGather/dist/
+>>>>>>> master

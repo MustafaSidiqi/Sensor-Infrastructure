@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package webcommunication;
+package sql_controler;
 
 import java.rmi.RemoteException;
 import java.sql.Date;
@@ -17,7 +17,7 @@ public interface WebInterface extends java.rmi.Remote {
 
     ArrayList<String> CallgetAllBySensorID(String data, int ID)                                  throws java.rmi.RemoteException;
     ArrayList<String> CallgetIntervalBySensorID(String data, int ID, Date start, Date end)       throws java.rmi.RemoteException;
-     boolean CallLogin(String username, String password)  throws java.rmi.RemoteException;
+    boolean CallLogin(String username, String password)  throws java.rmi.RemoteException;
     /*
     ArrayList<String> CallgetAllByType(int type)                                    throws java.rmi.RemoteException;
     ArrayList<String> CallgetIntervalByType(int type, Date start, Date end)         throws java.rmi.RemoteException;
