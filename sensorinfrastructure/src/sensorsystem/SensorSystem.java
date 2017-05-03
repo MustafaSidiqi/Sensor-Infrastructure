@@ -72,13 +72,13 @@ public class SensorSystem {
         
         System.out.println("Initializing SOAP...");
         
-        DockPubSOAP.publish(ui.online, this);
+        DockPubSOAP.publish(ui.isOnline(), this);
         
         System.out.println("SOAP Running!");
         
         System.out.println("Setting up RMI...");
         
-        DockPubRMI.publish(ui.online, this);
+        DockPubRMI.publish(ui.isOnline(), this);
         
         System.out.println("RMI Running!");
         
