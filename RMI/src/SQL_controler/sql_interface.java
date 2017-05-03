@@ -5,6 +5,7 @@
  */
 package SQL_controler;
 
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
  */
 public interface sql_interface extends java.rmi.Remote {
 
+    void SelectDatabase(String name)                                              throws java.rmi.RemoteException;
     ArrayList<String> CallgetAllBySensorID(int ID)                                  throws java.rmi.RemoteException;
     ArrayList<String> CallgetIntervalBySensorID(int ID, Date start, Date end)       throws java.rmi.RemoteException;
     ArrayList<String> CallgetAllByType(int type)                                    throws java.rmi.RemoteException;

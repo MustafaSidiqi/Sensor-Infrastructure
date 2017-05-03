@@ -80,4 +80,12 @@ public class WebCommunication extends UnicastRemoteObject implements sql_interfa
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void SelectDatabase(String name) throws RemoteException {
+        try {
+            this.serverObject = new DataControl(name);
+        } catch (SQLException ex) {
+            Logger.getLogger(WebCommunication.class.getName()).log(Level.SEVERE, null, ex);
+        }    }
+
 }
