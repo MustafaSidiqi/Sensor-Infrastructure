@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ui.UserInterface;
+import securitysystem.UserAuthentication;
 
 /**
  *
@@ -101,6 +102,12 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
         if(data == "offdata") return offdata.getIntervalBySensorID(ID, start, end);
         else return offdata.getIntervalBySensorID(ID, start, end);
 
+    }
+    
+    public boolean CallLogin(String username, String password) throws RemoteException {
+        UserAuthentication ua = new UserAuthentication();
+        
+        return ua.login(username, password);
     }
     
     /*
