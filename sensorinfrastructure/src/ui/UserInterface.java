@@ -19,7 +19,7 @@ public class UserInterface {
     
     public UserInterface() {
         
-        online = FALSE;
+        online = false;
         
         System.out.print("Online (y/n): ");
         
@@ -27,8 +27,14 @@ public class UserInterface {
         
         String input = sc.nextLine();
         
-        if(input == "y" || input == "yes" || input == "1" || input == "Yes") online = TRUE;        
+        if(input == "y" || input == "yes" || input == "1" || input == "Yes") online = true;        
         
+    }
+    
+    public boolean isOnline() {
+        
+        return online;
+    
     }
     
 }
