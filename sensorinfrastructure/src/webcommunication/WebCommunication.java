@@ -29,92 +29,102 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     DataControl offdata;
     DataControl expdata;
     UserInterface ui;
-    
+
     static String localaddress = "rmi://localhost:53168/data";
 
-    static String javabogaddress = "rmi://ubuntu4.javabog.dk:53168/data";    
-    
+    static String javabogaddress = "rmi://ubuntu4.javabog.dk:53168/data";
+
     static boolean online = FALSE;
-    
 
     public WebCommunication(UserInterface _ui, DataControl _offdata, DataControl _expdata) throws RemoteException {
-        
+
         System.out.print("Setting up webserver RMI interface... ");
-        
+
         ui = _ui;
         offdata = _offdata;
         expdata = _expdata;
-        
+
         online = ui.online;
-        
-        System.out.println("Done!");
-        
-    }
-    
-    public void publish() {
-        
+
         try {
-            
+            this.expdata = new DataControl("DataBase");
+        } catch (SQLException ex) {
+            Logger.getLogger(WebCommunication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println("Done!");
+
+    }
+
+    public void publish() {
+
+        try {
+
             System.out.print("Publishing RMI Data interface... ");
-            
+
             java.rmi.registry.LocateRegistry.createRegistry(53168);
-            
-            if(online) {
-                
+
+            if (online) {
+
                 Naming.rebind(javabogaddress, (Remote) this);
-                
-                System.out.println("Web RMI: "+javabogaddress);
-            
+
+                System.out.println("Web RMI: " + javabogaddress);
+
             } else {
-                
+
                 Naming.rebind(localaddress, (Remote) this);
-                
-                System.out.println("Web RMI: "+localaddress);
-                
+
+                System.out.println("Web RMI: " + localaddress);
+
             }
-            
+
             System.out.println("Succes!");
-    
+
         } catch (Exception e) {
 
             System.err.println("Server exception: " + e.toString());
             e.printStackTrace();
 
-        }    
-        
-        
+        }
+
     }
 
-        public String getMessage() {
+    public String getMessage() {
         return "Hello World";
     }
-    
+
     @Override
     public ArrayList<String> CallgetAllBySensorID(String data, int ID) throws RemoteException {
-        
-        System.out.println("CallgetAllBySensorID "+data+" "+ID);
-        
-        if(data == "offdata") return offdata.getAllBySensorID(ID);
-        else return expdata.getAllBySensorID(ID);
-        
+
+        System.out.println("CallgetAllBySensorID " + data + " " + ID);
+
+        if (data == "offdata") {
+            return offdata.getAllBySensorID(ID);
+        } else {
+            return expdata.getAllBySensorID(ID);
+        }
+
     }
 
     @Override
     public ArrayList<String> CallgetIntervalBySensorID(String data, int ID, Date start, Date end) throws RemoteException {
-        
-        System.out.println("CallgetIntervalBySensorID "+data+" "+ID+" "+start+" "+end);
 
-        if(data == "offdata") return offdata.getIntervalBySensorID(ID, start, end);
-        else return offdata.getIntervalBySensorID(ID, start, end);
+        System.out.println("CallgetIntervalBySensorID " + data + " " + ID + " " + start + " " + end);
+
+        if (data == "offdata") {
+            return offdata.getIntervalBySensorID(ID, start, end);
+        } else {
+            return expdata.getIntervalBySensorID(ID, start, end);
+        }
 
     }
-    
+
     public boolean CallLogin(String username, String password) throws RemoteException {
         UserAuthentication ua = new UserAuthentication();
-        
+
         return ua.login(username, password);
     }
-    
+
     /*
 
     @Override
@@ -157,6 +167,5 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    */
-
+     */
 }

@@ -15,8 +15,8 @@ public class Kontoklient implements java.io.Serializable {
         WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
 
         System.out.println(db.getMessage());
-        ArrayList<String> temp = db.CallgetAllBySensorID("offdata", 2);
-        System.out.println(temp);
+        ArrayList<String> temp = db.CallgetAllBySensorID("offdata", 0);
+        System.out.println(temp); 
         //data = db.getAllByLocation_RMI("0");
         /*
         for (String d : data) {

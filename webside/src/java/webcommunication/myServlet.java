@@ -62,10 +62,10 @@ public class myServlet extends HttpServlet {
             //System.setSecurityManager(new RMISecurityManager());
             ArrayList<String> data = null;
             // Amazon IP server: 52.56.199.233
-            
-            
-            
+
             WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
+
+            out.println(db.getMessage());
 
             if (request.getParameter("sensorID") != null) {
 
@@ -81,6 +81,7 @@ public class myServlet extends HttpServlet {
             out.println("<a href=\"requestData.jsp\">\n"
                     + "   <button> Back </button>\n"
                     + "</a>");
+
             out.println("</body>");
             out.println("</html>");
         }

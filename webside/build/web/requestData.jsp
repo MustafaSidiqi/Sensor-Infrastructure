@@ -105,9 +105,13 @@
                         <input type='submit' />
                     </form>
                 </div>
+
+
+                <textarea rows="4" cols="50">
+                </textarea>
             </div>
-            
-                        <div id="Location" class="tabcontent">
+
+            <div id="Location" class="tabcontent">
                 <span onclick="this.parentElement.style.display = 'none'" class="topright">x</span>
                 <h3>Location</h3>
                 <div>
@@ -125,9 +129,9 @@
                     </form>
                 </div>
             </div>
-            
-            
-            
+
+
+
         </tbody>
     </table>
 </form>
