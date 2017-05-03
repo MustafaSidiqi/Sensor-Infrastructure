@@ -1,4 +1,4 @@
-package SQL_forbindelse;
+package SQL_controler;
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ public class Kontoklient implements java.io.Serializable{
         
                 ArrayList<String> data;
         // Amazon IP server: 52.56.199.233
-         sql_interface db = (sql_interface) Naming.lookup("rmi://localhost:53067/WEB_SQL");
-        data = db.getAllBySensorID_RMI(1);
+         sql_interface db = (sql_interface) Naming.lookup("rmi://localhost:53168/data");
+        data = db.CallgetAllBySensorID(0);
         //data = db.getAllByLocation_RMI("0");
         for (String d : data) {
             System.out.println(d);
