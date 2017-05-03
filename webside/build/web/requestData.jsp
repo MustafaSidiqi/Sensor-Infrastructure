@@ -21,6 +21,46 @@
 
         <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
         <script type="text/javascript">
+        </script>
+    </head>
+    <body background="img/background.png">
+        <ul class="nav">
+
+            <div class="login">
+                <a href="#">LOGIN </a>
+            </div>
+
+            <div class="logo">
+                <a href="#">LOGO </a>
+            </div>
+
+            <li> <a href="index.html"> Home </a></li>
+            <li> <a href="index.html"> About </a></li>
+            <li> <a href=""> Services </a></li>
+            <li> <a href=""> Contact</a></li>
+        </ul>
+
+        <script>
+            function openCity(evt, cityName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+
+            // Get the element with id="defaultOpen" and click on it
+            document.getElementById("defaultOpen").click();
+        </script>
+
+
+        <script type="text/javascript">
             $(document).ready(function () {
                 $("select").change(function () {
                     $(this).find("option:selected").each(function () {
@@ -36,132 +76,62 @@
             });
         </script>
 
-
-
-
-
-
-    </head>
-
-
-
-
-
-
-
-
-    <body background="img/background.png">
-        <ul class="nav">
-
-            <div class="login">
-                <a href="#">LOGIN </a>
-            </div>
-
-
-            <div class="logo">
-                <a href="#">LOGO </a>
-            </div>
-
-
-
-            <li> <a href="index.html"> Home </a></li>
-            <li> <a href="index.html"> About </a></li>
-            <li> <a href=""> Services </a></li>
-            <li> <a href=""> Contact</a></li>
-
-
-
-        </ul>
-
-
-        <div>
-            <select>
-                <option>Select Data</option>
-                <option value="red">Location</option>
-                <option value="green">Date</option>
-                <option value="blue">Sensor</option>
-            </select>
-        </div>
-        <div class="red box">
-
-            <tr>
-                <td>Location: </td>
-                <td><select name="location">
-                        <option>Location</option>
-                        <option value="Lyngby">DTU Lyngby</option>
-                        <option value="stue">DTU stue</option>
-                </td>
-                <td></select><input type="submit" value="Request" name="getLocationData" /></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-                    <tr>
-                        <td> <input type="reset" value="Clear" /></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-
-        </div>
-        <div class="green box">                  
-            <tr>
-                <td>From: </td>
-
-                <td><input type="date" name="fromDate">
-                </td>
-                <td>To:</td>
-                <td><input type="date" name="toDate"></td>
-                <td><input type="submit" value="Request" name="getDateData" /></td>
-                <td></td>
-            </tr>
-                    <tr>
-                        <td> <input type="reset" value="Clear" /></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-        </div>
-        <div class="blue box">
-            
-                    <tr>
-                        <td>Sensor: </td>
-                        <td><select name="sensorID">
-                                <option>Sensor</option>
-                                <option value ="1" >Temperature</option>
-                                <option value ="2" >Noise Level</option>
-                                <option value = "3" >Humidity</option>
-                            </select>
-
-                        </td>
-                        <td><input type="submit" value="Request" name="getSensordata" /></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    
-                                        <tr>
-                        <td> <input type="reset" value="Clear" /></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-        </div>
-
-
         <div class="heading">Services </div>
-        <form action="myServlet" method="POST">
-            <table align="center" border="0" width="3" cellspacing="4" cellpadding="6">
-                <tbody class="table1">
 
+        <table align="center" border="0" width="3" cellspacing="4" cellpadding="6">
+            <tbody class="table1">
+            <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'Sensor')" id="defaultOpen">Sensor</button>
+                <button class="tablinks" onclick="openCity(event, 'Location')">Location</button>
+                <button class="tablinks" onclick="openCity(event, 'Tokyo')">Date</button>
+            </div>
 
-                </tbody>
-            </table>
-        </form>
-    </body>
+            <div id="Sensor" class="tabcontent">
+                <span onclick="this.parentElement.style.display = 'none'" class="topright">x</span>
+                <h3>Sensor</h3>
+                <div>
+                    <form method="Post" action="myServlet">
+                        <select name="database">
+                            <option>Choose Database</option>
+                            <option value="offdata">Main</option>
+                            <option value="expdata">Exp</option>
+                        </select>
+                        <select name="SensorID">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                        <input type='submit' />
+                    </form>
+                </div>
+            </div>
+            
+                        <div id="Location" class="tabcontent">
+                <span onclick="this.parentElement.style.display = 'none'" class="topright">x</span>
+                <h3>Location</h3>
+                <div>
+                    <form method="Post" action="myServlet">
+                        <select name="database">
+                            <option>Choose Database</option>
+                            <option value="offdata">Main</option>
+                            <option value="expdata">Exp</option>
+                        </select>
+                        <select name="SensorID">
+                            <option value="Lyngby">Lyngby</option>
+                            <option value="Stue">Stue</option>
+                        </select>
+                        <input type='submit' />
+                    </form>
+                </div>
+            </div>
+            
+            
+            
+        </tbody>
+    </table>
+</form>
+
+</body>
 
 </html>
