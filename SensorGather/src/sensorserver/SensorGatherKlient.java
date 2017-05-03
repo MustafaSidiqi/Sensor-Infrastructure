@@ -4,6 +4,7 @@ import java.rmi.Naming;
 import java.security.MessageDigest;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 import java.util.Random;
 import javax.crypto.Cipher;
@@ -24,7 +25,9 @@ public class SensorGatherKlient {
     private static final String sensorLocation = "Test";
     static String timeStamp;
     static boolean access = false;
+    static boolean connect = false;
     static boolean idle = true;
+    static int count = 0;
 
     //encryption
     static String IV = "AAAAAAAAAAAAAAAA"; //on both server and client
@@ -35,9 +38,9 @@ public class SensorGatherKlient {
     static String publicKey; //recieved from server (has to be randomized)
     static String handshakeLog; //log of handshake for hashing
     static String handshakeLogHash; //log of handshake for hashing
-    static XORStrings x; //object of XOR functions
-    static Crypt c; //object of XOR functions
-    static Hashing h;
+    static XORStrings x = new XORStrings(); //object of XOR functions
+    static Crypt c = new Crypt(); //object of XOR functions
+    static Hashing h = new Hashing();
     
 
     public static void main(String[] args) throws Exception /*NoSuchAlgorithmException, NotBoundException, MalformedURLException, RemoteException, InterruptedException */ {
@@ -45,33 +48,44 @@ public class SensorGatherKlient {
         SensorInterface g = (SensorInterface) Naming.lookup("rmi://localhost:53712/sensorimpl");
         String stringData;
         
-        access = g.requestConnection();
+        connect = g.requestConnection();
+        count++;
+        handshakeLog = "true ";
         
         publicKey = g.getPublicKey();
         nonsense = g.getNonsense();
+        count++;
+        handshakeLog = handshakeLog.concat(publicKey) + " " + handshakeLog.concat(nonsense);
         
         XORNonsense = x.encode(nonsense, inonsense);
         
         Einonsense = c.encrypt(inonsense, publicKey, IV);
         g.sendCipherInonsense(Einonsense);
+        count++;
+        handshakeLog = " " +handshakeLog.concat(Arrays.toString(Einonsense));
         
         handshakeLogHash = h.stringHash(handshakeLog);
-        g.sendLogHashCipher(c.encrypt(handshakeLogHash, publicKey, IV));
+        g.sendLogHashCipher(c.encrypt(handshakeLogHash, XORNonsense, IV));
+        count++;
         
-        while (true) {
+        access = g.recieveOK();
+        
+        while (access) {
                 timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
                 Random rand = new Random();
                 float value = rand.nextInt(20);
                 Thread.sleep(3000);
 
                 stringData = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Float.toString(value)).concat(" ").concat(timeStamp).concat(" ").concat("25");
-                sent = g.transferData(username, password, stringData);
+                count++;
+                sent = g.transferData(c.encrypt(username, XORNonsense, IV), c.encrypt(password, XORNonsense, IV), c.encrypt(stringData, XORNonsense, IV), count);
                 if (sent) {
                     System.out.println("Send!");
                 } else {
                     System.out.println("Failed!");
                 }
                 System.out.println("String :" + stringData);
+                access = g.recieveOK();
             }
         }
 }

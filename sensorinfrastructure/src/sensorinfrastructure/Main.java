@@ -10,6 +10,7 @@ import datasystem.SensorControl;
 import datasystem.UserControl;
 import sensorsystem.SensorSystem;
 import securitysystem.UserAuthentication;
+import ui.UserInterface;
 import webcommunication.WebCommunication;
 
 /**
@@ -19,6 +20,9 @@ import webcommunication.WebCommunication;
 public class Main {
 
     
+    // User Interface
+    public static UserInterface ui;
+
     // User Javabog.dk user authentication
     public static UserAuthentication sec;
     
@@ -42,12 +46,16 @@ public class Main {
         
         System.out.println("Hello, World!\n\n");
         
+        System.out.println("Launching User Interface.");
+        
+        ui = new UserInterface();
+        
         System.out.println("Starting all systems...");
         
         
         // Javabog.dk User Authentication
         
-        System.out.print("Connecting to Javabog.dk security systems... ");
+        
 
         sec = new UserAuthentication();
         
@@ -95,7 +103,7 @@ public class Main {
         
         System.out.println("Starting Sensor System and Dock...");
 
-        sensor = new SensorSystem(sec, offdata, expdata, users, sensors);
+        sensor = new SensorSystem(ui, sec, offdata, expdata, users, sensors);
 
         sensor.initialiseSensorDockingSystem();
         
@@ -105,16 +113,19 @@ public class Main {
 
         // Web
         
-        //System.out.println("Connecting to the webserver...");
+        web = new WebCommunication(ui, offdata, expdata);
         
-        //web = new WebCommunication(sec, data, users, sensors);
-        
-        
+        web.publish();
+  
 
-        // initialize webconnection
+        // Test webconnection
+        
+        System.out.print("Testing Web Connection... ");
+        
+        System.out.println("Not tested!\n\n");
         
         //System.out.println("Connection established");
-        
+  
         
 
         // All systems are now running!

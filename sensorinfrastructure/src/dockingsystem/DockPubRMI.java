@@ -18,7 +18,11 @@ import sensorsystem.SensorSystem;
  */
 public class DockPubRMI {
     
-    public static void publish(SensorSystem _sensorsystem) throws NoSuchAlgorithmException, RemoteException, MalformedURLException {
+    static String address = "rmi://localhost:53712/sensorRMI";
+    
+    static String onlineaddress = "rmi://localhost:53712/sensorRMI";
+    
+    public static void publish(boolean input, SensorSystem _sensorsystem) throws NoSuchAlgorithmException, RemoteException, MalformedURLException {
         
         System.out.println("Starting RMI Sensor Data interface");
 
@@ -26,7 +30,20 @@ public class DockPubRMI {
 
         DockImpRMI si = new DockImpRMI(_sensorsystem);// creates object for RMI Sensor data tranfer            
 
-        Naming.rebind("rmi://localhost:53712/sensorRMI", (Remote) si);
+        if(input) {
+            
+            Naming.rebind(onlineaddress, (Remote) si);
+            
+            System.out.println(onlineaddress);
+        }
+        
+        else {
+            
+            Naming.rebind(address, (Remote) si);
+            
+            System.out.println(address);
+        
+        }
         
     }
     
