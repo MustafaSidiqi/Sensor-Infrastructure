@@ -21,9 +21,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import securitysystem.UserAuthentication;
 import securitysystem.UserAuthenticationInterface;
+import ui.UserInterface;
 
 public class SensorSystem {
     
+    UserInterface ui;
     UserAuthentication sec;
     DataControl offdata;
     DataControl expdata;
@@ -49,8 +51,9 @@ public class SensorSystem {
     
     private final Object lock = new Object();
     
-    public SensorSystem(UserAuthentication _sec, DataControl _offdata, DataControl _expdata, UserControl _users, SensorControl _sensors) throws RemoteException, NoSuchAlgorithmException {
+    public SensorSystem(UserInterface _ui, UserAuthentication _sec, DataControl _offdata, DataControl _expdata, UserControl _users, SensorControl _sensors) throws RemoteException, NoSuchAlgorithmException {
         
+        ui = _ui;
         sec = _sec;
         users = _users;
         sensors = _sensors;
@@ -69,13 +72,13 @@ public class SensorSystem {
         
         System.out.println("Initializing SOAP...");
         
-        DockPubSOAP.publish(this);
+        DockPubSOAP.publish(ui.online, this);
         
         System.out.println("SOAP Running!");
         
         System.out.println("Setting up RMI...");
         
-        DockPubRMI.publish(this);
+        DockPubRMI.publish(ui.online, this);
         
         System.out.println("RMI Running!");
         

@@ -15,6 +15,12 @@ import javax.xml.ws.Service;
 @WebService(endpointInterface = "securitysystem.UserAuthenticationInterface")
 public class UserAuthentication implements UserAuthenticationInterface{
     
+    public UserAuthentication() {
+        
+        System.out.print("Connecting to Javabog.dk security systems... ");
+        
+    }
+    
     @Override
     public boolean login(String name, String pass) {
 
