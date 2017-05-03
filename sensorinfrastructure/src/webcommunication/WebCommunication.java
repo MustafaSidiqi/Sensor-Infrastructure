@@ -31,6 +31,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     UserInterface ui;
     
     static String localaddress = "rmi://localhost:53168/data";
+
     static String javabogaddress = "rmi://ubuntu4.javabog.dk:53168/data";    
     
     static boolean online = FALSE;
@@ -84,6 +85,10 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
         
     }
 
+        public String getMessage() {
+        return "Hello World";
+    }
+    
     @Override
     public ArrayList<String> CallgetAllBySensorID(String data, int ID) throws RemoteException {
         

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sql_controler;
+package webcommunication;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -62,13 +62,16 @@ public class myServlet extends HttpServlet {
             //System.setSecurityManager(new RMISecurityManager());
             ArrayList<String> data = null;
             // Amazon IP server: 52.56.199.233
-            //WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
+            
+            
+            
+            WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
 
             if (request.getParameter("sensorID") != null) {
 
                 int SensorID = Integer.parseInt(request.getParameter("sensorID"));
                 out.println(SensorID);
-                //data = db.CallgetAllBySensorID(databaseSelection, SensorID);
+                data = db.CallgetAllBySensorID(databaseSelection, SensorID);
 
             }
             out.println("<a href=\"index.html\">\n"
