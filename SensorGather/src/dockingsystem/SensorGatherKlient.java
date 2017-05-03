@@ -1,4 +1,4 @@
-package sensorserver;
+package dockingsystem;
 
 import java.rmi.Naming;
 import java.security.MessageDigest;
@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-//import mainframe.SensorInterface;
+//import mainframe.DockIntRMI;
 //import java.util.Scanner;
 
 public class SensorGatherKlient {
@@ -45,7 +45,7 @@ public class SensorGatherKlient {
 
     public static void main(String[] args) throws Exception /*NoSuchAlgorithmException, NotBoundException, MalformedURLException, RemoteException, InterruptedException */ {
         //System.setSecurityManager(new RMISecurityManager());
-        SensorInterface g = (SensorInterface) Naming.lookup("rmi://localhost:53712/sensorimpl");
+        DockIntRMI g = (DockIntRMI) Naming.lookup("rmi://localhost:53712/sensorRMI");
         String stringData;
         
         connect = g.requestConnection();

@@ -24,11 +24,4 @@ public class DockImpSOAP implements DockIntSOAP {
         return sensorsystem.transferData(username, password, data);
     }
     
-    @Override
-    public boolean handshakeSOAP() {
-        // return Main.sensor.handshake();        
-        return sensorsystem.handshake();
-    
-    }
-    
 }

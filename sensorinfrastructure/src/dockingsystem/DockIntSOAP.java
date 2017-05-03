@@ -16,7 +16,6 @@ import javax.jws.soap.SOAPBinding;
 public interface DockIntSOAP {
     
     @WebMethod boolean transferDataSOAP(String username, String password, String data);
-    @WebMethod boolean handshakeSOAP();
     
 
 }

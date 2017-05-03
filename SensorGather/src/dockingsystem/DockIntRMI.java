@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sensorserver;
+package dockingsystem;
 
 //import mainframe.*;
 
@@ -11,7 +11,7 @@ package sensorserver;
  *
  * @author nb
  */
-public interface SensorInterface extends java.rmi.Remote {
+public interface DockIntRMI extends java.rmi.Remote {
     
     boolean transferData(byte[] eUsername, byte[] ePassword, byte[] eData, int count) throws java.rmi.RemoteException, Exception;
     boolean requestConnection() throws java.rmi.RemoteException;

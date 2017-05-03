@@ -48,8 +48,6 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     public UserAuthentication ua;
     boolean listeningToSensors;
     private Queue<String> incommingBuffer;
-    //CyberCommunicationCenter nasa;
-    //DataManipulationService db;
 
     private final Object lock = new Object();
 

@@ -6,6 +6,7 @@
 package dockingsystem;
 
 import java.rmi.server.UnicastRemoteObject;
+import java.security.NoSuchAlgorithmException;
 import sensorsystem.SensorSystem;
 
 public class DockImpRMI extends UnicastRemoteObject implements DockIntRMI {
@@ -15,21 +16,43 @@ public class DockImpRMI extends UnicastRemoteObject implements DockIntRMI {
     public DockImpRMI(SensorSystem _sensorsystem) throws java.rmi.RemoteException {
 
         sensorsystem = sensorsystem;
-        
+
     }
-    
+
     @Override
     public boolean transferDataRMI(String username, String password, String data) throws java.rmi.RemoteException {
 
         return sensorsystem.transferData(username, password, data);
 
     }
-    
+
     @Override
-    public boolean handshakeRMI() throws java.rmi.RemoteException {
-        
-        return sensorsystem.handshake();
-        
+    public boolean requestConnection() throws java.rmi.RemoteException {
+        return sensorsystem.requestConnection();
     }
-    
+
+    @Override
+    public String getNonsense() throws java.rmi.RemoteException {
+        return sensorsystem.getNonsense();
+    }
+
+    @Override
+    public String getPublicKey() throws java.rmi.RemoteException {
+        return sensorsystem.getPublicKey();
+    }
+
+    @Override
+    public void sendCipherInonsense(byte[] encryptedMessage) throws java.rmi.RemoteException {
+        sensorsystem.sendCipherInonsense(encryptedMessage);
+    }
+
+    @Override
+    public void sendLogHashCipher(byte[] hashLog) throws java.rmi.RemoteException {
+        sensorsystem.sendLogHashCipher(hashLog);
+    }
+
+    @Override
+    public boolean recieveOK() throws NoSuchAlgorithmException, java.rmi.RemoteException {
+        return sensorsystem.recieveOK();
+    }
 }

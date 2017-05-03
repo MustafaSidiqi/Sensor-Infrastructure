@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SQL_controler;
+package sql_controler;
 
 import java.sql.Date;
 import java.util.ArrayList;
