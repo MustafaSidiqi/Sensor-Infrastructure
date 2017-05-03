@@ -37,6 +37,7 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     static String ServerHandshakeLogHash;
     static String ClientHandshakeLogHash;
     static String handshakeLog;
+    static String data;
     static int count = 0;
 
     static XORStrings x = new XORStrings(); //object of XOR functions
@@ -58,17 +59,18 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     }
 
     @Override
-    public boolean transferData(String username, String password, String data, int count) throws java.rmi.RemoteException { // Listen to sensors
+    public boolean transferData(byte[] eUsername, byte[] ePassword, byte[] eData, int count) throws java.rmi.RemoteException, Exception { // Listen to sensors
         SensorImpl.count++;
         System.out.println("Incomming Data!");
 
         System.out.println("Background checking user...");
 
         if (SensorImpl.count == count) {
-
-            if (ua.login(username, password) && listeningToSensors) {
+            
+            if (ua.login(c.decrypt(eUsername, XORNonsense, IV), c.decrypt(eUsername, XORNonsense, IV)) && listeningToSensors) {
                 System.out.println("Access Granted!");
                 System.out.print("Data: ");
+                data = c.decrypt(eData, XORNonsense, IV);
                 System.out.println(data);
                 synchronized (lock) {
                     incommingBuffer.add(data);
@@ -110,7 +112,7 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
         handshakeLog = handshakeLog.concat(Arrays.toString(encryptedMessage)) + " ";
         count++;
         try {
-            XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, XORNonsense, IV));
+            XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey, IV));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -120,7 +122,7 @@ public class SensorImpl extends UnicastRemoteObject implements SensorInterface {
     public void sendLogHashCipher(byte[] hashLog) throws RemoteException {
         count++;
         try {
-            ClientHandshakeLogHash = c.decrypt(hashLog, publicKey, IV);
+            ClientHandshakeLogHash = c.decrypt(hashLog, XORNonsense, IV);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

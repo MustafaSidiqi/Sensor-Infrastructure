@@ -78,7 +78,7 @@ public class SensorGatherKlient {
 
                 stringData = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Float.toString(value)).concat(" ").concat(timeStamp).concat(" ").concat("25");
                 count++;
-                sent = g.transferData(username, password, stringData, count);
+                sent = g.transferData(c.encrypt(username, XORNonsense, IV), c.encrypt(password, XORNonsense, IV), c.encrypt(stringData, XORNonsense, IV), count);
                 if (sent) {
                     System.out.println("Send!");
                 } else {
