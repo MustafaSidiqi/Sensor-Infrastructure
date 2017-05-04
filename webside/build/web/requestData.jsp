@@ -27,7 +27,7 @@
         <ul class="nav">
 
             <div class="login">
-                <a href="#">LOGIN </a>
+                <a href="login.jsp">LOGIN </a>
             </div>
 
             <div class="logo">
@@ -36,7 +36,7 @@
 
             <li> <a href="index.html"> Home </a></li>
             <li> <a href="index.html"> About </a></li>
-            <li> <a href=""> Services </a></li>
+            <li> <a href="requestData.jsp"> Services </a></li>
             <li> <a href=""> Contact</a></li>
         </ul>
 
@@ -90,19 +90,20 @@
                 <span onclick="this.parentElement.style.display = 'none'" class="topright">x</span>
                 <h3>Sensor</h3>
                 <div>
-                    <form method="Post" action="myServlet">
+                    <form method="post" action="myServlet">
                         <select name="database">
-                            <option>Choose Database</option>
+                            <option selected="selected">Choose Database</option>
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
                         </select>
-                        <select name="SensorID">
+                        <select name="SensorID" id="SensorID">
+                            <option selected="selected"  value="Select ID">Select ID</option>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                         </select>
-                        <input type='submit' />
+                        <input type="submit" name="requestSensorData" value="requestSensorData" />
                     </form>
                 </div>
 
@@ -121,7 +122,7 @@
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
                         </select>
-                        <select name="SensorID">
+                        <select name="LocationID">
                             <option value="Lyngby">Lyngby</option>
                             <option value="Stue">Stue</option>
                         </select>

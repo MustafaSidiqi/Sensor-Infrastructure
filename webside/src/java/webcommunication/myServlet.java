@@ -45,7 +45,7 @@ public class myServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet myServlet at " + request.getContextPath() + "</h1>");
-            out.println("Getting data from database");
+            out.println("<br/>" + "Getting data from database");
 
             String databaseSelection = null;
 
@@ -53,9 +53,8 @@ public class myServlet extends HttpServlet {
                 databaseSelection = (String) request.getParameter("database");
                 out.println("databaseSelection");
                 out.println(databaseSelection);
-
-                int SensorID = Integer.parseInt(request.getParameter("SensorID"));
-                out.println(SensorID);
+            } else {
+                out.println("Select a database");
             }
 
             //  KontoI k =(KontoI) Naming.lookup("rmi://javabog.dk:20099/kontotjeneste");
@@ -63,18 +62,27 @@ public class myServlet extends HttpServlet {
             ArrayList<String> data = null;
             // Amazon IP server: 52.56.199.233
 
-            WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
-
-            out.println(db.getMessage());
-
-            if (request.getParameter("sensorID") != null) {
-
-                int SensorID = Integer.parseInt(request.getParameter("sensorID"));
+            //WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
+            //out.println(db.getMessage());
+            if (request.getParameter("requestSensorData") != null) {
+                out.print("Button");
+                int SensorID =Integer.parseInt(request.getParameter("sensorID"));
                 out.println(SensorID);
-                ArrayList<String> temp = db.CallgetAllBySensorID("offdata", 0);
-                out.println(data);
 
+                if (request.getParameter("sensorID") != null) {
+                    out.print("sensor value");
+                    out.println(SensorID);
+                    //ArrayList<String> temp = db.CallgetAllBySensorID(databaseSelection, SensorID);
+                    out.println(data);
+                }
+            } else if (request.getParameter("button2") != null) {
+                myClass.method2();
+            } else if (request.getParameter("button3") != null) {
+                myClass.method3();
+            } else {
+                // ???
             }
+            /*
             out.println("<a href=\"index.html\">\n"
                     + "   <button> Home </button>\n"
                     + "</a>");
@@ -82,9 +90,27 @@ public class myServlet extends HttpServlet {
             out.println("<a href=\"requestData.jsp\">\n"
                     + "   <button> Back </button>\n"
                     + "</a>");
-
+             */
             out.println("</body>");
             out.println("</html>");
+        }
+    }
+
+    private static class myClass {
+
+        private static void requestSensorData() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        private static void method3() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        private static void method2() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        public myClass() {
         }
     }
 
