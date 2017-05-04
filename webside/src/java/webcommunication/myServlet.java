@@ -71,7 +71,8 @@ public class myServlet extends HttpServlet {
 
                 int SensorID = Integer.parseInt(request.getParameter("sensorID"));
                 out.println(SensorID);
-                data = db.CallgetAllBySensorID(databaseSelection, SensorID);
+                ArrayList<String> temp = db.CallgetAllBySensorID("offdata", 0);
+                out.println(data);
 
             }
             out.println("<a href=\"index.html\">\n"

@@ -125,47 +125,73 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
         return ua.login(username, password);
     }
 
-    /*
-
     @Override
-    public ArrayList<String> CallgetAllByType(int type) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<String> CallgetAllByType(String data, int type) throws RemoteException {
+        System.out.println("CallgetAllByType " + data + " " + type);
+
+        if (data == "offdata") {
+            return offdata.getAllByType(type);
+        } else {
+            return expdata.getAllByType(type);
+        }
     }
 
     @Override
-    public ArrayList<String> CallgetIntervalByType(int type, Date start, Date end) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<String> CallgetIntervalByType(String data, int type, Date start, Date end) throws RemoteException {
+        if (data == "offdata") {
+            return offdata.getIntervalByType(type, start, end);
+        } else {
+            return expdata.getIntervalByType(type, start, end);
+        }
     }
 
     @Override
-    public ArrayList<String> CallgetAllByLocation(String loc) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<String> CallgetAllByLocation(String data, String loc) throws RemoteException {
+        if (data == "offdata") {
+            return offdata.getAllByLocation(loc);
+        } else {
+            return expdata.getAllByLocation(loc);
+        }
     }
 
     @Override
-    public ArrayList<String> CallgetIntervalByLocation(String loc, Date start, Date end) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<String> CallgetIntervalByLocation(String data, String loc, Date start, Date end) throws RemoteException {
+        if (data == "offdata") {
+            return offdata.getIntervalByLocation(loc, start, end);
+        } else {
+            return expdata.getIntervalByLocation(loc, start, end);
+        }
     }
 
     @Override
-    public ArrayList<String> CallgetAllByDate(Date d) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<String> CallgetAllByDate(String data, Date d) throws RemoteException {
+        if (data == "offdata") {
+            return offdata.getAllByDate(d);
+        } else {
+            return expdata.getAllByDate(d);
+        }
     }
 
     @Override
-    public ArrayList<String> CallgetIntervalByDate(Date start, Date end) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<String> CallgetIntervalByDate(String data, Date start, Date end) throws RemoteException {
+        if (data == "offdata") {
+            return offdata.getIntervalByDate(start, end);
+        } else {
+            return expdata.getIntervalByDate(start, end);
+        }
     }
 
     @Override
-    public ArrayList<String> CalldirectSQL(String sql) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<String> CalldirectSQL(String data, String sql) throws RemoteException {
+        if (data == "offdata") {
+            return offdata.directSQL(sql);
+        } else {
+            return expdata.directSQL(sql);
+        }
     }
 
     @Override
-    public ArrayList<String> CallgetData(String s) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<String> CallgetData(String data, String s) throws RemoteException {
+        return null;
     }
-
-     */
 }
