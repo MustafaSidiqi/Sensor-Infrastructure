@@ -7,6 +7,9 @@ package dockingsystem;
 
 import java.rmi.server.UnicastRemoteObject;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.SecretKey;
 import sensorsystem.SensorSystem;
 
 public class DockImpRMI extends UnicastRemoteObject implements DockIntRMI {
@@ -37,16 +40,21 @@ public class DockImpRMI extends UnicastRemoteObject implements DockIntRMI {
 
     @Override
     public String getPublicKey() throws java.rmi.RemoteException {
-        return sensorsystem.getPublicKey();
+        try {
+            return sensorsystem.getPublicKey();
+        } catch (NoSuchAlgorithmException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     @Override
-    public void sendCipherInonsense(byte[] encryptedMessage) throws java.rmi.RemoteException {
+    public void sendCipherInonsense(String encryptedMessage) throws java.rmi.RemoteException {
         sensorsystem.sendCipherInonsense(encryptedMessage);
     }
 
     @Override
-    public void sendLogHashCipher(byte[] hashLog) throws java.rmi.RemoteException {
+    public void sendLogHashCipher(String hashLog) throws java.rmi.RemoteException {
         sensorsystem.sendLogHashCipher(hashLog);
     }
 

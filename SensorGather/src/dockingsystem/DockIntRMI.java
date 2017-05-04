@@ -5,23 +5,27 @@
  */
 package dockingsystem;
 
-//import mainframe.*;
+import java.security.NoSuchAlgorithmException;
+import javax.crypto.SecretKey;
 
 /**
  *
  * @author nb
  */
 public interface DockIntRMI extends java.rmi.Remote {
-    
-    boolean transferData(String eUsername, String ePassword, String eData, int count) throws java.rmi.RemoteException, Exception;
-    boolean requestConnection() throws java.rmi.RemoteException;
-    String getNonsense() throws java.rmi.RemoteException;
-    String getPublicKey() throws java.rmi.RemoteException;
-    void sendCipherInonsense(byte[] cipher) throws java.rmi.RemoteException;
-    void sendLogHashCipher(byte[] hashLog )throws java.rmi.RemoteException;
-    boolean recieveOK() throws java.rmi.RemoteException;
-    
-    //boolean isThereNewData() throws java.rmi.RemoteException;
-    //public String getData() throws java.rmi.RemoteException;
+
+    public boolean transferDataRMI(String eUsername, String ePassword, String eData, int count) throws java.rmi.RemoteException, Exception;
+
+    public boolean requestConnection() throws java.rmi.RemoteException;
+
+    public String getNonsense() throws java.rmi.RemoteException;
+
+    public String getPublicKey() throws java.rmi.RemoteException;
+
+    public void sendCipherInonsense(String encryptedMessage) throws java.rmi.RemoteException;
+
+    public void sendLogHashCipher(String hashLog) throws java.rmi.RemoteException;
+
+    public boolean recieveOK() throws NoSuchAlgorithmException, java.rmi.RemoteException;
 
 }
