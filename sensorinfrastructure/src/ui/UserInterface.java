@@ -27,7 +27,18 @@ public class UserInterface {
         
         String input = sc.nextLine();
         
-        if(input == "y" || input == "yes" || input == "1" || input == "Yes") online = true;        
+        System.out.println(input);
+        
+        if("y".equals(input) || "yes".equals(input) || "1".equals(input) || "Yes".equals(input)) {
+   
+            online = true;
+            System.out.println("Going online...");
+        
+        } else {
+        
+            System.out.println("Local it is!");
+        
+        }
         
     }
     

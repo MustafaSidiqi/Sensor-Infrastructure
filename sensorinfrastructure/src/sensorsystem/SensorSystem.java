@@ -131,20 +131,31 @@ public class SensorSystem {
             return FALSE;
 
         }
+    
     }
 
     public boolean requestConnection() {
+
         System.out.println("Sensor is requesting for connection...");
+
         handshakeLog = "true ";
+
         count++;
+
         return true;
+
     }
 
     public String getNonsense() {
+
         handshakeLog = handshakeLog.concat(nonsense) + " ";
+
         count++;
+
         System.out.println("Nonsense: " + nonsense);
+
         return nonsense;
+ 
     }
 
     public String getPublicKey() {
@@ -153,8 +164,11 @@ public class SensorSystem {
     }
 
     public void sendCipherInonsense(byte[] encryptedMessage) {
+
         handshakeLog = handshakeLog.concat(Arrays.toString(encryptedMessage)) + " ";
+
         count++;
+
         try {
             XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey, IV));
         } catch (Exception ex) {
@@ -163,7 +177,9 @@ public class SensorSystem {
     }
 
     public void sendLogHashCipher(byte[] hashLog) {
+
         count++;
+
         try {
             ClientHandshakeLogHash = c.decrypt(hashLog, publicKey, IV);
         } catch (Exception ex) {
@@ -172,8 +188,11 @@ public class SensorSystem {
     }
 
     public boolean recieveOK() throws NoSuchAlgorithmException {
+
         ServerHandshakeLogHash = h.stringHash(handshakeLog);
+
         count++;
+
         return true;//ServerHandshakeLogHash.hashCode() == ClientHandshakeLogHash.hashCode();
     }
 
