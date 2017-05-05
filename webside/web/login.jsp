@@ -1,75 +1,36 @@
-<%@page import="java.rmi.registry.Registry"%>
-<%@page import="java.rmi.registry.LocateRegistry"%>
-<%@page import="java.rmi.registry.LocateRegistry"%>
-
-<%@page import="javax.xml.ws.Service"%>
-<%@page import="java.net.URL"%>
-<%@page import="java.net.URL"%>
-<%@page import="javax.xml.namespace.QName"%>
-
-<%@ page language="java" 
-         contentType="text/html; charset=windows-1256"
-         pageEncoding="windows-1256"
-         %>
-
-<DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
 
     <head>
 
-        <title> SensorInfrastructure</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <meta charset="UTF-8">
+
+        <title>CodePen - Log-in</title>
+
+        <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
+
+        <link rel="stylesheet" href="style2.css" media="screen" type="text/css" />
+
     </head>
 
     <body background="img/background.png">
-        <ul class="nav">
+        <div class="login-card">
+            <h1>Log-in</h1><br>
+            <form>
+                <input type="text" name="user" placeholder="Username">
+                <input type="password" name="pass" placeholder="Password">
+                <input type="submit" name="login" class="login login-submit" value="login">
+            </form>
 
-            <div class="login">
-                <a href="login.jsp">LOGIN </a>
+            <div class="login-help">
+                <a href="register.jsp">Register</a> ? <a href="#">Forgot Password</a>
             </div>
+        </div>
 
+        <!-- <div id="error"><img src="https://dl.dropboxusercontent.com/u/23299152/Delete-icon.png" /> Your caps-lock is on.</div> -->
 
-            <div class="logo">
-                <a href="#">LOGO </a>
-            </div>
-
-
-
-            <li> <a href="index.html"> Home </a></li>
-            <li> <a href="index.html"> About </a></li>
-            <li> <a href=""> Services </a></li>
-            <li> <a href=""> Contact</a></li>
-
-
-
-        </ul>
-
-
-
-
-        <div class="heading">Login </div>
-
-        <form name="loginForm" action="loginRMI" method="POST">
-            <table border="0" cellspacing="5" cellpadding="5">
-
-                <tbody>
-                    <tr>
-                        <td>Username:</td>
-                        <td><input type="text" name="username" value="" size="20" /></td>
-                    </tr>
-                    <tr>
-                        <td>Password:</td>
-                        <td><input type="password" name="password" value="" size="20" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" value="Submit" /></td>
-                        <td><input type="reset" value="Clear" /></td>
-                    </tr>
-                </tbody>
-            </table> 
-        </form> 
-
+        <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>
 
     </body>
 
-    </html>
+</html>

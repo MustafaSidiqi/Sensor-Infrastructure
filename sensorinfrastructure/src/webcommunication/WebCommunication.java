@@ -6,6 +6,7 @@
 package webcommunication;
 
 import datasystem.DataControl;
+import datasystem.UserControl;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import java.rmi.Naming;
@@ -19,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import ui.UserInterface;
 import securitysystem.UserAuthentication;
+import static sensorinfrastructure.Main.users;
 
 /**
  *
@@ -28,7 +30,10 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
 
     DataControl offdata;
     DataControl expdata;
+
     UserInterface ui;
+
+    UserControl users;
 
     static String localaddress = "rmi://localhost:53168/data";
 
@@ -53,7 +58,6 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
         }
 
         System.out.println("Done!");
-
     }
 
     public void publish() {
@@ -125,47 +129,114 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
         return ua.login(username, password);
     }
 
-    /*
+    @Override
+    public ArrayList<String> CallgetAllByType(String data, int type) throws RemoteException {
+        System.out.println("CallgetAllByType " + data + " " + type);
+
+        if (data == "offdata") {
+            return offdata.getAllByType(type);
+        } else {
+            return expdata.getAllByType(type);
+        }
+    }
 
     @Override
-    public ArrayList<String> CallgetAllByType(int type) throws RemoteException {
+    public ArrayList<String> CallgetIntervalByType(String data, int type, Date start, Date end) throws RemoteException {
+        System.out.println("CallgetIntervalByType " + data + " " + type + " " + start + " " + end);
+
+        if (data == "offdata") {
+            return offdata.getIntervalByType(type, start, end);
+        } else {
+            return expdata.getIntervalByType(type, start, end);
+        }
+    }
+
+    @Override
+    public ArrayList<String> CallgetAllByLocation(String data, String loc) throws RemoteException {
+        System.out.println("CallgetAllByLocation " + data + " " + loc);
+
+        if (data == "offdata") {
+            return offdata.getAllByLocation(loc);
+        } else {
+            return expdata.getAllByLocation(loc);
+        }
+    }
+
+    @Override
+    public ArrayList<String> CallgetIntervalByLocation(String data, String loc, Date start, Date end) throws RemoteException {
+        System.out.println("CallgetIntervalByLocation " + data + " " + loc + " " + start + " " + end);
+
+        if (data == "offdata") {
+            return offdata.getIntervalByLocation(loc, start, end);
+        } else {
+            return expdata.getIntervalByLocation(loc, start, end);
+        }
+    }
+
+    @Override
+    public ArrayList<String> CallgetAllByDate(String data, Date d) throws RemoteException {
+        System.out.println("CallgetAllByDate " + data + " " + d);
+
+        if (data == "offdata") {
+            return offdata.getAllByDate(d);
+        } else {
+            return expdata.getAllByDate(d);
+        }
+    }
+
+    @Override
+    public ArrayList<String> CallgetIntervalByDate(String data, Date start, Date end) throws RemoteException {
+        System.out.println("CallgetIntervalByDate " + data + " " + start + " " + end);
+
+        if (data == "offdata") {
+            return offdata.getIntervalByDate(start, end);
+        } else {
+            return expdata.getIntervalByDate(start, end);
+        }
+    }
+
+    @Override
+    public ArrayList<String> CalldirectSQL(String data, String sql) throws RemoteException {
+        System.out.println("CalldirectSQL " + data + " " + sql);
+
+        if (data == "offdata") {
+            return offdata.directSQL(sql);
+        } else {
+            return expdata.directSQL(sql);
+        }
+    }
+
+    @Override
+    public ArrayList<String> CallgetData(String data, String s) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<String> CallgetIntervalByType(int type, Date start, Date end) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean CallcreateUser(String uname, String password, String email, String name) throws RemoteException {
+        System.out.println("CallcreateUser " + uname + " " + password + " " + email + " " + name);
+
+        return users.createUser(uname, password, email, name);
     }
 
     @Override
-    public ArrayList<String> CallgetAllByLocation(String loc) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void CallchangePassword(String Uname, String changeParam) throws RemoteException {
+        System.out.println("CallchangePassword " + Uname + " " + changeParam);
+
+        users.changePassword(Uname, changeParam);
     }
 
     @Override
-    public ArrayList<String> CallgetIntervalByLocation(String loc, Date start, Date end) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int CallgetID(String user, String password) throws RemoteException {
+        System.out.println("CallgetID " + user + " " + password);
+
+        return users.getID(user, password);
     }
 
     @Override
-    public ArrayList<String> CallgetAllByDate(Date d) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void CallchangeStatus(int UserId, String status) throws RemoteException {
+        System.out.println("CallchangeStatus " + UserId + " " + status);
+
+        users.changeStatus(UserId, status);
     }
 
-    @Override
-    public ArrayList<String> CallgetIntervalByDate(Date start, Date end) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<String> CalldirectSQL(String sql) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<String> CallgetData(String s) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-     */
 }

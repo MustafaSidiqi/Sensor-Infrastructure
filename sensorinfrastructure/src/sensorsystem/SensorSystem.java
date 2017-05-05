@@ -18,8 +18,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import securitysystem.UserAuthentication;
 import securitysystem.UserAuthenticationInterface;
 import ui.UserInterface;
@@ -34,20 +37,20 @@ public class SensorSystem {
     UserControl users;
 
     //Michaels ting til AES encryption og handshake af sensor////////////////////////////////////////////////////
-    static String IV = "AAAAAAAAAAAAAAAA";
-    static String nonsense = "0a1b2c3d4e5f6789"; //(SKAL RANDOMIZES)
+    static XORStrings x = new XORStrings(); //object of XOR functions
+    static Crypt c;
+    static Hashing h = new Hashing();
+    static StringGen sg = new StringGen();
+    
+    static String nonsense; //(SKAL RANDOMIZES)
     static String decodedNonsense;
     static String XORNonsense;
-    static String publicKey = "0123456789abcdef"; //(SKAL RANDOMIZES)
+    static String publicKey; //(SKAL RANDOMIZES)
     static String ServerHandshakeLogHash;
     static String ClientHandshakeLogHash;
     static String handshakeLog;
     static String data;
     static int count = 0;
-
-    static XORStrings x = new XORStrings(); //object of XOR functions
-    static Crypt c = new Crypt();
-    static Hashing h = new Hashing();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     boolean listeningToSensors;
@@ -109,7 +112,6 @@ public class SensorSystem {
             System.out.println("Transfering Data...");
 
             //data = c.decrypt(eData, publicKey, IV); //Chance publicKey with XORNonsense
-            
             System.out.print("Data: ");
 
             System.out.println(eData);
@@ -131,7 +133,7 @@ public class SensorSystem {
             return FALSE;
 
         }
-    
+
     }
 
     public boolean requestConnection() {
@@ -147,6 +149,8 @@ public class SensorSystem {
     }
 
     public String getNonsense() {
+        
+        nonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
 
         handshakeLog = handshakeLog.concat(nonsense) + " ";
 
@@ -155,33 +159,34 @@ public class SensorSystem {
         System.out.println("Nonsense: " + nonsense);
 
         return nonsense;
- 
+
     }
 
-    public String getPublicKey() {
+    public String getPublicKey() throws NoSuchAlgorithmException {
+        publicKey = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
         handshakeLog = handshakeLog.concat(publicKey) + " ";
         return publicKey;
     }
 
-    public void sendCipherInonsense(byte[] encryptedMessage) {
+    public void sendCipherInonsense(String encryptedMessage) {
 
-        handshakeLog = handshakeLog.concat(Arrays.toString(encryptedMessage)) + " ";
+        handshakeLog = handshakeLog.concat(encryptedMessage);
 
         count++;
 
         try {
-            XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey, IV));
+            XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public void sendLogHashCipher(byte[] hashLog) {
+    public void sendLogHashCipher(String hashLog) {
 
         count++;
 
         try {
-            ClientHandshakeLogHash = c.decrypt(hashLog, publicKey, IV);
+            ClientHandshakeLogHash = Crypt.decrypt(hashLog, publicKey);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -190,10 +195,14 @@ public class SensorSystem {
     public boolean recieveOK() throws NoSuchAlgorithmException {
 
         ServerHandshakeLogHash = h.stringHash(handshakeLog);
+        
+        System.out.println("handshake Log: "+handshakeLog);
+        System.out.println("server handshake Log: "+ServerHandshakeLogHash);
+        System.out.println("client handshake Log: "+ClientHandshakeLogHash);
 
         count++;
 
-        return true;//ServerHandshakeLogHash.hashCode() == ClientHandshakeLogHash.hashCode();
+        return ServerHandshakeLogHash.hashCode() == ClientHandshakeLogHash.hashCode();
     }
 
 }
