@@ -5,6 +5,7 @@
  */
 package dockingsystem;
 
+import java.security.NoSuchAlgorithmException;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
@@ -16,6 +17,11 @@ import javax.jws.soap.SOAPBinding;
 public interface DockIntSOAP {
     
     @WebMethod boolean transferDataSOAP(String username, String password, String data, int count);
-    
+    @WebMethod public boolean requestConnectionSOAP();
+    @WebMethod public String getNonsenseSOAP();
+    @WebMethod public String getPublicKeySOAP() throws NoSuchAlgorithmException;
+    @WebMethod public void sendCipherInonsenseSOAP(String encryptedMessage);
+    @WebMethod public void sendLogHashCipherSOAP(String hashLog);
+    @WebMethod public boolean recieveOKSOAP() throws NoSuchAlgorithmException;
 
 }

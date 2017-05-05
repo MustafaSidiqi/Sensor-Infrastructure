@@ -5,6 +5,7 @@
  */
 package dockingsystem;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebService;
@@ -29,5 +30,47 @@ public class DockImpSOAP implements DockIntSOAP {
             ex.printStackTrace();
         }
     return false;
+    }
+    
+    @Override
+    public boolean requestConnectionSOAP() {
+        
+        return sensorsystem.requestConnection();
+    
+    }
+    
+    @Override
+    public String getNonsenseSOAP() {
+        
+        return sensorsystem.getNonsense();
+    
+    }
+    
+    @Override
+    public String getPublicKeySOAP() throws NoSuchAlgorithmException {
+        
+        return sensorsystem.getPublicKey();
+    
+    }
+    
+    @Override
+    public void sendCipherInonsenseSOAP(String encryptedMessage) {
+        
+        sensorsystem.sendCipherInonsense(encryptedMessage);
+        
+    }
+    
+    @Override
+    public void sendLogHashCipherSOAP(String hashLog) {
+        
+        sensorsystem.sendLogHashCipher(hashLog);
+        
+    }
+    
+    @Override
+    public boolean recieveOKSOAP() throws NoSuchAlgorithmException {
+        
+        return sensorsystem.recieveOK();
+        
     }
 }

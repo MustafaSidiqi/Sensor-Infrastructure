@@ -17,7 +17,7 @@ public class DockPubSOAP {
     public static void publish(boolean input, SensorSystem _sensorsystem) {
         
         System.out.println("Setting up SOAP API WSDL @:");
-        System.out.println(http);
+        System.out.println(http+"?wsdl");
         
         if(input) Endpoint.publish(onlinehttp, new DockImpSOAP(_sensorsystem));
         

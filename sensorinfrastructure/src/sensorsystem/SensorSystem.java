@@ -163,8 +163,11 @@ public class SensorSystem {
     }
 
     public String getPublicKey() throws NoSuchAlgorithmException {
+       
         publicKey = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
+        
         handshakeLog = handshakeLog.concat(publicKey) + " ";
+        
         return publicKey;
     }
 
