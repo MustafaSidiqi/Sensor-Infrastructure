@@ -141,6 +141,8 @@ public class SensorSystem {
         System.out.println("Sensor is requesting for connection...");
 
         handshakeLog = "true ";
+        
+        System.out.println("request connection:     "+handshakeLog);
 
         count++;
 
@@ -152,8 +154,10 @@ public class SensorSystem {
         
         nonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
 
-        handshakeLog = handshakeLog.concat(nonsense) + " ";
-
+        handshakeLog = handshakeLog.concat(nonsense + " ");
+        
+        System.out.println("Get nonsense:     "+handshakeLog);
+        
         count++;
 
         System.out.println("Nonsense: " + nonsense);
@@ -164,14 +168,17 @@ public class SensorSystem {
 
     public String getPublicKey() throws NoSuchAlgorithmException {
         publicKey = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
-        handshakeLog = handshakeLog.concat(publicKey) + " ";
+        handshakeLog = handshakeLog.concat(publicKey + " ");
+        System.out.println("get public key:     "+handshakeLog);
         return publicKey;
     }
 
     public void sendCipherInonsense(String encryptedMessage) {
 
-        handshakeLog = handshakeLog.concat(encryptedMessage) + " ";
-
+        handshakeLog = handshakeLog.concat(encryptedMessage + " ");
+        
+        System.out.println("Send Cipher:     "+handshakeLog);
+        
         count++;
 
         try {
@@ -186,18 +193,22 @@ public class SensorSystem {
         count++;
 
         try {
-            ClientHandshakeLogHash = c.decrypt(hashLog, XORNonsense);
+            ClientHandshakeLogHash = Crypt.decrypt(hashLog, publicKey);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     public boolean recieveOK() throws NoSuchAlgorithmException {
-
+        
+        System.out.println("RecieveOK:     "+handshakeLog);
+        
         ServerHandshakeLogHash = h.stringHash(handshakeLog);
 
         count++;
-
+        System.out.println("Server handshake log: "+handshakeLog);
+        System.out.println("Server handshake log: "+ServerHandshakeLogHash);
+        System.out.println("Client handshake log: "+ClientHandshakeLogHash);
         return true;//ServerHandshakeLogHash.hashCode() == ClientHandshakeLogHash.hashCode();
     }
 

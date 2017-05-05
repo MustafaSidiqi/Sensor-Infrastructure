@@ -58,7 +58,7 @@ public class SensorGatherKlient {
         publicKey = g.getPublicKey();
         nonsense = g.getNonsense();
         count++;
-        handshakeLog = handshakeLog.concat(publicKey) + " " + handshakeLog.concat(nonsense);
+        handshakeLog = handshakeLog.concat(publicKey + " " + nonsense);
         
         XORNonsense = x.encode(nonsense, inonsense);
         System.out.println(XORNonsense);
@@ -69,9 +69,10 @@ public class SensorGatherKlient {
         Einonsense = Crypt.encrypt(inonsense, publicKey);
         g.sendCipherInonsense(Einonsense);
         count++;
-        handshakeLog = " " +handshakeLog.concat(Einonsense);
+        handshakeLog = handshakeLog.concat(Einonsense);
         
         handshakeLogHash = h.stringHash(handshakeLog);
+        System.out.println("handshake hash: "+handshakeLogHash);
         g.sendLogHashCipher(Crypt.encrypt(handshakeLogHash, inonsense)); //Chance inonsense to XORNonsense
         count++;
         
