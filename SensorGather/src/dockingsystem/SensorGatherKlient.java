@@ -70,11 +70,12 @@ public class SensorGatherKlient {
         Einonsense = Crypt.encrypt(inonsense, publicKey);
         g.sendCipherInonsense(Einonsense);
         count++;
-        handshakeLog = handshakeLog.concat(Einonsense);
+        handshakeLog = handshakeLog.concat(" "+Einonsense);
+        
+        System.out.println("Handshake log: "+handshakeLog);
         
         handshakeLogHash = h.stringHash(handshakeLog);
-        System.out.println("handshake hash: "+handshakeLogHash);
-        g.sendLogHashCipher(Crypt.encrypt(handshakeLogHash, inonsense)); //Chance inonsense to XORNonsense
+        g.sendLogHashCipher(Crypt.encrypt(handshakeLogHash, publicKey)); //Chance inonsense to XORNonsense
         count++;
         
         access = g.recieveOK();
