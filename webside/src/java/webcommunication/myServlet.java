@@ -11,6 +11,8 @@ import java.rmi.Naming;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,19 +64,27 @@ public class myServlet extends HttpServlet {
             ArrayList<String> data = null;
             // Amazon IP server: 52.56.199.233
 
-            //WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
-            //out.println(db.getMessage());
-            if (request.getParameter("requestSensorData") != null) {
+            WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
+            out.println(db.getMessage());
+
+            if (request.getParameter("database") != null && request.getParameter("sensorID") != null) {
                 out.print("Button");
-                int SensorID =Integer.parseInt(request.getParameter("sensorID"));
+                int SensorID = Integer.parseInt(request.getParameter("sensorID"));
                 out.println(SensorID);
 
-                if (request.getParameter("sensorID") != null) {
-                    out.print("sensor value");
-                    out.println(SensorID);
-                    //ArrayList<String> temp = db.CallgetAllBySensorID(databaseSelection, SensorID);
-                    out.println(data);
+                ArrayList<String> temp = db.CallgetAllBySensorID(databaseSelection, SensorID);
+                for (String object : temp) {
+                    out.println("<br>");
+                    out.println(object);
                 }
+                /*
+
+                request.setAttribute("list", temp); //categorylist is an arraylist      contains object of class category  
+                ServletContext context = getServletContext();
+                RequestDispatcher dispatcher = context.getRequestDispatcher("/requestData.jsp");
+                dispatcher.forward(request,response);
+                 */
+
             } else if (request.getParameter("button2") != null) {
                 myClass.method2();
             } else if (request.getParameter("button3") != null) {
