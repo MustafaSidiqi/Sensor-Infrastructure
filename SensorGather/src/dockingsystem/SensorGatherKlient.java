@@ -60,6 +60,7 @@ public class SensorGatherKlient {
         count++;
         handshakeLog = handshakeLog.concat(publicKey + " " + nonsense);
         
+        
         XORNonsense = x.encode(nonsense, inonsense);
         System.out.println(XORNonsense);
         System.out.println(publicKey);

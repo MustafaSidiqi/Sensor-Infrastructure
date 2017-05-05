@@ -204,6 +204,7 @@ public class SensorSystem {
         System.out.println("RecieveOK:     "+handshakeLog);
         
         ServerHandshakeLogHash = h.stringHash(handshakeLog);
+        
 
         count++;
         System.out.println("Server handshake log: "+handshakeLog);
