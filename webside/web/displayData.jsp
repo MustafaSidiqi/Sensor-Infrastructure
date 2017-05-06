@@ -131,7 +131,8 @@
                         <input type="submit" name="requestSensorByID" value="Send Request" />
                     </form>
                 </div>
-
+                <textarea rows="4" cols="50"> 
+                </textarea>
             </div>
             <div id="SensorByDate" class="tabcontent">
                 <span onclick="this.parentElement.style.display = 'none'" class="topright"></span>
@@ -159,7 +160,6 @@
                     </form>
                 </div>
                 <br>
-
             </div>
             <div id="LocationByID" class="tabcontent">
                 <span onclick="this.parentElement.style.display = 'none'" class="topright"></span>
@@ -302,12 +302,26 @@
                     </form>
                 </div>
                 <br>
-
+                <textarea rows="4" cols="50"> 
+                </textarea>
             </div>
         </tbody>
     </table>
 </form>
+<textarea rows="4" cols="50"> 
+    <%
+        out.print("display data: ");
+        //retrieve your list from the request, with casting 
+        ArrayList<String> list = (ArrayList<String>) request.getAttribute("list");
 
+        //print the information about every category of the list
+        for (String object : list) {
+            out.println(object);
+        }
+
+
+    %>
+</textarea>
 </body>
 </html>
 

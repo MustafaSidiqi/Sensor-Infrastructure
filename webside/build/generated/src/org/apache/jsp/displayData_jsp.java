@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 import javax.xml.namespace.QName;
 import java.net.URL;
 
-public final class requestData_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class displayData_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -175,7 +175,8 @@ public final class requestData_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        <input type=\"submit\" name=\"requestSensorByID\" value=\"Send Request\" />\r\n");
       out.write("                    </form>\r\n");
       out.write("                </div>\r\n");
-      out.write("\r\n");
+      out.write("                <textarea rows=\"4\" cols=\"50\"> \r\n");
+      out.write("                </textarea>\r\n");
       out.write("            </div>\r\n");
       out.write("            <div id=\"SensorByDate\" class=\"tabcontent\">\r\n");
       out.write("                <span onclick=\"this.parentElement.style.display = 'none'\" class=\"topright\"></span>\r\n");
@@ -203,7 +204,6 @@ public final class requestData_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    </form>\r\n");
       out.write("                </div>\r\n");
       out.write("                <br>\r\n");
-      out.write("\r\n");
       out.write("            </div>\r\n");
       out.write("            <div id=\"LocationByID\" class=\"tabcontent\">\r\n");
       out.write("                <span onclick=\"this.parentElement.style.display = 'none'\" class=\"topright\"></span>\r\n");
@@ -346,12 +346,28 @@ public final class requestData_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    </form>\r\n");
       out.write("                </div>\r\n");
       out.write("                <br>\r\n");
-      out.write("\r\n");
+      out.write("                <textarea rows=\"4\" cols=\"50\"> \r\n");
+      out.write("                </textarea>\r\n");
       out.write("            </div>\r\n");
       out.write("        </tbody>\r\n");
       out.write("    </table>\r\n");
       out.write("</form>\r\n");
+      out.write("<textarea rows=\"4\" cols=\"50\"> \r\n");
+      out.write("    ");
+
+        out.print("display data: ");
+        //retrieve your list from the request, with casting 
+        ArrayList<String> list = (ArrayList<String>) request.getAttribute("list");
+
+        //print the information about every category of the list
+        for (String object : list) {
+            out.println(object);
+        }
+
+
+    
       out.write("\r\n");
+      out.write("</textarea>\r\n");
       out.write("</body>\r\n");
       out.write("</html>\r\n");
       out.write("\r\n");

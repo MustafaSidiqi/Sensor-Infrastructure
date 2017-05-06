@@ -50,6 +50,7 @@ public class myServlet extends HttpServlet {
             out.println("<br/>" + "Getting data from database");
 
             String databaseSelection = null;
+            String dataSent = "false";
 
             if (request.getParameter("database") != null) {
                 databaseSelection = (String) request.getParameter("database");
@@ -68,7 +69,6 @@ public class myServlet extends HttpServlet {
             out.println(db.getMessage());
 
             if (request.getParameter("database") != null && request.getParameter("sensorID") != null) {
-                out.print("Button");
                 int SensorID = Integer.parseInt(request.getParameter("sensorID"));
                 out.println(SensorID);
 
@@ -77,13 +77,10 @@ public class myServlet extends HttpServlet {
                     out.println("<br>");
                     out.println(object);
                 }
-                /*
-
                 request.setAttribute("list", temp); //categorylist is an arraylist      contains object of class category  
                 ServletContext context = getServletContext();
-                RequestDispatcher dispatcher = context.getRequestDispatcher("/requestData.jsp");
-                dispatcher.forward(request,response);
-                 */
+                RequestDispatcher rd = request.getRequestDispatcher("displayData.jsp");
+                rd.forward(request, response);
 
             } else if (request.getParameter("button2") != null) {
                 myClass.method2();

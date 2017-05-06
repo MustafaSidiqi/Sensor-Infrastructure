@@ -34,7 +34,6 @@
             <li> <a href="requestData.jsp"> Services </a></li>
             <li> <a href=""> Contact</a></li>
         </ul>
-
         <script>
             function openCity(evt, cityName) {
                 var i, tabcontent, tablinks;
@@ -68,8 +67,8 @@
                 }).change();
             });
         </script>
-        <div class="heading">Services </div>
 
+        <div class="heading">Services </div>
         <table align="center" border="0" width="3" cellspacing="4" cellpadding="6">
             <tbody class="table1">
             <div class="tab">
@@ -132,24 +131,8 @@
                         <input type="submit" name="requestSensorByID" value="Send Request" />
                     </form>
                 </div>
-                <textarea rows="4" cols="50"> 
-                    <%
-                        /*
-                        if (request.getParameter("database") != null && request.getParameter("sensorID") != null) {
 
-                            //retrieve your list from the request, with casting 
-                            ArrayList<String> list = (ArrayList<String>) request.getAttribute("servletName");
-
-                            //print the information about every category of the list
-                            for (String category : list) {
-                                out.println(list);
-                            }
-                        }
-                         */
-                    %>
-                </textarea>
             </div>
-
             <div id="SensorByDate" class="tabcontent">
                 <span onclick="this.parentElement.style.display = 'none'" class="topright"></span>
                 <h3>Sensor By Interval</h3>
@@ -176,22 +159,7 @@
                     </form>
                 </div>
                 <br>
-                <textarea rows="4" cols="50"> 
-                    <%
- /*
-                        if (request.getParameter("database") != null && request.getParameter("sensorID") != null) {
 
-                            //retrieve your list from the request, with casting 
-                            ArrayList<String> list = (ArrayList<String>) request.getAttribute("servletName");
-
-                            //print the information about every category of the list
-                            for (String category : list) {
-                                out.println(list);
-                            }
-                        }
-                         */
-                    %>
-                </textarea>
             </div>
             <div id="LocationByID" class="tabcontent">
                 <span onclick="this.parentElement.style.display = 'none'" class="topright"></span>
@@ -211,21 +179,7 @@
                     </form>
                 </div>
                 <br>
-                <textarea rows="4" cols="50"> 
-                    <% /*
-                        if (request.getParameter("database") != null && request.getParameter("sensorID") != null) {
 
-                            //retrieve your list from the request, with casting 
-                            ArrayList<String> list = (ArrayList<String>) request.getAttribute("servletName");
-
-                            //print the information about every category of the list
-                            for (String category : list) {
-                                out.println(list);
-                            }
-                        }
-                         */
-                    %>
-                </textarea>
             </div>
 
             <div id="LocationByDate" class="tabcontent">
@@ -251,21 +205,7 @@
                     </form>
                 </div>
                 <br>
-                <textarea rows="4" cols="50"> 
-                    <% /*
-                        if (request.getParameter("database") != null && request.getParameter("sensorID") != null) {
 
-                            //retrieve your list from the request, with casting 
-                            ArrayList<String> list = (ArrayList<String>) request.getAttribute("servletName");
-
-                            //print the information about every category of the list
-                            for (String category : list) {
-                                out.println(list);
-                            }
-                        }
-                         */
-                    %>
-                </textarea>
             </div>
 
             <div id="DateByID" class="tabcontent">
@@ -285,21 +225,7 @@
                     </form>
                 </div>
                 <br>
-                <textarea rows="4" cols="50"> 
-                    <% /*
-                        if (request.getParameter("database") != null && request.getParameter("sensorID") != null) {
 
-                            //retrieve your list from the request, with casting 
-                            ArrayList<String> list = (ArrayList<String>) request.getAttribute("servletName");
-
-                            //print the information about every category of the list
-                            for (String category : list) {
-                                out.println(list);
-                            }
-                        }
-                         */
-                    %>
-                </textarea>
             </div>
 
             <div id="DateByDate" class="tabcontent">
@@ -320,21 +246,7 @@
                     </form>
                 </div>
                 <br>
-                <textarea rows="4" cols="50"> 
-                    <% /*
-                        if (request.getParameter("database") != null && request.getParameter("sensorID") != null) {
 
-                            //retrieve your list from the request, with casting 
-                            ArrayList<String> list = (ArrayList<String>) request.getAttribute("servletName");
-
-                            //print the information about every category of the list
-                            for (String category : list) {
-                                out.println(list);
-                            }
-                        }
-                         */
-                    %>
-                </textarea>
             </div>
 
             <div id="TypeByID" class="tabcontent">
@@ -361,21 +273,7 @@
                     </form>
                 </div>
                 <br>
-                <textarea rows="4" cols="50"> 
-                    <% /*
-                        if (request.getParameter("database") != null && request.getParameter("sensorID") != null) {
 
-                            //retrieve your list from the request, with casting 
-                            ArrayList<String> list = (ArrayList<String>) request.getAttribute("servletName");
-
-                            //print the information about every category of the list
-                            for (String category : list) {
-                                out.println(list);
-                            }
-                        }
-                         */
-                    %>
-                </textarea>
             </div>
 
             <div id="TypeByDate" class="tabcontent">
@@ -404,25 +302,12 @@
                     </form>
                 </div>
                 <br>
-                <textarea rows="4" cols="50"> 
-                    <% /*
-                        if (request.getParameter("database") != null && request.getParameter("sensorID") != null) {
 
-                            //retrieve your list from the request, with casting 
-                            ArrayList<String> list = (ArrayList<String>) request.getAttribute("servletName");
-
-                            //print the information about every category of the list
-                            for (String category : list) {
-                                out.println(list);
-                            }
-                        }
-                         */
-                    %>
-                </textarea>
             </div>
         </tbody>
     </table>
 </form>
+
 </body>
 </html>
 
