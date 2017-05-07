@@ -29,15 +29,17 @@ public class WebCommunicationKlient implements java.io.Serializable {
             System.out.println(object);
         }
 
-        //Data convertion and request 
-        String sDate1 = "27/04/2017";
-
-        java.util.Date utilStartDate = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
+        //Data convertion and request   
+        // 2017-04-27 
+        String sDate1 = "2017/04/27";
+        
+        java.util.Date utilStartDate = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
         java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
         System.out.println(sDate1 + "\t" + sqlStartDate);
 
         //Request by date. Get all data by date
         temp = db.CallgetAllByDate("offdata", sqlStartDate);
+        System.out.println("Requesting by date");
         for (String object : temp) {
             System.out.println(object);
         }
@@ -47,10 +49,12 @@ public class WebCommunicationKlient implements java.io.Serializable {
         for (String object : temp) {
             System.out.println(object);
         }
-
+/*
         //User register and login 
         if (db.CallcreateUser("mustafa", "sidiqi", "ms@gmail.com", "hva")) {
             System.out.println("User Created");
         }
+
+*/
     }
 }
