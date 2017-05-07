@@ -6,6 +6,7 @@
 package dockingsystem;
 
 import java.security.NoSuchAlgorithmException;
+import javax.crypto.SecretKey;
 
 /**
  *
@@ -21,9 +22,9 @@ public interface DockIntRMI extends java.rmi.Remote {
 
     public String getPublicKey() throws java.rmi.RemoteException;
 
-    public void sendCipherInonsense(byte[] encryptedMessage) throws java.rmi.RemoteException;
+    public void sendCipherInonsense(String encryptedMessage) throws java.rmi.RemoteException;
 
-    public void sendLogHashCipher(byte[] hashLog) throws java.rmi.RemoteException;
+    public void sendLogHashCipher(String hashLog) throws java.rmi.RemoteException;
 
     public boolean recieveOK() throws NoSuchAlgorithmException, java.rmi.RemoteException;
 
