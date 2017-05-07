@@ -122,3 +122,5 @@
 /RMI/dist/
 /SensorGather/dist/
 >>>>>>> master
+/CSensorGatherSOAP/dist/
+/CSensorGatherSOAP/build/
