@@ -178,7 +178,7 @@ public class SensorSystem {
         count++;
 
         try {
-            XORNonsense = x.encode(nonsense, c.decrypt(encryptedMessage, publicKey));
+            XORNonsense = x.encode(nonsense, Crypt.decrypt(encryptedMessage, publicKey));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
