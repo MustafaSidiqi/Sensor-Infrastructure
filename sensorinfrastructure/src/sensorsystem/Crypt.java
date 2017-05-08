@@ -8,6 +8,7 @@ package sensorsystem;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -29,7 +30,11 @@ public class Crypt {
 
     private static final String ALGORITMO = "AES/CBC/PKCS5Padding";
     private static final String CODIFICACION = "UTF-8";
-    
+
+    public static String toHex(String arg) throws UnsupportedEncodingException {
+        return String.format("%040x", new BigInteger(1, arg.getBytes(CODIFICACION)));
+    }
+
     public static String encrypt(String plaintext, String key) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, IOException {
         byte[] raw = DatatypeConverter.parseHexBinary(key);
         SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");

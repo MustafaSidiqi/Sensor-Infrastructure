@@ -16,6 +16,7 @@ import static java.lang.Boolean.TRUE;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -44,12 +45,15 @@ public class SensorSystem {
     static StringGen sg = new StringGen();
     
     static String nonsense; //(SKAL RANDOMIZES)
+    static String inonsense; //(SKAL RANDOMIZES)
     static String decodedNonsense;
     static String XORNonsense;
     static String publicKey; //(SKAL RANDOMIZES)
     static String ServerHandshakeLogHash;
     static String ClientHandshakeLogHash;
-    static String handshakeLog;
+    static String handshakeLog; 
+    static String XORNonsenseHex; 
+    static ArrayList<String> hsl = new ArrayList<>();
     static String data;
     static int count = 0;
 
@@ -171,7 +175,7 @@ public class SensorSystem {
         System.out.println("Sensor is requesting for connection...");
 
         handshakeLog = "true ";
-
+        
         count++;
 
         return true;
@@ -208,7 +212,12 @@ public class SensorSystem {
         count++;
 
         try {
-            XORNonsense = x.encode(nonsense, Crypt.decrypt(encryptedMessage, publicKey));
+            inonsense = Crypt.decrypt(encryptedMessage, publicKey);
+            System.out.println("Inonsense:  "+inonsense);
+            XORNonsense = x.xorHex(nonsense, inonsense);
+            System.out.println("XORNonsense :" + XORNonsense);
+            XORNonsenseHex = Crypt.toHex(XORNonsense).toUpperCase().substring(0, 32);
+            System.out.println("XORNonsenseHex: "+XORNonsenseHex);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -219,7 +228,7 @@ public class SensorSystem {
         count++;
 
         try {
-            ClientHandshakeLogHash = Crypt.decrypt(hashLog, publicKey);
+            ClientHandshakeLogHash = Crypt.decrypt(hashLog, XORNonsenseHex);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -234,7 +243,8 @@ public class SensorSystem {
         System.out.println("client handshake Log: "+ClientHandshakeLogHash);
 
         count++;
-
+        
+        
         return ServerHandshakeLogHash.hashCode() == ClientHandshakeLogHash.hashCode();
     }
 

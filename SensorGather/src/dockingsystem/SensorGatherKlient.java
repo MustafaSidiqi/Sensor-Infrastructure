@@ -39,66 +39,73 @@ public class SensorGatherKlient {
     static String publicKey; //recieved from server (has to be randomized)
     static String handshakeLog; //log of handshake for hashing
     static String handshakeLogHash; //log of handshake for hashing
+    static String XORNonsenseHex;
     static XORStrings x = new XORStrings(); //object of XOR functions
     static Crypt c = new Crypt(); //object of XOR functions
     static Hashing h = new Hashing();
     static StringGen sg = new StringGen();
     static String data;
-    
 
     public static void main(String[] args) throws Exception /*NoSuchAlgorithmException, NotBoundException, MalformedURLException, RemoteException, InterruptedException */ {
         //System.setSecurityManager(new RMISecurityManager());
         DockIntRMI g = (DockIntRMI) Naming.lookup("rmi://localhost:53712/sensorRMI");
-        
-        
+
         connect = g.requestConnection();
         count++;
         handshakeLog = "true ";
-        
+
         publicKey = g.getPublicKey();
         nonsense = g.getNonsense();
         count++;
         handshakeLog = handshakeLog.concat(publicKey + " " + nonsense);
         
+        System.out.println(nonsense.length());
+        System.out.println(inonsense.length());
         
-        XORNonsense = x.encode(nonsense, inonsense);
-        System.out.println(XORNonsense);
-        System.out.println(publicKey);
-        
+        XORNonsense = x.xorHex(nonsense, inonsense);
+        XORNonsenseHex = Crypt.toHex(XORNonsense).toUpperCase().substring(0, 32);
+
         inonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
-        
+
         Einonsense = Crypt.encrypt(inonsense, publicKey);
         g.sendCipherInonsense(Einonsense);
         count++;
-        handshakeLog = handshakeLog.concat(" "+Einonsense);
+        handshakeLog = handshakeLog.concat(" " + Einonsense);
         
-        System.out.println("Handshake log: "+handshakeLog);
-        
-        handshakeLogHash = h.stringHash(handshakeLog);
-        g.sendLogHashCipher(Crypt.encrypt(handshakeLogHash, publicKey)); //Chance inonsense to XORNonsense
-        count++;
-        
-        access = g.recieveOK();
-        
-        while (access) {
-                timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
-                Random rand = new Random();
-                float value = rand.nextInt(20);
-                Thread.sleep(3000);
+        System.out.println("publicKey:      " + publicKey);
+        System.out.println("INonsense:      " + inonsense);
+        System.out.println("Nonsense:       " + nonsense);
+        System.out.println("XORNonsense:    " + XORNonsense);
+        System.out.println("XORNonsenseHex: " + XORNonsenseHex);
+        System.out.println("Handshake log: " + handshakeLog);
 
-                data = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Float.toString(value)).concat(" ").concat(timeStamp).concat(" ").concat("25");
-                count++;
-                sent = g.transferDataRMI(username, password, data, count); //Public key skal ændres til XORNonsense hvis kryptes
-                if (sent) {
-                    System.out.println("Send!");
-                } else {
-                    System.out.println("Failed!");
-                }
-                System.out.println("Data :" + data);
-                
-                System.out.println("Handshake: " + handshakeLog);
-                
-                access = g.recieveOK();
+        handshakeLogHash = h.stringHash(handshakeLog);
+
+        g.sendLogHashCipher(Crypt.encrypt(handshakeLogHash, XORNonsenseHex));
+
+        count++;
+
+        access = g.recieveOK();
+
+        while (access) {
+            timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+            Random rand = new Random();
+            float value = rand.nextInt(20);
+            Thread.sleep(3000);
+
+            data = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Float.toString(value)).concat(" ").concat(timeStamp).concat(" ").concat("25");
+            count++;
+            sent = g.transferDataRMI(username, password, data, count); //Public key skal ændres til XORNonsense hvis kryptes
+            if (sent) {
+                System.out.println("Send!");
+            } else {
+                System.out.println("Failed!");
             }
+            System.out.println("Data :" + data);
+
+            System.out.println("Handshake: " + handshakeLog);
+
+            access = g.recieveOK();
         }
+    }
 }
