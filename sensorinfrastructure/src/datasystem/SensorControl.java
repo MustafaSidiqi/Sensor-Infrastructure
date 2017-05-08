@@ -67,8 +67,11 @@ public class SensorControl {
                        
             stmt_exp_data = con_sensor.createStatement();             
             stmt_exp_data.executeUpdate(sql);
+
         } catch (SQLException ex) {
+
             throw new SQLException("Cannot connect the Sensor database!" + ex.getMessage());
+
         }
     }
     
@@ -214,6 +217,12 @@ public class SensorControl {
         }
        
        return data;
+    }
+    
+    public int getSensor(int Sensor_ID) {
+        
+        return 0;
+    
     }
     
 }

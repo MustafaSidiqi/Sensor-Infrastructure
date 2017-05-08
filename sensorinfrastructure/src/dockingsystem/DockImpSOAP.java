@@ -33,44 +33,44 @@ public class DockImpSOAP implements DockIntSOAP {
     }
     
     @Override
-    public boolean requestConnectionSOAP() {
+    public int requestConnectionSOAP(int Sensor_ID) {
         
-        return sensorsystem.requestConnection();
+        return sensorsystem.requestConnection(Sensor_ID);
     
     }
     
     @Override
-    public String getNonsenseSOAP() {
+    public String getNonsenseSOAP(int Sensor_ID) {
         
-        return sensorsystem.getNonsense();
+        return sensorsystem.getNonsense(Sensor_ID);
     
     }
     
     @Override
-    public String getPublicKeySOAP() throws NoSuchAlgorithmException {
+    public String getPublicKeySOAP(int Sensor_ID) throws NoSuchAlgorithmException {
         
-        return sensorsystem.getPublicKey();
+        return sensorsystem.getPublicKey(Sensor_ID);
     
     }
     
     @Override
-    public void sendCipherInonsenseSOAP(String encryptedMessage) {
+    public void sendCipherInonsenseSOAP(int Sensor_ID, String encryptedMessage) {
         
-        sensorsystem.sendCipherInonsense(encryptedMessage);
-        
-    }
-    
-    @Override
-    public void sendLogHashCipherSOAP(String hashLog) {
-        
-        sensorsystem.sendLogHashCipher(hashLog);
+        sensorsystem.sendCipherInonsense(Sensor_ID, encryptedMessage);
         
     }
     
     @Override
-    public boolean recieveOKSOAP() throws NoSuchAlgorithmException {
+    public void sendLogHashCipherSOAP(int Sensor_ID, String hashLog) {
         
-        return sensorsystem.recieveOK();
+        sensorsystem.sendLogHashCipher(Sensor_ID, hashLog);
+        
+    }
+    
+    @Override
+    public boolean recieveOKSOAP(int Sensor_ID) throws NoSuchAlgorithmException {
+        
+        return sensorsystem.recieveOK(Sensor_ID);
         
     }
 }

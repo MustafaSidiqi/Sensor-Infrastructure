@@ -17,11 +17,11 @@ import javax.jws.soap.SOAPBinding;
 public interface DockIntSOAP {
     
     @WebMethod boolean transferDataSOAP(String username, String password, String data, int count);
-    @WebMethod public boolean requestConnectionSOAP();
-    @WebMethod public String getNonsenseSOAP();
-    @WebMethod public String getPublicKeySOAP() throws NoSuchAlgorithmException;
-    @WebMethod public void sendCipherInonsenseSOAP(String encryptedMessage);
-    @WebMethod public void sendLogHashCipherSOAP(String hashLog);
-    @WebMethod public boolean recieveOKSOAP() throws NoSuchAlgorithmException;
+    @WebMethod public int requestConnectionSOAP(int Sensor_ID);
+    @WebMethod public String getNonsenseSOAP(int Sensor_ID);
+    @WebMethod public String getPublicKeySOAP(int Sensor_ID) throws NoSuchAlgorithmException;
+    @WebMethod public void sendCipherInonsenseSOAP(int Sensor_ID, String encryptedMessage);
+    @WebMethod public void sendLogHashCipherSOAP(int Sensor_ID, String hashLog);
+    @WebMethod public boolean recieveOKSOAP(int Sensor_ID) throws NoSuchAlgorithmException;
 
 }

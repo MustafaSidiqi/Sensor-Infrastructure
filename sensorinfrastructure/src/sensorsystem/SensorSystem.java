@@ -5,6 +5,7 @@
  */
 package sensorsystem;
 
+import SensorDataType.Sensor;
 import SensorDataType.SensorDataType;
 import datasystem.DataControl;
 import datasystem.SensorControl;
@@ -18,6 +19,7 @@ import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -56,6 +58,11 @@ public class SensorSystem {
     static ArrayList<String> hsl = new ArrayList<>();
     static String data;
     static int count = 0;
+    
+    // Sensor Array
+    
+    static HashMap<Integer, Sensor> sensorList = new HashMap<>();
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     boolean listeningToSensors;
@@ -170,82 +177,112 @@ public class SensorSystem {
         
     }
 
-    public boolean requestConnection() {
-
+    public int requestConnection(int Sensor_ID) {
+        
         System.out.println("Sensor is requesting for connection...");
-
-        handshakeLog = "true ";
         
-        count++;
+        Sensor sensor; 
+        
+        if(!sensorList.containsKey(Sensor_ID)) { // Check if it's already an object
+            
+            if(sensors.getSensor(Sensor_ID) != 0) { // Check if it's in the database
+                
+                Sensor_ID = sensors.addSensor("unknown", "unknown", "unknown", 0); // Create new sensor in database
+            
+            }
+            
+            sensor = new Sensor(); // Create new object
+            
+            sensorList.put(Sensor_ID, sensor); // Insert into the hashmap
+        
+        } else {
+            
+            sensor = sensorList.get(Sensor_ID); // Retrieve from hashmap
+        
+        }
+        
+        sensor.handshakeLog = "true "; // Add true
+        
+        sensor.count++; // Incredement count
 
-        return true;
+        return Sensor_ID;
 
     }
 
-    public String getNonsense() {
+    public String getNonsense(int Sensor_ID) {
         
-        nonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
+        Sensor sensor = sensorList.get(Sensor_ID);
+        
+        sensor.nonsense = StringGen.generateString(sensor.sg.ran, "ABCDEF123456789", 32);
 
-        handshakeLog = handshakeLog.concat(nonsense) + " ";
+        sensor.handshakeLog = sensor.handshakeLog.concat(sensor.nonsense) + " ";
 
-        count++;
+        sensor.count++;
 
-        System.out.println("Nonsense: " + nonsense);
+        System.out.println("Nonsense: " + sensor.nonsense);
 
-        return nonsense;
+        return sensor.nonsense;
 
     }
 
-    public String getPublicKey() throws NoSuchAlgorithmException {
+    public String getPublicKey(int Sensor_ID) throws NoSuchAlgorithmException {
        
-        publicKey = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
+        Sensor sensor = sensorList.get(Sensor_ID);
         
-        handshakeLog = handshakeLog.concat(publicKey) + " ";
+        sensor.publicKey = StringGen.generateString(sensor.sg.ran, "ABCDEF123456789", 32);
         
-        return publicKey;
+        sensor.handshakeLog = sensor.handshakeLog.concat(sensor.publicKey) + " ";
+        
+        return sensor.publicKey;
     }
 
-    public void sendCipherInonsense(String encryptedMessage) {
+    public void sendCipherInonsense(int Sensor_ID, String encryptedMessage) {
 
-        handshakeLog = handshakeLog.concat(encryptedMessage);
+        Sensor sensor = sensorList.get(Sensor_ID);
+        
+        sensor.handshakeLog = sensor.handshakeLog.concat(encryptedMessage);
 
-        count++;
+        sensor.count++;
 
         try {
-            inonsense = Crypt.decrypt(encryptedMessage, publicKey);
-            System.out.println("Inonsense:  "+inonsense);
-            XORNonsense = x.xorHex(nonsense, inonsense);
-            System.out.println("XORNonsense :" + XORNonsense);
-            XORNonsenseHex = Crypt.toHex(XORNonsense).toUpperCase().substring(0, 32);
-            System.out.println("XORNonsenseHex: "+XORNonsenseHex);
+            sensor.inonsense = Crypt.decrypt(encryptedMessage, sensor.publicKey);
+            System.out.println("Inonsense:  "+sensor.inonsense);
+            sensor.XORNonsense = x.xorHex(sensor.nonsense, sensor.inonsense);
+            System.out.println("XORNonsense :" + sensor.XORNonsense);
+            sensor.XORNonsenseHex = Crypt.toHex(sensor.XORNonsense).toUpperCase().substring(0, 32);
+            System.out.println("XORNonsenseHex: "+sensor.XORNonsenseHex);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public void sendLogHashCipher(String hashLog) {
+    public void sendLogHashCipher(int Sensor_ID, String hashLog) {
+        
+        Sensor sensor = sensorList.get(Sensor_ID);
 
-        count++;
+        sensor.count++;
 
         try {
-            ClientHandshakeLogHash = Crypt.decrypt(hashLog, XORNonsenseHex);
+            sensor.ClientHandshakeLogHash = Crypt.decrypt(hashLog, sensor.XORNonsenseHex);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public boolean recieveOK() throws NoSuchAlgorithmException {
+    public boolean recieveOK(int Sensor_ID) throws NoSuchAlgorithmException {
+        
+        Sensor sensor = sensorList.get(Sensor_ID);
 
-        ServerHandshakeLogHash = h.stringHash(handshakeLog);
+        sensor.ServerHandshakeLogHash = h.stringHash(sensor.handshakeLog);
         
-        System.out.println("handshake Log: "+handshakeLog);
-        System.out.println("server handshake Log: "+ServerHandshakeLogHash);
-        System.out.println("client handshake Log: "+ClientHandshakeLogHash);
+        System.out.println("handshake Log: "+sensor.handshakeLog);
+        System.out.println("server handshake Log: "+sensor.ServerHandshakeLogHash);
+        System.out.println("client handshake Log: "+sensor.ClientHandshakeLogHash);
 
-        count++;
+        sensor.count++;
         
         
-        return ServerHandshakeLogHash.hashCode() == ClientHandshakeLogHash.hashCode();
+        return sensor.ServerHandshakeLogHash.hashCode() == sensor.ClientHandshakeLogHash.hashCode();
     }
 
 }

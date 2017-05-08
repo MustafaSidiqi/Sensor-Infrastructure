@@ -29,19 +29,19 @@ public class DockImpRMI extends UnicastRemoteObject implements DockIntRMI {
     }
 
     @Override
-    public boolean requestConnection() throws java.rmi.RemoteException {
-        return sensorsystem.requestConnection();
+    public int requestConnection(int Sensor_ID) throws java.rmi.RemoteException {
+        return sensorsystem.requestConnection(Sensor_ID);
     }
 
     @Override
-    public String getNonsense() throws java.rmi.RemoteException {
-        return sensorsystem.getNonsense();
+    public String getNonsense(int Sensor_ID) throws java.rmi.RemoteException {
+        return sensorsystem.getNonsense(Sensor_ID);
     }
 
     @Override
-    public String getPublicKey() throws java.rmi.RemoteException {
+    public String getPublicKey(int Sensor_ID) throws java.rmi.RemoteException {
         try {
-            return sensorsystem.getPublicKey();
+            return sensorsystem.getPublicKey(Sensor_ID);
         } catch (NoSuchAlgorithmException ex) {
             ex.printStackTrace();
         }
@@ -49,17 +49,17 @@ public class DockImpRMI extends UnicastRemoteObject implements DockIntRMI {
     }
 
     @Override
-    public void sendCipherInonsense(String encryptedMessage) throws java.rmi.RemoteException {
-        sensorsystem.sendCipherInonsense(encryptedMessage);
+    public void sendCipherInonsense(int Sensor_ID, String encryptedMessage) throws java.rmi.RemoteException {
+        sensorsystem.sendCipherInonsense(Sensor_ID, encryptedMessage);
     }
 
     @Override
-    public void sendLogHashCipher(String hashLog) throws java.rmi.RemoteException {
-        sensorsystem.sendLogHashCipher(hashLog);
+    public void sendLogHashCipher(int Sensor_ID, String hashLog) throws java.rmi.RemoteException {
+        sensorsystem.sendLogHashCipher(Sensor_ID, hashLog);
     }
 
     @Override
-    public boolean recieveOK() throws NoSuchAlgorithmException, java.rmi.RemoteException {
-        return sensorsystem.recieveOK();
+    public boolean recieveOK(int Sensor_ID) throws NoSuchAlgorithmException, java.rmi.RemoteException {
+        return sensorsystem.recieveOK(Sensor_ID);
     }
 }
