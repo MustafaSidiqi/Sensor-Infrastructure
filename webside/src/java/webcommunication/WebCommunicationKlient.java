@@ -49,12 +49,13 @@ public class WebCommunicationKlient implements java.io.Serializable {
         for (String object : temp) {
             System.out.println(object);
         }
-/*
+
         //User register and login 
         if (db.CallcreateUser("mustafa", "sidiqi", "ms@gmail.com", "hva")) {
             System.out.println("User Created");
         }
 
-*/
+
+        
     }
 }
