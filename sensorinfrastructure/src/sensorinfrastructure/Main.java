@@ -5,6 +5,8 @@
  */
 package sensorinfrastructure;
 
+import SensorDataType.SensorDataType;
+import datasystem.DataCollector;
 import datasystem.DataControl;
 import datasystem.SensorControl;
 import datasystem.UserControl;
@@ -27,7 +29,7 @@ public class Main {
     public static UserAuthentication sec;
     
     // Sensor Functions given the to docking system
-    public static SensorSystem sensor;
+    public static SensorSystem sensorsystem;
     
     // Communication to the website
     public static WebCommunication web;
@@ -37,6 +39,8 @@ public class Main {
     public static DataControl expdata;
     public static UserControl users;
     public static SensorControl sensors;
+    
+    public static DataCollector datacollect;
     
     // Main
     
@@ -103,11 +107,20 @@ public class Main {
         
         System.out.println("Starting Sensor System and Dock...");
 
-        sensor = new SensorSystem(ui, sec, offdata, expdata, users, sensors);
+        sensorsystem = new SensorSystem(ui, sec, offdata, expdata, users, sensors);
 
-        sensor.initialiseSensorDockingSystem();
+        sensorsystem.initialiseSensorDockingSystem();
         
         System.out.println("Sensor System and Docks are up and running!\n\n");
+        
+        
+        // Data Collector
+        
+        System.out.print("Starting Data Collector Thread... ");
+        
+        datacollect = new DataCollector(offdata, expdata, sensors, users, sensorsystem);
+        
+        System.out.println("Thread started!");
         
         
 
@@ -131,6 +144,14 @@ public class Main {
         // All systems are now running!
         
         System.out.println("All systems are running");
+        
+        
+        
+        // Stating Threads
+        
+        datacollect.start();
+        
+        
 
     }
     

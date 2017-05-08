@@ -5,6 +5,7 @@
  */
 package sensorsystem;
 
+import SensorDataType.SensorDataType;
 import datasystem.DataControl;
 import datasystem.SensorControl;
 import datasystem.UserControl;
@@ -55,7 +56,7 @@ public class SensorSystem {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     boolean listeningToSensors;
 
-    private Queue<String> incommingBuffer;
+    public Queue<SensorDataType> incomingBuffer;
 
     private final Object lock = new Object();
 
@@ -70,7 +71,7 @@ public class SensorSystem {
 
         this.listeningToSensors = true;
 
-        incommingBuffer = new LinkedList<String>();
+        incomingBuffer = new LinkedList<SensorDataType>();
 
     }
 
@@ -115,10 +116,12 @@ public class SensorSystem {
             System.out.print("Data: ");
 
             System.out.println(eData);
+            
+            SensorDataType data = new SensorDataType(eData);
 
             synchronized (lock) {
 
-                incommingBuffer.add(eData);
+                incomingBuffer.add(data);
 
             }
 
@@ -134,6 +137,33 @@ public class SensorSystem {
 
         }
 
+    }
+    
+    public SensorDataType receiveData() {
+
+        if(!incomingBuffer.isEmpty()) {
+
+            synchronized (lock) {
+                
+                SensorDataType outputdata = incomingBuffer.remove();
+                
+                System.out.println("Data Output:"+outputdata);
+                
+                return outputdata;
+            }
+        
+        } else {
+            
+            return null;
+    
+        }
+        
+    }
+    
+    public boolean dataWaiting() {
+        
+        return !incomingBuffer.isEmpty();
+        
     }
 
     public boolean requestConnection() {
