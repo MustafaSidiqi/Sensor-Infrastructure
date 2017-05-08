@@ -127,6 +127,85 @@ public class myServlet extends HttpServlet {
                 ServletContext context = getServletContext();
                 RequestDispatcher rd = request.getRequestDispatcher("displayData.jsp");
                 rd.forward(request, response);
+            } else if (request.getParameter("LocationByDatedatabase") != null && request.getParameter("LocationByDateLocationID") != null) {
+                String ID = request.getParameter("LocationByDateLocationID");
+                String databaseSelection = request.getParameter("LocationByDatedatabase");
+                String fromDate = request.getParameter("LocationByDateForm");
+                String toDate = request.getParameter("LocationByDateTo");
+
+                /*
+                DateFormat formatter;
+                formatter = new SimpleDateFormat("MM-dd-yyyy");
+                java.util.Date date =  formatter.parse(request.getParameter("SensorByDateFrom"));
+                 */
+                //Converting dates
+                java.util.Date utilStartDate = new SimpleDateFormat("yyyy/MM/dd").parse(fromDate);
+                java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+
+                java.util.Date utilStartDate2 = new SimpleDateFormat("yyyy/MM/dd").parse(toDate);
+                java.sql.Date sqlEndDate = new java.sql.Date(utilStartDate.getTime());
+
+                //Sending request for data
+                ArrayList<String> temp = db.CallgetIntervalByLocation(databaseSelection, ID, sqlStartDate, sqlEndDate);
+
+                out.println("databaseSelection " + databaseSelection + "ID" + ID + "Form " + sqlStartDate + "to " + sqlEndDate);
+
+                request.setAttribute("list", temp); //categorylist is an arraylist      contains object of class category  
+                ServletContext context = getServletContext();
+                RequestDispatcher rd = request.getRequestDispatcher("displayData.jsp");
+                rd.forward(request, response);
+
+            } else if (request.getParameter("DateByIDdatabase") != null) {
+                String databaseSelection = request.getParameter("DateByIDdatabase");
+                String fromDate = request.getParameter("DateByIDTo");
+
+
+                /*
+                DateFormat formatter;
+                formatter = new SimpleDateFormat("MM-dd-yyyy");
+                java.util.Date date =  formatter.parse(request.getParameter("SensorByDateFrom"));
+                 */
+                //Converting dates
+                java.util.Date utilStartDate = new SimpleDateFormat("yyyy/MM/dd").parse(fromDate);
+                java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+
+                //Sending request for data
+                ArrayList<String> temp = db.CallgetAllByDate(databaseSelection, sqlStartDate);
+
+                out.println("databaseSelection " + databaseSelection + "Form " + sqlStartDate);
+
+                request.setAttribute("list", temp); //categorylist is an arraylist      contains object of class category  
+                ServletContext context = getServletContext();
+                RequestDispatcher rd = request.getRequestDispatcher("displayData.jsp");
+                rd.forward(request, response);
+
+            } else if (request.getParameter("DateByDatedatabase") != null) {
+                String databaseSelection = request.getParameter("DateByDatedatabase");
+                String fromDate = request.getParameter("DateByDateFrom");
+                String toDate = request.getParameter("DateByDateTo");
+
+                /*
+                DateFormat formatter;
+                formatter = new SimpleDateFormat("MM-dd-yyyy");
+                java.util.Date date =  formatter.parse(request.getParameter("SensorByDateFrom"));
+                 */
+                //Converting dates
+                java.util.Date utilStartDate = new SimpleDateFormat("yyyy/MM/dd").parse(fromDate);
+                java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+
+                java.util.Date utilStartDate2 = new SimpleDateFormat("yyyy/MM/dd").parse(toDate);
+                java.sql.Date sqlEndDate = new java.sql.Date(utilStartDate.getTime());
+
+                //Sending request for data
+                ArrayList<String> temp = db.CallgetIntervalByDate(databaseSelection, sqlStartDate, sqlEndDate);
+
+                out.println("databaseSelection " + databaseSelection + "Form " + sqlStartDate + "to " + sqlEndDate);
+
+                request.setAttribute("list", temp); //categorylist is an arraylist      contains object of class category  
+                ServletContext context = getServletContext();
+                RequestDispatcher rd = request.getRequestDispatcher("displayData.jsp");
+                rd.forward(request, response);
+
             } else if (request.getParameter("TypeByIDdatabase") != null && request.getParameter("TypeByIDID") != null) {
                 int TypeID = Integer.parseInt(request.getParameter("TypeByIDID"));
                 out.println(TypeID);
@@ -142,6 +221,34 @@ public class myServlet extends HttpServlet {
                 ServletContext context = getServletContext();
                 RequestDispatcher rd = request.getRequestDispatcher("displayData.jsp");
                 rd.forward(request, response);
+            } else if (request.getParameter("TypeByDatedatabase") != null && request.getParameter("TypeByDateID") != null) {
+                int SensorID = Integer.parseInt(request.getParameter("TypeByDateID"));
+                String databaseSelection = request.getParameter("TypeByDatedatabase");
+                String fromDate = request.getParameter("TypeByDateFrom");
+                String toDate = request.getParameter("TypeByDateTo");
+
+                /*
+                DateFormat formatter;
+                formatter = new SimpleDateFormat("MM-dd-yyyy");
+                java.util.Date date =  formatter.parse(request.getParameter("SensorByDateFrom"));
+                 */
+                //Converting dates
+                java.util.Date utilStartDate = new SimpleDateFormat("yyyy/MM/dd").parse(fromDate);
+                java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
+
+                java.util.Date utilStartDate2 = new SimpleDateFormat("yyyy/MM/dd").parse(toDate);
+                java.sql.Date sqlEndDate = new java.sql.Date(utilStartDate.getTime());
+
+                //Sending request for data
+                ArrayList<String> temp = db.CallgetIntervalByType(databaseSelection, SensorID, sqlStartDate, sqlEndDate);
+
+                out.println("databaseSelection " + databaseSelection + "ID" + SensorID + "Form " + sqlStartDate + "to " + sqlEndDate);
+
+                request.setAttribute("list", temp); //categorylist is an arraylist      contains object of class category  
+                ServletContext context = getServletContext();
+                RequestDispatcher rd = request.getRequestDispatcher("displayData.jsp");
+                rd.forward(request, response);
+
             } else {
 
             }

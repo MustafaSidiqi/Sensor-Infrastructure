@@ -116,7 +116,7 @@
                 <h3>Sensor By ID</h3>
                 <div>
                     <form method="post" action="myServlet">
-                        <select name="database">
+                        <select name="SensorByIDdatabase">
                             <option selected="selected">Choose Database</option>
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
@@ -131,21 +131,20 @@
                         <input type="submit" name="requestSensorByID" value="Send Request" />
                     </form>
                 </div>
-                <textarea rows="4" cols="50"> 
-                </textarea>
+
             </div>
             <div id="SensorByDate" class="tabcontent">
                 <span onclick="this.parentElement.style.display = 'none'" class="topright"></span>
                 <h3>Sensor By Interval</h3>
                 <div>
                     <form method="post" action="myServlet">
-                        <select name="database">
+                        <select name="SensorByDatedatabase">
                             <option selected="selected">Choose Database</option>
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
                         </select>
                         <br>
-                        <select name="sensorID" id="SensorID">
+                        <select name="SensorByDatesensorID" id="SensorID">
                             <option selected="selected"  value="Select ID">Select ID</option>
                             <option value="0">0</option>
                             <option value="1">1</option>
@@ -153,25 +152,26 @@
                             <option value="3">3</option>
                         </select>
                         <br>
-                        <input type="date" name="From">
-                        <input type="date" name="To">
+                        <input type="text" name="SensorByDateFrom" placeholder="YYYY-MM-DD">
+                        <input type="text" name="SensorByDateTo" placeholder="YYYY-MM-DD">
                         <br><br><br>
                         <input type="submit" name="requestSensorByDate" value="Send Request " />
                     </form>
                 </div>
                 <br>
+
             </div>
             <div id="LocationByID" class="tabcontent">
                 <span onclick="this.parentElement.style.display = 'none'" class="topright"></span>
                 <h3>Location By ID</h3>
                 <div>
                     <form method="Post" action="myServlet">
-                        <select name="database">
+                        <select name="LocationByIDdatabase">
                             <option>Choose Database</option>
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
                         </select>
-                        <select name="LocationID">
+                        <select name="LocationByIDLocationID">
                             <option value="Lyngby">Lyngby</option>
                             <option value="Stue">Stue</option>
                         </select>
@@ -187,19 +187,19 @@
                 <h3>Location By Interval</h3>
                 <div>
                     <form method="Post" action="myServlet">
-                        <select name="database">
+                        <select name="LocationByDatedatabase">
                             <option>Choose Database</option>
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
                         </select>
                         <br>
-                        <select name="LocationID">
+                        <select name="LocationByDateLocationID">
                             <option value="Lyngby">Lyngby</option>
                             <option value="Stue">Stue</option>
                         </select>
                         <br>
-                        <input type="date" name="From">
-                        <input type="date" name="To">
+                        <input type="text" name="LocationByDateTo" placeholder="YYYY-MM-DD">
+                        <input type="text" name="LocationByDateFrom" placeholder="YYYY-MM-DD">
                         <br><br><br>
                         <input type="submit" name="requestLocationByDate" value="Send Request " />
                     </form>
@@ -213,13 +213,13 @@
                 <h3>Date By ID</h3>
                 <div>
                     <form method="Post" action="myServlet">
-                        <select name="database">
+                        <select name="DateByIDdatabase">
                             <option>Choose Database</option>
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
                         </select>
                         <br>
-                        <input type="date" name="From">
+                        <input type="text" name="DateByIDTo" placeholder="YYYY-MM-DD">
                         <br><br><br>
                         <input type="submit" name="requestDateByID" value="Send Request " />
                     </form>
@@ -233,14 +233,14 @@
                 <h3>Date By Interval</h3>
                 <div>
                     <form method="Post" action="myServlet">
-                        <select name="database">
+                        <select name="DateByDatedatabase">
                             <option>Choose Database</option>
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
                         </select>
                         <br>
-                        <input type="date" name="From">
-                        <input type="date" name="To">
+                        <input type="text" name="DateByDateFrom" placeholder="YYYY-MM-DD">
+                        <input type="text" name="DateByDateTo" placeholder="YYYY-MM-DD">
                         <br><br><br>
                         <input type="submit" name="requestDateByDate" value="Send Request " />
                     </form>
@@ -254,7 +254,7 @@
                 <h3>Type By ID</h3>
                 <div>
                     <form method="post" action="myServlet">
-                        <select name="database">
+                        <select name="TypeByIDdatabase">
                             <option selected="selected">Choose Database</option>
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
@@ -281,7 +281,7 @@
                 <h3>Type By interval</h3>
                 <div>
                     <form method="post" action="myServlet">
-                        <select name="database">
+                        <select name="TypeByDatedatabase">
                             <option selected="selected">Choose Database</option>
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
@@ -295,15 +295,14 @@
                             <option value="3">3</option>
                         </select>
                         <br>
-                        <input type="date" name="From">
-                        <input type="date" name="To">
+                        <input type="text" name="TypeByDateFrom" placeholder="YYYY-MM-DD">
+                        <input type="text" name="TypeByDateTo" placeholder="YYYY-MM-DD">
                         <br><br><br>
                         <input type="submit" name="requestTypeByDate" value="Send Request " />
                     </form>
                 </div>
                 <br>
-                <textarea rows="4" cols="50"> 
-                </textarea>
+
             </div>
         </tbody>
     </table>
