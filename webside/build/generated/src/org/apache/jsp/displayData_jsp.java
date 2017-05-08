@@ -68,7 +68,7 @@ public final class displayData_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <ul class=\"nav\">\r\n");
       out.write("\r\n");
       out.write("            <div class=\"login\">\r\n");
-      out.write("                <a href=\"login.jsp\">LOGIN </a>\r\n");
+      out.write("                <a href=\"login.jsp\">LOGGED AS:      </a>\r\n");
       out.write("            </div>\r\n");
       out.write("            <div class=\"logo\">\r\n");
       out.write("                <a href=\"#\">LOGO </a>\r\n");
@@ -351,10 +351,19 @@ public final class displayData_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        </tbody>\r\n");
       out.write("    </table>\r\n");
       out.write("</form>\r\n");
-      out.write("<textarea rows=\"4\" cols=\"50\"> \r\n");
+      out.write("<textarea rows=\"4\" cols=\"50\" style=\"margin: 10px; height: 333px; width: 664px;\"> \r\n");
       out.write("    ");
 
-        out.print("display data: ");
+        
+        int userID = 1;
+        if (userID != 0) {
+            out.print("User: " + userID);
+        } else {
+            out.print("User: N/A");
+
+        }
+        
+        out.println("display data: ");
         //retrieve your list from the request, with casting 
         ArrayList<String> list = (ArrayList<String>) request.getAttribute("list");
 

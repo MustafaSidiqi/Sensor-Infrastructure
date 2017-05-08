@@ -24,9 +24,28 @@
 
             <div class="login-help">
                 <a href="register.jsp">Register</a> ? <a href="#">Forgot Password</a>
+                <br>
+                <textarea rows="0" cols="0" style=" margin: 0px; height: 40px; width: 265px;"> 
+                    <%
+                        
+                        int userID = (int) request.getAttribute("loginVal");
+                        if (userID != 0) {
+                            out.print("User: " + userID);
+                        } else {
+                            out.print("User: N/A");
+
+                        }
+                         
+
+                    %>
+                </textarea>
             </div>
         </div>
+
         <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>
     </body>
 
 </html>
+
+
+

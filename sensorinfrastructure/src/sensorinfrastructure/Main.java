@@ -94,7 +94,11 @@ public class Main {
         System.out.print("User Database... ");
         
         users = new UserControl();
-
+        
+        users.createUser("mustafa2", "sidiqi10", "mmss@gmail.com", "mustafa22");
+        System.out.println("User ID: " + users.getID("mustafa2", "sidiqi10") );
+        
+        
         System.out.print("Sensor Database... ");
         
         sensors = new SensorControl();

@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import ui.UserInterface;
 import securitysystem.UserAuthentication;
+import sensorinfrastructure.Main;
 import static sensorinfrastructure.Main.users;
 
 /**
@@ -33,7 +34,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
 
     UserInterface ui;
 
-    UserControl users;
+    UserControl users = Main.users;
 
     static String localaddress = "rmi://localhost:53168/data";
 

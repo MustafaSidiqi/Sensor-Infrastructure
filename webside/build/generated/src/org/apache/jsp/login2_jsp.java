@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class login2_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -67,12 +67,33 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("            <div class=\"login-help\">\r\n");
       out.write("                <a href=\"register.jsp\">Register</a> ? <a href=\"#\">Forgot Password</a>\r\n");
+      out.write("                <br>\r\n");
+      out.write("                <textarea rows=\"0\" cols=\"50\" style=\" margin: 0px; height: 40px; width: 265px;\"> \r\n");
+      out.write("                    ");
+
+                        
+                        int userID = (int) request.getAttribute("loginVal");
+                        if (userID != 0) {
+                            out.print("User: " + userID);
+                        } else {
+                            out.print("User: N/A");
+
+                        }
+                         
+
+                    
+      out.write("\r\n");
+      out.write("                </textarea>\r\n");
       out.write("            </div>\r\n");
       out.write("        </div>\r\n");
+      out.write("\r\n");
       out.write("        <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>\r\n");
       out.write("    </body>\r\n");
       out.write("\r\n");
       out.write("</html>\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

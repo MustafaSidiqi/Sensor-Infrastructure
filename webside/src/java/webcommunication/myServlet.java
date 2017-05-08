@@ -5,12 +5,9 @@
  */
 package webcommunication;
 
-import static com.sun.xml.internal.ws.api.message.Packet.Status.Response;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.Naming;
-import java.sql.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -50,8 +47,7 @@ public class myServlet extends HttpServlet {
             out.println("<title>Servlet myServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet myServlet at " + request.getContextPath() + "</h1>");
-            out.println("<br/>" + "Getting data from database");
+
             /*
             if (request.getParameter("database") != null) {
                 databaseSelection = (String) request.getParameter("database");
@@ -63,12 +59,52 @@ public class myServlet extends HttpServlet {
              */
             //  KontoI k =(KontoI) Naming.lookup("rmi://javabog.dk:20099/kontotjeneste");
             //System.setSecurityManager(new RMISecurityManager());
+            // Amazon IP server: 52.56.199.233            
+            //Variables 
             ArrayList<String> data = null;
-            // Amazon IP server: 52.56.199.233
+            WebInterface db = null;
+            int loginVal = 0;
 
-            WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
+            try {
+                db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
+            } catch (Exception e) {
+                out.println("<br>");
+                out.println("<h1>" + "No Connection To Database." + "</h1>");
+                out.println("<h1>" + "Redirecting to home..." + "</h1>");
+                response.addHeader("REFRESH", "5;URL=index.html");
+                out.println("</body>");
+                out.println("</html>");
+                e.printStackTrace();
+            }
             out.println(db.getMessage());
 
+            // Logging in the admin user 
+            if (request.getParameter("user") != null && request.getParameter("pass") != null) {
+                String username = (String) request.getParameter("user");
+                String password = (String) request.getParameter("pass");
+
+                out.println("Username: " + username + "Password:  " + password);
+
+                loginVal = db.CallgetID(username, password);
+
+                if (loginVal != 0) {
+                    request.setAttribute("loginVal", loginVal); //categorylist is an arraylist      contains object of class category  
+                    ServletContext context = getServletContext();
+                    RequestDispatcher rd = request.getRequestDispatcher("login2.jsp");
+                    rd.forward(request, response);
+
+                } else {
+                    out.println("<br>");
+                    out.println("<h1>" + "Wrong login info" + "</h1>");
+                    out.println("<h1>" + "Redirecting to login page. Try again..." + "</h1>");
+                    out.println("</body>");
+                    out.println("</html>");
+                    RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                    rd.forward(request, response);
+                }
+            }
+
+            //Requesting data
             if (request.getParameter("SensorByIDdatabase") != null && request.getParameter("sensorID") != null) {
                 int SensorID = Integer.parseInt(request.getParameter("sensorID"));
                 out.println(SensorID);
@@ -261,6 +297,7 @@ public class myServlet extends HttpServlet {
                     + "   <button> Back </button>\n"
                     + "</a>");
              */
+
             out.println("<br>");
             out.println("Something Went Wrong.");
             out.println("<br>");
@@ -268,24 +305,10 @@ public class myServlet extends HttpServlet {
             response.addHeader("REFRESH", "5;URL=index.html");
             out.println("</body>");
             out.println("</html>");
-        }
-    }
+        } catch (Exception e) {
 
-    private static class myClass {
-
-        private static void requestSensorData() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        private static void method3() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        private static void method2() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public myClass() {
+            // Deal with e as you please.
+            //e may be any type of exception at all.
         }
     }
 

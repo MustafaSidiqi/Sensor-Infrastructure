@@ -24,7 +24,7 @@
         <ul class="nav">
 
             <div class="login">
-                <a href="login.jsp">LOGIN </a>
+                <a href="login.jsp">LOGGED AS:      </a>
             </div>
             <div class="logo">
                 <a href="#">LOGO </a>
@@ -307,9 +307,9 @@
         </tbody>
     </table>
 </form>
-<textarea rows="4" cols="50"> 
+<textarea rows="4" cols="50" style="margin: 10px; height: 333px; width: 664px;"> 
     <%
-        out.print("display data: ");
+        out.println("display data: ");
         //retrieve your list from the request, with casting 
         ArrayList<String> list = (ArrayList<String>) request.getAttribute("list");
 

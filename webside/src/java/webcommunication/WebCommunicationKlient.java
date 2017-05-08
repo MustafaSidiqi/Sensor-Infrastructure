@@ -51,11 +51,7 @@ public class WebCommunicationKlient implements java.io.Serializable {
         }
 
         //User register and login 
-        if (db.CallcreateUser("mustafa", "sidiqi", "ms@gmail.com", "hva")) {
-            System.out.println("User Created");
-        }
+        System.out.println("User ID: " + db.CallgetID("mustafa2", "sidiqi10") );
 
-
-        
     }
 }
