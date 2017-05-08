@@ -29,6 +29,7 @@ public class SensorGatherKlient {
     static boolean connect = false;
     static boolean idle = true;
     static int count = 0;
+    static int ID = 1;
 
     //encryption
     static String IV = "AAAAAAAAAAAAAAAA"; //on both server and client
@@ -50,25 +51,25 @@ public class SensorGatherKlient {
         //System.setSecurityManager(new RMISecurityManager());
         DockIntRMI g = (DockIntRMI) Naming.lookup("rmi://localhost:53712/sensorRMI");
 
-        connect = g.requestConnection();
+        ID = g.requestConnection(1);
         count++;
         handshakeLog = "true ";
 
-        publicKey = g.getPublicKey();
-        nonsense = g.getNonsense();
+        publicKey = g.getPublicKey(ID);
+        nonsense = g.getNonsense(ID);
         count++;
         handshakeLog = handshakeLog.concat(publicKey + " " + nonsense);
         
         System.out.println(nonsense.length());
         System.out.println(inonsense.length());
         
-        XORNonsense = x.xorHex(nonsense, inonsense);
-        XORNonsenseHex = Crypt.toHex(XORNonsense).toUpperCase().substring(0, 32);
+        //XORNonsense = x.xorHex(nonsense, inonsense);
+        //XORNonsenseHex = Crypt.toHex(XORNonsense).toUpperCase().substring(0, 32);
 
         inonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
 
         Einonsense = Crypt.encrypt(inonsense, publicKey);
-        g.sendCipherInonsense(Einonsense);
+        g.sendCipherInonsense(ID,Einonsense);
         count++;
         handshakeLog = handshakeLog.concat(" " + Einonsense);
         
@@ -81,11 +82,11 @@ public class SensorGatherKlient {
 
         handshakeLogHash = h.stringHash(handshakeLog);
 
-        g.sendLogHashCipher(Crypt.encrypt(handshakeLogHash, XORNonsenseHex));
+        g.sendLogHashCipher(ID,Crypt.encrypt(handshakeLogHash, publicKey));
 
         count++;
 
-        access = g.recieveOK();
+        access = g.recieveOK(ID);
 
         while (access) {
             timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
@@ -105,7 +106,7 @@ public class SensorGatherKlient {
 
             System.out.println("Handshake: " + handshakeLog);
 
-            access = g.recieveOK();
+            access = g.recieveOK(ID);
         }
     }
 }

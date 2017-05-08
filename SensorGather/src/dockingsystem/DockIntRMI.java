@@ -16,16 +16,16 @@ public interface DockIntRMI extends java.rmi.Remote {
 
     public boolean transferDataRMI(String eUsername, String ePassword, String eData, int count) throws java.rmi.RemoteException, Exception;
 
-    public boolean requestConnection() throws java.rmi.RemoteException;
+    public int requestConnection(int Sensor_ID) throws java.rmi.RemoteException;
 
-    public String getNonsense() throws java.rmi.RemoteException;
+    public String getNonsense(int Sensor_ID) throws java.rmi.RemoteException;
 
-    public String getPublicKey() throws java.rmi.RemoteException;
+    public String getPublicKey(int Sensor_ID) throws java.rmi.RemoteException;
 
-    public void sendCipherInonsense(String encryptedMessage) throws java.rmi.RemoteException;
+    public void sendCipherInonsense(int Sensor_ID, String encryptedMessage) throws java.rmi.RemoteException;
 
-    public void sendLogHashCipher(String hashLog) throws java.rmi.RemoteException;
+    public void sendLogHashCipher(int Sensor_ID, String hashLog) throws java.rmi.RemoteException;
 
-    public boolean recieveOK() throws NoSuchAlgorithmException, java.rmi.RemoteException;
+    public boolean recieveOK(int Sensor_ID) throws NoSuchAlgorithmException, java.rmi.RemoteException;
 
 }
