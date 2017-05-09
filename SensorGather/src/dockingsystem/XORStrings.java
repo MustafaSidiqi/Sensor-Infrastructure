@@ -5,9 +5,6 @@
  */
 package dockingsystem;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-import java.io.IOException;
 
 /**
  *
@@ -19,32 +16,13 @@ public class XORStrings {
         // TODO: Validation
         char[] chars = new char[a.length()];
         for (int i = 0; i < chars.length; i++) {
-            chars[i] = toHex(fromHex(a.charAt(i)) ^ fromHex(b.charAt(i)));
+           chars[i] = (char)((Character.getNumericValue(a.charAt(i))+87)^(Character.getNumericValue(b.charAt(i))+87));
+           
         }
         return new String(chars);
     }
-
-    private static int fromHex(char c) {
-        if (c >= '0' && c <= '9') {
-            return c - '0';
-        }
-        if (c >= 'A' && c <= 'F') {
-            return c - 'A' + 10;
-        }
-        if (c >= 'a' && c <= 'f') {
-            return c - 'a' + 10;
-        }
-        throw new IllegalArgumentException();
-    }
-
-    private char toHex(int nybble) {
-        if (nybble < 0 || nybble > 15) {
-            throw new IllegalArgumentException();
-        }
-        return "0123456789ABCDEF".charAt(nybble);
-    }
-
-    public String encode(String s, String key) {
+    
+        public String encode(String s, String key) {
         return new String(xorWithKey(s.getBytes(), key.getBytes()));
     }
 
@@ -59,18 +37,5 @@ public class XORStrings {
         }
         return out;
     }
-    /*
-    private byte[] base64Decode(String s) {
-        try {
-            BASE64Decoder d = new BASE64Decoder();
-            return d.decodeBuffer(s);
-        } catch (IOException e) {throw new RuntimeException(e);}
-    }
 
-    private String new String(byte[] bytes) {
-        BASE64Encoder enc = new BASE64Encoder();
-        return enc.encode(bytes).replaceAll("\\s", "");
-
-    }
-     */
 }
