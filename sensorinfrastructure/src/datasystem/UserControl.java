@@ -139,6 +139,7 @@ public class UserControl {
             prepStmt.setString(2, user);
             prepStmt.setString(3, password);
             ResultSet rs = prepStmt.executeQuery();
+            rs.next();
             return (int)(rs.getObject(1));
             
         } catch (SQLException ex) {
