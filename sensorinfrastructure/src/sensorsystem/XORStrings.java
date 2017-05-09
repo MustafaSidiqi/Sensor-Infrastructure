@@ -16,7 +16,7 @@ public class XORStrings {
         // TODO: Validation
         char[] chars = new char[a.length()];
         for (int i = 0; i < chars.length; i++) {
-           chars[i] = (char)((Character.getNumericValue(a.charAt(i))+87)^(Character.getNumericValue(b.charAt(i))+87));
+           chars[i] = (char)(((int)(a.charAt(i)))^((int)(b.charAt(i))));
            
         }
         return new String(chars);
