@@ -18,17 +18,10 @@ import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 import securitysystem.UserAuthentication;
-import securitysystem.UserAuthenticationInterface;
 import ui.UserInterface;
 
 public class SensorSystem {
@@ -46,6 +39,7 @@ public class SensorSystem {
     static Hashing h = new Hashing();
     static StringGen sg = new StringGen();
     
+    /*    
     static String nonsense; //(SKAL RANDOMIZES)
     static String inonsense; //(SKAL RANDOMIZES)
     static String decodedNonsense;
@@ -58,6 +52,7 @@ public class SensorSystem {
     static ArrayList<String> hsl = new ArrayList<>();
     static String data;
     static int count = 0;
+*/
     
     // Sensor Array
     
@@ -111,40 +106,46 @@ public class SensorSystem {
 
     }
 
-    public boolean transferData(String eUsername, String ePassword, String eData, int count) throws Exception {
+    public boolean transferData(String eUsername, String ePassword, String eData, int count, int Sensor_ID) throws Exception {
 
+        Sensor sensor = sensorList.get(Sensor_ID);
+        
         System.out.println("Incomming Data!");
+        System.out.println("Sensor ID    :"+sensor.ID);
+        System.out.println("server count :"+sensor.count);
+        System.out.println("sensor count :"+count);
 
         System.out.println("Background checking user...");
 
-        if (sec.login(eUsername, ePassword) && listeningToSensors) {
+        if (sec.login(eUsername, ePassword) && listeningToSensors && count == sensor.count) {
 
             System.out.println("Access Granted!");
 
             System.out.println("Transfering Data...");
 
-            //data = c.decrypt(eData, publicKey, IV); //Chance publicKey with XORNonsense
             System.out.print("Data: ");
 
             System.out.println(eData);
             
-            SensorDataType data = new SensorDataType(eData);
+            SensorDataType Data = new SensorDataType(eData);
 
             synchronized (lock) {
 
-                incomingBuffer.add(data);
+                incomingBuffer.add(Data);
 
             }
 
             System.out.println("End of transmission.");
-
-            return TRUE;
+            
+            sensor.count++;
+            
+            return true;
 
         } else {
 
             System.out.println("Access Denied!");
 
-            return FALSE;
+            return false;
 
         }
 
@@ -177,27 +178,33 @@ public class SensorSystem {
         
     }
 
-    public int requestConnection(int Sensor_ID) {
+    public int requestConnection(String name, String location, String unit,  int ownerID, int Sensor_ID) {
         
         System.out.println("Sensor is requesting for connection...");
         
         Sensor sensor; 
         
         if(!sensorList.containsKey(Sensor_ID)) { // Check if it's already an object
-            
+            System.out.println("Not an object in hashmap!");
             if(sensors.getSensor(Sensor_ID) != 0) { // Check if it's in the database
+                System.out.println("Not in the database!");
+                System.out.println("Not in the database!");
+                System.out.println("Not in the database!");
+                System.out.println("Not in the database!");
                 
-                Sensor_ID = sensors.addSensor("unknown", "unknown", "unknown", 0); // Create new sensor in database
+                Sensor_ID = sensors.addSensor(name, location, unit, ownerID); // Create new sensor in database
             
             }
             
             sensor = new Sensor(); // Create new object
             
             sensorList.put(Sensor_ID, sensor); // Insert into the hashmap
+            
         
         } else {
             
             sensor = sensorList.get(Sensor_ID); // Retrieve from hashmap
+            sensor.count = 0;
         
         }
         

@@ -18,33 +18,33 @@ import sensorsystem.StringGen;
 public class Sensor {
     
     
-    public static Crypt c;
-    public static Hashing h = new Hashing();
-    public static StringGen sg = new StringGen();
+    public Crypt c;
+    public Hashing h = new Hashing();
+    public StringGen sg = new StringGen();
     
-    public static String nonsense;
-    public static String inonsense;
-    public static String decodeNonsense;
-    public static String XORNonsense;
-    public static String publicKey;
-    public static String ServerHandshakeLogHash;
-    public static String ClientHandshakeLogHash;
-    public static String handshakeLog;
-    public static String XORNonsenseHex;
-    public static ArrayList<String> hsl = new ArrayList<>();
-    public static int count = 0;
+    public String nonsense;
+    public String inonsense;
+    public String decodeNonsense;
+    public String XORNonsense;
+    public String publicKey;
+    public String ServerHandshakeLogHash;
+    public String ClientHandshakeLogHash;
+    public String handshakeLog;
+    public String XORNonsenseHex;
+    public ArrayList<String> hsl = new ArrayList<>();
+    public int count = 0;
     
     // Sensor Database
     
-    public static int ID;
-    public static String Name;
-    public static String Location;
-    public static String Unit;
-    public static int Owner;
-    public static Timestamp SetupTime;
-    public static int Status;
-    public static int DB_Status;
-    public static String Token;
-    public static String PrimaryKey;
+    public int ID;
+    public String Name;
+    public String Location;
+    public String Unit;
+    public int Owner;
+    public Timestamp SetupTime;
+    public int Status;
+    public int DB_Status;
+    public String Token;
+    public String PrimaryKey;
     
 }

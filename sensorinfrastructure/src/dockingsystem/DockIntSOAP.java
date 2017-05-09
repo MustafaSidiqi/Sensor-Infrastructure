@@ -16,8 +16,8 @@ import javax.jws.soap.SOAPBinding;
 
 public interface DockIntSOAP {
     
-    @WebMethod boolean transferDataSOAP(String username, String password, String data, int count);
-    @WebMethod public int requestConnectionSOAP(int Sensor_ID);
+    @WebMethod boolean transferDataSOAP(String username, String password, String data, int count, int Sensor_ID);
+    @WebMethod public int requestConnectionSOAP(String name, String location, String unit, int ownerID, int Sensor_ID);
     @WebMethod public String getNonsenseSOAP(int Sensor_ID);
     @WebMethod public String getPublicKeySOAP(int Sensor_ID) throws NoSuchAlgorithmException;
     @WebMethod public void sendCipherInonsenseSOAP(int Sensor_ID, String encryptedMessage);

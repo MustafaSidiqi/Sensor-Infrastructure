@@ -1,23 +1,15 @@
 package dockingsystem;
 
 import java.rmi.Naming;
-import java.security.MessageDigest;
-
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-
 import java.util.Random;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-//import mainframe.DockIntRMI;
-//import java.util.Scanner;
 
 public class SensorGatherKlient {
 
     static int indexMax = 0;
+    static int ownerID = 0;
     static String username = "s153712";
+    static String name = "Michael";
     static String password = "yas12!";
     static boolean sent = false;
     private static final String sensorID = "1";
@@ -53,7 +45,7 @@ public class SensorGatherKlient {
 
         inonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
         
-        ID = g.requestConnection(1);
+        ID = g.requestConnection(name, sensorLocation, sensorUnit, ownerID, 6);
         count++;
         handshakeLog = "true ";
 
@@ -98,7 +90,7 @@ public class SensorGatherKlient {
 
             data = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Float.toString(value)).concat(" ").concat(timeStamp).concat(" ").concat("25");
             count++;
-            sent = g.transferDataRMI(username, password, data, count); //Public key skal ændres til XORNonsense hvis kryptes
+            sent = g.transferDataRMI(username, password, data, count, ID); //Public key skal ændres til XORNonsense hvis kryptes
             if (sent) {
                 System.out.println("Send!");
             } else {
@@ -106,9 +98,7 @@ public class SensorGatherKlient {
             }
             System.out.println("Data :" + data);
 
-            System.out.println("Handshake: " + handshakeLog);
-
-            access = g.recieveOK(ID);
+            //System.out.println("Handshake: " + handshakeLog);
         }
     }
 }
