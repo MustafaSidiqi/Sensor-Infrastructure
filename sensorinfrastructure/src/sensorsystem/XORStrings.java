@@ -21,21 +21,4 @@ public class XORStrings {
         }
         return new String(chars);
     }
-    
-        public String encode(String s, String key) {
-        return new String(xorWithKey(s.getBytes(), key.getBytes()));
-    }
-
-    public String decode(String s, String key) {
-        return new String(xorWithKey(s.getBytes(), key.getBytes()));
-    }
-
-    private byte[] xorWithKey(byte[] a, byte[] key) {
-        byte[] out = new byte[a.length];
-        for (int i = 0; i < a.length; i++) {
-            out[i] = (byte) (a[i] ^ key[i % key.length]);
-        }
-        return out;
-    }
-
 }
