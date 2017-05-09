@@ -51,6 +51,8 @@ public class SensorGatherKlient {
         //System.setSecurityManager(new RMISecurityManager());
         DockIntRMI g = (DockIntRMI) Naming.lookup("rmi://localhost:53712/sensorRMI");
 
+        inonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
+        
         ID = g.requestConnection(1);
         count++;
         handshakeLog = "true ";
@@ -63,10 +65,10 @@ public class SensorGatherKlient {
         System.out.println(nonsense.length());
         System.out.println(inonsense.length());
         
-        //XORNonsense = x.xorHex(nonsense, inonsense);
-        //XORNonsenseHex = Crypt.toHex(XORNonsense).toUpperCase().substring(0, 32);
+        XORNonsense = x.xorHex(nonsense, inonsense);
+        XORNonsenseHex = Crypt.toHex(XORNonsense).toUpperCase().substring(0, 32);
 
-        inonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
+        
 
         Einonsense = Crypt.encrypt(inonsense, publicKey);
         g.sendCipherInonsense(ID,Einonsense);
@@ -82,7 +84,7 @@ public class SensorGatherKlient {
 
         handshakeLogHash = h.stringHash(handshakeLog);
 
-        g.sendLogHashCipher(ID,Crypt.encrypt(handshakeLogHash, publicKey));
+        g.sendLogHashCipher(ID,Crypt.encrypt(handshakeLogHash, XORNonsenseHex));
 
         count++;
 

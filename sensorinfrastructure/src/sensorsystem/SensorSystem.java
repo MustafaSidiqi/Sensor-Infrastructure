@@ -247,10 +247,10 @@ public class SensorSystem {
         try {
             sensor.inonsense = Crypt.decrypt(encryptedMessage, sensor.publicKey);
             System.out.println("Inonsense:  "+sensor.inonsense);
-            //sensor.XORNonsense = x.xorHex(sensor.nonsense, sensor.inonsense);
-            //System.out.println("XORNonsense :" + sensor.XORNonsense);
-            //sensor.XORNonsenseHex = Crypt.toHex(sensor.XORNonsense).toUpperCase().substring(0, 32);
-            //System.out.println("XORNonsenseHex: "+sensor.XORNonsenseHex);
+            sensor.XORNonsense = x.xorHex(sensor.nonsense, sensor.inonsense);
+            System.out.println("XORNonsense :" + sensor.XORNonsense);
+            sensor.XORNonsenseHex = Crypt.toHex(sensor.XORNonsense).toUpperCase().substring(0, 32);
+            System.out.println("XORNonsenseHex: "+sensor.XORNonsenseHex);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -263,7 +263,7 @@ public class SensorSystem {
         sensor.count++;
 
         try {
-            sensor.ClientHandshakeLogHash = Crypt.decrypt(hashLog, sensor.publicKey);
+            sensor.ClientHandshakeLogHash = Crypt.decrypt(hashLog, sensor.XORNonsenseHex);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
