@@ -7,7 +7,6 @@
 
         <title>CodePen - Log-in</title>
 
-        <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
 
         <link rel="stylesheet" href="style2.css" media="screen" type="text/css" />
 
@@ -15,8 +14,8 @@
 
     <body background="img/background.png">
         <div class="login-card">
-            <h1>Log-in</h1><br>
-            <form method="post" action="myServlet">
+            <h1>Login</h1><br>
+            <form method="post" action="loginServlet">
                 <input type="text" name="user" placeholder="Username" required>
                 <input type="password" name="pass" placeholder="Password" required >
                 <input type="submit" name="login" class="login login-submit" value="login">

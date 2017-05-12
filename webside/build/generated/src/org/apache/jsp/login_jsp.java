@@ -50,7 +50,6 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("        <title>CodePen - Log-in</title>\r\n");
       out.write("\r\n");
-      out.write("        <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>\r\n");
       out.write("\r\n");
       out.write("        <link rel=\"stylesheet\" href=\"style2.css\" media=\"screen\" type=\"text/css\" />\r\n");
       out.write("\r\n");
@@ -58,8 +57,8 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("    <body background=\"img/background.png\">\r\n");
       out.write("        <div class=\"login-card\">\r\n");
-      out.write("            <h1>Log-in</h1><br>\r\n");
-      out.write("            <form method=\"post\" action=\"myServlet\">\r\n");
+      out.write("            <h1>Login</h1><br>\r\n");
+      out.write("            <form method=\"post\" action=\"loginServlet\">\r\n");
       out.write("                <input type=\"text\" name=\"user\" placeholder=\"Username\" required>\r\n");
       out.write("                <input type=\"password\" name=\"pass\" placeholder=\"Password\" required >\r\n");
       out.write("                <input type=\"submit\" name=\"login\" class=\"login login-submit\" value=\"login\">\r\n");
