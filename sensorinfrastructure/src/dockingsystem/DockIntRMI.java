@@ -6,7 +6,6 @@
 package dockingsystem;
 
 import java.security.NoSuchAlgorithmException;
-import javax.crypto.SecretKey;
 
 /**
  *
@@ -14,9 +13,9 @@ import javax.crypto.SecretKey;
  */
 public interface DockIntRMI extends java.rmi.Remote {
 
-    public boolean transferDataRMI(String eUsername, String ePassword, String eData, int count) throws java.rmi.RemoteException, Exception;
+    public boolean transferDataRMI(String eUsername, String ePassword, String eData, int count, int Sensor_ID) throws java.rmi.RemoteException, Exception;
 
-    public int requestConnection(int Sensor_ID) throws java.rmi.RemoteException;
+    public int requestConnection(String name, String location, String unit, int ownerID, int Sensor_ID) throws java.rmi.RemoteException;
 
     public String getNonsense(int Sensor_ID) throws java.rmi.RemoteException;
 

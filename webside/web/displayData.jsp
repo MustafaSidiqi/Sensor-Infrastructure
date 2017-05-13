@@ -24,7 +24,7 @@
         <ul class="nav">
 
             <div class="login">
-                <a href="login.jsp">LOGGED AS:      </a>
+                <a href="loginCheck.jsp">LOGOUT:      </a>
             </div>
             <div class="logo">
                 <a href="#">LOGO </a>

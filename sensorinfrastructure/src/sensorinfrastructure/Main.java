@@ -5,7 +5,6 @@
  */
 package sensorinfrastructure;
 
-import SensorDataType.SensorDataType;
 import datasystem.DataCollector;
 import datasystem.DataControl;
 import datasystem.SensorControl;

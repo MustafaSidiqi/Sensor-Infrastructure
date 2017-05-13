@@ -24,7 +24,7 @@
         <ul class="nav">
 
             <div class="login">
-                <a href="login.jsp">LOGIN </a>
+                <a href="logout.jsp"> LOGOUT </a>
             </div>
             <div class="logo">
                 <a href="#">LOGO </a>

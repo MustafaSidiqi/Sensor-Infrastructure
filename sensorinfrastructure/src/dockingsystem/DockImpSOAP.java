@@ -22,10 +22,10 @@ public class DockImpSOAP implements DockIntSOAP {
     }
     
     @Override
-    public boolean transferDataSOAP(String username, String password, String data, int count) {
+    public boolean transferDataSOAP(String username, String password, String data, int count, int Sensor_ID) {
         
         try {
-            return sensorsystem.transferData(username, password, data, count);
+            return sensorsystem.transferData(username, password, data, count, Sensor_ID);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -33,9 +33,9 @@ public class DockImpSOAP implements DockIntSOAP {
     }
     
     @Override
-    public int requestConnectionSOAP(int Sensor_ID) {
+    public int requestConnectionSOAP(String name, String location, String unit, int ownerID, int Sensor_ID) {
         
-        return sensorsystem.requestConnection(Sensor_ID);
+        return sensorsystem.requestConnection(name, location, unit, ownerID, Sensor_ID);
     
     }
     

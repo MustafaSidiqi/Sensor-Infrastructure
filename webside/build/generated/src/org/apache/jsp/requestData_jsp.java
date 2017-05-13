@@ -68,7 +68,7 @@ public final class requestData_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <ul class=\"nav\">\r\n");
       out.write("\r\n");
       out.write("            <div class=\"login\">\r\n");
-      out.write("                <a href=\"login.jsp\">LOGIN </a>\r\n");
+      out.write("                <a href=\"\"> LOGOUT </a>\r\n");
       out.write("            </div>\r\n");
       out.write("            <div class=\"logo\">\r\n");
       out.write("                <a href=\"#\">LOGO </a>\r\n");

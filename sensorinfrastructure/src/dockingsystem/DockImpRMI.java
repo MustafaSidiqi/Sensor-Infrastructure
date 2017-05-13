@@ -23,14 +23,14 @@ public class DockImpRMI extends UnicastRemoteObject implements DockIntRMI {
     }
 
     @Override
-    public boolean transferDataRMI(String eUsername, String ePassword, String eData, int count) throws java.rmi.RemoteException, Exception {
+    public boolean transferDataRMI(String eUsername, String ePassword, String eData, int count, int Sensor_ID) throws java.rmi.RemoteException, Exception {
 
-        return sensorsystem.transferData(eUsername, ePassword, eData, count);
+        return sensorsystem.transferData(eUsername, ePassword, eData, count, Sensor_ID);
     }
 
     @Override
-    public int requestConnection(int Sensor_ID) throws java.rmi.RemoteException {
-        return sensorsystem.requestConnection(Sensor_ID);
+       public int requestConnection(String name, String location, String unit, int ownerID, int Sensor_ID) throws java.rmi.RemoteException {
+        return sensorsystem.requestConnection(name, location, unit, ownerID, Sensor_ID);
     }
 
     @Override
