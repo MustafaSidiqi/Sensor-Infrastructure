@@ -184,14 +184,14 @@ public class SensorSystem {
         Sensor sensor; 
         
         if(!sensorList.containsKey(Sensor_ID)) { // Check if it's already an object
-            
-            if(sensors.getSensor(Sensor_ID) != 0) { // Check if it's in the database
+            sensor = new Sensor(); // Create new object
+            if(!sensors.getSensor(Sensor_ID,sensor)) { // Check if it's in the database
                 
                 Sensor_ID = sensors.addSensor("unknown", "unknown", "unknown", 0); // Create new sensor in database
-            
+                sensors.getSensor(Sensor_ID,sensor); // set data for sensor object
             }
             
-            sensor = new Sensor(); // Create new object
+            
             
             sensorList.put(Sensor_ID, sensor); // Insert into the hashmap
         

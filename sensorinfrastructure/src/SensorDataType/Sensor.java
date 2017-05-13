@@ -36,15 +36,16 @@ public class Sensor {
     
     // Sensor Database
     
-    public static int ID;
-    public static String Name;
-    public static String Location;
-    public static String Unit;
-    public static int Owner;
-    public static Timestamp SetupTime;
-    public static int Status;
-    public static int DB_Status;
-    public static String Token;
-    public static String PrimaryKey;
+    public int ID;
+    public String Name;
+    public String Location;
+    public String Unit;
+    public int Owner;
+    public java.sql.Timestamp SetupTime;
+    public int Status;
+    public int DB_Status;
+    public String Token;
+    public String PrimaryKey;
+    
     
 }
