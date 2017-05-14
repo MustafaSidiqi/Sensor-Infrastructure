@@ -158,13 +158,4 @@ public class Main {
 
     }
     
-    public static void update() {
-        
-        
-    }
-    
-    public static void draw() {
-        
-        
-    }
 }

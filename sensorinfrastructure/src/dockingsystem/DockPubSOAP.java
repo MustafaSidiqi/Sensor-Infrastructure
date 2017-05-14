@@ -10,7 +10,7 @@ import sensorsystem.SensorSystem;
 
 public class DockPubSOAP {
     
-    static String onlinehttp = "http://ubuntu4.javabog.dk:5735/hello"; // Javabog.dk
+    static String onlinehttp = "http://ubuntu4.javabog.dk:5735/sensor"; // Javabog.dk
 
     static String http = "http://localhost:7777/ws/sensor"; // Localhost
     
