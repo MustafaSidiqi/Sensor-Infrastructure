@@ -16,11 +16,13 @@ import sensorsystem.StringGen;
  * @author nb
  */
 public class Sensor {
-    
-    
+    public StringGen sg;
+public Sensor(){
+    sg = new StringGen();
+}
     public Crypt c;
     public Hashing h = new Hashing();
-    public StringGen sg = new StringGen();
+    //public StringGen sg = new StringGen();
     
     public String nonsense;
     public String inonsense;
