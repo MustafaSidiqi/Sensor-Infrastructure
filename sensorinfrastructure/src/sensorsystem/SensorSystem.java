@@ -23,11 +23,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 import securitysystem.UserAuthentication;
-import ui.UserInterface;
 
 public class SensorSystem {
 
-    UserInterface ui;
     UserAuthentication sec;
     DataControl offdata;
     DataControl expdata;
@@ -40,40 +38,21 @@ public class SensorSystem {
     static Hashing h = new Hashing();
     static StringGen sg = new StringGen();
 
-    /*    
-    static String nonsense; //(SKAL RANDOMIZES)
-    static String inonsense; //(SKAL RANDOMIZES)
-    static String decodedNonsense;
-    static String XORNonsense;
-    static String publicKey; //(SKAL RANDOMIZES)
-    static String ServerHandshakeLogHash;
-    static String ClientHandshakeLogHash;
-    static String handshakeLog; 
-    static String XORNonsenseHex; 
-    static ArrayList<String> hsl = new ArrayList<>();
-    static String data;
-    static int count = 0;
-     */
-    // Sensor Array
+    
     static HashMap<Integer, Sensor> sensorList = new HashMap<>();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    boolean listeningToSensors;
-
     public Queue<SensorDataType> incomingBuffer;
 
     private final Object lock = new Object();
 
-    public SensorSystem(UserInterface _ui, UserAuthentication _sec, DataControl _offdata, DataControl _expdata, UserControl _users, SensorControl _sensors) throws RemoteException, NoSuchAlgorithmException {
+    public SensorSystem(UserAuthentication _sec, DataControl _offdata, DataControl _expdata, UserControl _users, SensorControl _sensors) throws RemoteException, NoSuchAlgorithmException {
 
-        ui = _ui;
         sec = _sec;
         users = _users;
         sensors = _sensors;
         offdata = _offdata;
         expdata = _expdata;
-
-        this.listeningToSensors = true;
 
         incomingBuffer = new LinkedList<SensorDataType>();
 
@@ -85,13 +64,13 @@ public class SensorSystem {
 
         System.out.println("Initializing SOAP...");
 
-        DockPubSOAP.publish(ui.isOnline(), this);
+        DockPubSOAP.publish(this);
 
         System.out.println("SOAP Running!");
 
         System.out.println("Setting up RMI...");
 
-        DockPubRMI.publish(ui.isOnline(), this);
+        DockPubRMI.publish(this);
 
         System.out.println("RMI Running!");
 
@@ -115,7 +94,7 @@ public class SensorSystem {
 
         System.out.println("Background checking user...");
 
-        if (sec.login(eUsername, ePassword) && listeningToSensors && count == sensor.count) {
+        if (sec.login(eUsername, ePassword) && count == sensor.count) {
 
             System.out.println("Access Granted!");
 
@@ -124,9 +103,9 @@ public class SensorSystem {
             System.out.print("Data: ");
 
             System.out.println(eData);
-
+            
             SensorDataType Data = new SensorDataType(eData);
-
+            Data.table = "Expert";
             synchronized (lock) {
 
                 incomingBuffer.add(Data);
@@ -139,7 +118,32 @@ public class SensorSystem {
 
             return true;
 
-        } else {
+        }
+        else {
+            int tempUserID = users.getID(eUsername, ePassword);
+             if(tempUserID !=0 && count == sensor.count){
+                    System.out.println("Access Granted!");
+
+            System.out.println("Transfering Data...");
+
+            System.out.print("Data: ");
+
+            System.out.println(eData);
+            
+            SensorDataType Data = new SensorDataType(eData);
+            Data.table = users.getStatus(tempUserID);
+            synchronized (lock) {
+
+                incomingBuffer.add(Data);
+
+            }
+
+            System.out.println("End of transmission.");
+
+            sensor.count++;
+
+            return true;
+        }
 
             System.out.println("Access Denied!");
 
@@ -156,7 +160,7 @@ public class SensorSystem {
             synchronized (lock) {
 
                 SensorDataType outputdata = incomingBuffer.remove();
-
+                
                 System.out.println("Data Output:" + outputdata);
 
                 return outputdata;

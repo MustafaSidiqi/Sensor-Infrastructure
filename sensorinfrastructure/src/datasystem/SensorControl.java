@@ -26,13 +26,8 @@ public class SensorControl {
     private String std_uname = "root";
     private String std_password = "sensorDB";
     private String SensorDB = "DataBase";
-
-    /*
-    private String std_dbname = "jdbc:mysql://localhost/";
-    private String std_uname = "root";
-    private String std_password = "";
-    private String SensorDB = "sensordb";
-    /**/
+    private String user_table = "userdb";
+    
     private Connection con_sensor;
     private String db_table = "sensordb";
     public static final int BASIC = 0;
@@ -258,6 +253,7 @@ public class SensorControl {
         
 
     }
+    
 
 }
 

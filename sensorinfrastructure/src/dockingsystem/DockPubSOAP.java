@@ -10,19 +10,11 @@ import sensorsystem.SensorSystem;
 
 public class DockPubSOAP {
     
-    static String onlinehttp = "http://ubuntu4.javabog.dk:5735/sensor"; // Javabog.dk
-
-    static String http = "http://localhost:7777/ws/sensor"; // Localhost
+    static String onlinehttp = "http://localhost:7777/sensor"; // Javabog.dk
     
-    public static void publish(boolean input, SensorSystem _sensorsystem) {
-        
-        System.out.println("Setting up SOAP API WSDL @:");
-        System.out.println(http+"?wsdl");
-        
-        if(input) Endpoint.publish(onlinehttp, new DockImpSOAP(_sensorsystem));
-        
-        else Endpoint.publish(http, new DockImpSOAP(_sensorsystem));
-        
+    public static void publish(SensorSystem _sensorsystem) {        
+        System.out.println("Setting up SOAP API WSDL @:");      
+        Endpoint.publish(onlinehttp, new DockImpSOAP(_sensorsystem));        
         System.out.println("WSDL Generated.");
     }
     

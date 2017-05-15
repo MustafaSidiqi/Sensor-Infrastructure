@@ -23,7 +23,8 @@ public class SensorDataType {
     public float Value;
     public String Date;
     public int Checksum;
-    
+    public String table;
+
     
     public SensorDataType(){
     

@@ -18,7 +18,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ui.UserInterface;
 import securitysystem.UserAuthentication;
 import sensorinfrastructure.Main;
 import static sensorinfrastructure.Main.users;
@@ -32,25 +31,15 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     DataControl offdata;
     DataControl expdata;
 
-    UserInterface ui;
-
     UserControl users = Main.users;
 
     static String localaddress = "rmi://localhost:53168/data";
 
-    static String javabogaddress = "rmi://ubuntu4.javabog.dk:53168/data";
-
-    static boolean online = FALSE;
-
-    public WebCommunication(UserInterface _ui, DataControl _offdata, DataControl _expdata) throws RemoteException {
+    public WebCommunication(DataControl _offdata, DataControl _expdata) throws RemoteException {
 
         System.out.print("Setting up webserver RMI interface... ");
-
-        ui = _ui;
         offdata = _offdata;
         expdata = _expdata;
-
-        online = ui.online;
 
         try {
             this.expdata = new DataControl("DataBase");
@@ -69,20 +58,9 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
 
             java.rmi.registry.LocateRegistry.createRegistry(53168);
 
-            if (online) {
+            Naming.rebind(localaddress, (Remote) this);
 
-                Naming.rebind(javabogaddress, (Remote) this);
-
-                System.out.println("Web RMI: " + javabogaddress);
-
-            } else {
-
-                Naming.rebind(localaddress, (Remote) this);
-
-                System.out.println("Web RMI: " + localaddress);
-
-            }
-
+            System.out.println("Web RMI: " + localaddress);
             System.out.println("Succes!");
 
         } catch (Exception e) {
@@ -103,7 +81,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
 
         System.out.println("CallgetAllBySensorID " + data + " " + ID);
 
-        if (data == "offdata") {
+        if (data.equals("offdata")){
             return offdata.getAllBySensorID(ID);
         } else {
             return expdata.getAllBySensorID(ID);
@@ -116,7 +94,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
 
         System.out.println("CallgetIntervalBySensorID " + data + " " + ID + " " + start + " " + end);
 
-        if (data == "offdata") {
+        if (data.equals("offdata")) {
             return offdata.getIntervalBySensorID(ID, start, end);
         } else {
             return expdata.getIntervalBySensorID(ID, start, end);
@@ -134,7 +112,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     public ArrayList<String> CallgetAllByType(String data, int type) throws RemoteException {
         System.out.println("CallgetAllByType " + data + " " + type);
 
-        if (data == "offdata") {
+        if (data.equals("offdata")) {
             return offdata.getAllByType(type);
         } else {
             return expdata.getAllByType(type);
@@ -145,7 +123,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     public ArrayList<String> CallgetIntervalByType(String data, int type, Date start, Date end) throws RemoteException {
         System.out.println("CallgetIntervalByType " + data + " " + type + " " + start + " " + end);
 
-        if (data == "offdata") {
+        if (data.equals("offdata")) {
             return offdata.getIntervalByType(type, start, end);
         } else {
             return expdata.getIntervalByType(type, start, end);
@@ -156,7 +134,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     public ArrayList<String> CallgetAllByLocation(String data, String loc) throws RemoteException {
         System.out.println("CallgetAllByLocation " + data + " " + loc);
 
-        if (data == "offdata") {
+        if (data.equals("offdata")){
             return offdata.getAllByLocation(loc);
         } else {
             return expdata.getAllByLocation(loc);
@@ -167,7 +145,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     public ArrayList<String> CallgetIntervalByLocation(String data, String loc, Date start, Date end) throws RemoteException {
         System.out.println("CallgetIntervalByLocation " + data + " " + loc + " " + start + " " + end);
 
-        if (data == "offdata") {
+        if (data.equals("offdata")) {
             return offdata.getIntervalByLocation(loc, start, end);
         } else {
             return expdata.getIntervalByLocation(loc, start, end);
@@ -178,7 +156,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     public ArrayList<String> CallgetAllByDate(String data, Date d) throws RemoteException {
         System.out.println("CallgetAllByDate " + data + " " + d);
 
-        if (data == "offdata") {
+        if (data.equals("offdata")) {
             return offdata.getAllByDate(d);
         } else {
             return expdata.getAllByDate(d);
@@ -189,7 +167,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     public ArrayList<String> CallgetIntervalByDate(String data, Date start, Date end) throws RemoteException {
         System.out.println("CallgetIntervalByDate " + data + " " + start + " " + end);
 
-        if (data == "offdata") {
+        if (data.equals("offdata")){
             return offdata.getIntervalByDate(start, end);
         } else {
             return expdata.getIntervalByDate(start, end);
@@ -200,7 +178,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     public ArrayList<String> CalldirectSQL(String data, String sql) throws RemoteException {
         System.out.println("CalldirectSQL " + data + " " + sql);
 
-        if (data == "offdata") {
+        if (data.equals("offdata")) {
             return offdata.directSQL(sql);
         } else {
             return expdata.directSQL(sql);

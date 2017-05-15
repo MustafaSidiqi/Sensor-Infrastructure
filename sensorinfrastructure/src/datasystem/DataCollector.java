@@ -10,73 +10,54 @@ import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sensorsystem.SensorSystem;
-import static sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStateMap.Byte0.runnable;
-
 /**
  *
  * @author nb
  */
 public class DataCollector extends Thread {
-    
+
     DataControl offdata;
     DataControl expdata;
     SensorControl sensors;
     UserControl users;
-    
+    private final Object lock;
     SensorSystem sensorsystem;
-    
+
     public DataCollector(DataControl _offdata, DataControl _expdata, SensorControl _sensors, UserControl _users, SensorSystem _sensorsystem) {
-        
+
         System.out.println("Creating thread.");
-        
+
         offdata = _offdata;
         expdata = _expdata;
         sensors = _sensors;
         users = _users;
         sensorsystem = _sensorsystem;
-        
-        
-        
-        
+        lock = new Object();
+
     }
 
     @Override
     public void run() {
-        
-        while(true) {
-        
+
+        while (true) {
+
             System.out.println("Checking for data...");
 
             if (sensorsystem.dataWaiting()) {
-
                 System.out.println("Uploading data...");
+                SensorDataType data;
+                synchronized (lock) {            
 
-                SensorDataType data = sensorsystem.receiveData();
-
-                expdata.insertData(data.Sensor_ID, data.Location, data.Type, data.Unit, data.Value, data.Date, data.Checksum);
-
-                    // get sensor DB_status
-
-    /*
-
-                if (offdata) {
-
-                    // Seaving in official...
-
-                } else if (expdata) {
-
-                    // Saving in experimental...
-
-                } else {
-
-                    // Sensor not registred in the database, saving in experimental.--
-
+                    data = sensorsystem.receiveData();
+                }                
+                if(data.table.equals("Basic")){
+                    expdata.insertData(data.Sensor_ID, data.Location, data.Type, data.Unit, data.Value, data.Date, data.Checksum);
+                    System.out.println("Data is inserted into db");
+                }else{
+                    offdata.insertData(data.Sensor_ID, data.Location, data.Type, data.Unit, data.Value, data.Date, data.Checksum);
+                    System.out.println("Data is inserted into db");
                 }
-
-
-
-    */
-
+                
             } else {
 
                 try {
@@ -92,10 +73,10 @@ public class DataCollector extends Thread {
 
                 }
 
-            }   
-        
+            }
+
         }
-        
+
     }
-    
+
 }

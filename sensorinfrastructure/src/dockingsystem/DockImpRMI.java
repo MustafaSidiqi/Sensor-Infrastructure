@@ -7,9 +7,6 @@ package dockingsystem;
 
 import java.rmi.server.UnicastRemoteObject;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.crypto.SecretKey;
 import sensorsystem.SensorSystem;
 
 public class DockImpRMI extends UnicastRemoteObject implements DockIntRMI {

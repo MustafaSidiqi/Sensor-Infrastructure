@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 package sensorinfrastructure;
-
 import datasystem.DataCollector;
 import datasystem.DataControl;
 import datasystem.SensorControl;
 import datasystem.UserControl;
 import sensorsystem.SensorSystem;
 import securitysystem.UserAuthentication;
-import ui.UserInterface;
 import webcommunication.WebCommunication;
 
 /**
@@ -20,9 +18,6 @@ import webcommunication.WebCommunication;
  */
 public class Main {
 
-    
-    // User Interface
-    public static UserInterface ui;
 
     // User Javabog.dk user authentication
     public static UserAuthentication sec;
@@ -38,120 +33,65 @@ public class Main {
     public static DataControl expdata;
     public static UserControl users;
     public static SensorControl sensors;
-    
     public static DataCollector datacollect;
     
     // Main
     
     public static void main(String[] args) throws Exception {
         
-        // Starting all systems
-        
-        System.out.println("Hello, World!\n\n");
-        
-        System.out.println("Launching User Interface.");
-        
-        ui = new UserInterface();
-        
+        // Starting all systems        
+        System.out.println("Hello, World!\n\n");        
         System.out.println("Starting all systems...");
         
         
         // Javabog.dk User Authentication
-        
-        
-
         sec = new UserAuthentication();
         
-        System.out.print("Trying to login to Javabog.dk...");
-        
-        if(sec.login("nibuh", "5;;+{Of)L#b[")) {
-            
+        System.out.print("Trying to login to Javabog.dk...");        
+        if(sec.login("nibuh", "5;;+{Of)L#b[")) {            
             System.out.println("Login succesful!");
-        
-        } else {
-            
+            System.out.println("Connection to Javabog.dk established!\n\n");          
+        } else {            
             System.out.print("Login not succesful.");
-            
-        }
-        
-        System.out.println("Connection to Javabog.dk established!\n\n");        
-        
+            System.out.println("System can be run without this but userrs from javabog can't login");
+        }    
 
 
-        // Databases
-        
-        System.out.println("Connecting to databases...");
-        
-        System.out.print("Official Sensor Database... ");
-        
-        offdata = new DataControl("offdata");
-        
-        System.out.print("Experimental Sensor Database... ");
-        
-        expdata = new DataControl("expdata");
-        
-        System.out.print("User Database... ");
-        
-        users = new UserControl();
-        
-        System.out.println("User ID: " + users.getID("ms@gmail.com", "sidiqi9") );
-      
-        
-        
-        System.out.print("Sensor Database... ");
-        
-        sensors = new SensorControl();
-        
+        // Databases        
+        System.out.println("Connecting to databases...");        
+        System.out.print("Official Sensor Database... ");        
+        offdata = new DataControl("offdata");        
+        System.out.print("Experimental Sensor Database... ");        
+        expdata = new DataControl("expdata");        
+        System.out.print("User Database... ");        
+        users = new UserControl();        
+        System.out.print("Sensor Database... ");        
+        sensors = new SensorControl();        
         System.out.println("All databases are connected to the system!\n\n");
         
         
 
-        // Sensor System and Dock
-        
+        // Sensor System and Dock        
         System.out.println("Starting Sensor System and Dock...");
-
-        sensorsystem = new SensorSystem(ui, sec, offdata, expdata, users, sensors);
-
-        sensorsystem.initialiseSensorDockingSystem();
-        
+        sensorsystem = new SensorSystem(sec, offdata, expdata, users, sensors);
+        sensorsystem.initialiseSensorDockingSystem();        
         System.out.println("Sensor System and Docks are up and running!\n\n");
         
         
-        // Data Collector
-        
-        System.out.print("Starting Data Collector Thread... ");
-        
-        datacollect = new DataCollector(offdata, expdata, sensors, users, sensorsystem);
-        
+        // Data Collector        
+        System.out.print("Starting Data Collector Thread... ");        
+        datacollect = new DataCollector(offdata, expdata, sensors, users, sensorsystem);        
         System.out.println("Thread started!");
         
         
 
-        // Web
-        
-        web = new WebCommunication(ui, offdata, expdata);
-        
-        web.publish();
-  
-
-        // Test webconnection
-        
-        System.out.print("Testing Web Connection... ");
-        
-        System.out.println("Not tested!\n\n");
-        
-        //System.out.println("Connection established");
-  
-        
-
-        // All systems are now running!
-        
-        System.out.println("All systems are running");
+        // Web        
+        web = new WebCommunication(offdata, expdata);        
+        web.publish();          
+        System.out.println("All systems are running");    
         
         
-        
-        // Stating Threads
-        
+        // Stating Threads        
         datacollect.start();
         
         

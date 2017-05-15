@@ -173,4 +173,23 @@ public class UserControl {
         }
     
     }
+
+    public String getStatus(int tempUserID) {
+      String st = "Basis";
+      try {
+            Statement stmt = con_UserDB.createStatement(); // creates new sql statment
+            ResultSet rs = null;
+            rs = stmt.executeQuery("SELECT * FROM " + db_table +"WHERE UserID= "+tempUserID);  //executes query  
+            if(rs.next()) {         // while more data to read 
+               st = rs.getString("Status");
+            }
+            rs.close();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ex.getMessage());
+            System.out.println("Data convertion error... this should not happen");
+        }
+      return st;
+    }
 }
