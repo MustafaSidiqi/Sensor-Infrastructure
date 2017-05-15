@@ -65,7 +65,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            </form>\r\n");
       out.write("\r\n");
       out.write("            <div class=\"login-help\">\r\n");
-      out.write("                <a href=\"register.jsp\">Register</a> ? <a href=\"#\">Forgot Password</a>\r\n");
+      out.write("                <a href=\"register.jsp\">Register ?</a> \r\n");
       out.write("            </div>\r\n");
       out.write("        </div>\r\n");
       out.write("        <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>\r\n");

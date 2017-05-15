@@ -22,18 +22,16 @@
     </head>
     <body background="img/background.png">
         <ul class="nav">
-
+            
             <div class="login">
                 <a href="loginCheck.jsp">LOGOUT:      </a>
             </div>
-            <div class="logo">
-                <a href="#">LOGO </a>
-            </div>
+
             <li> <a href="index.html"> Home </a></li>
-            <li> <a href="index.html"> About </a></li>
-            <li> <a href="requestData.jsp"> Services </a></li>
-            <li> <a href=""> Contact</a></li>
+            <li> <a href="about.jsp"> About </a></li>
+            <li> <a href="loginCheck.jsp"> Services </a></li>
         </ul>
+        
         <script>
             function openCity(evt, cityName) {
                 var i, tabcontent, tablinks;

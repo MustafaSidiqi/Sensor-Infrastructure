@@ -42,13 +42,25 @@ public class loginServlet extends HttpServlet {
             out.println("<title>Servlet loginServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loginServlet at " + request.getContextPath() + "</h1>");
+            
+            WebInterface db = null;
+            try {
+                db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
+            } catch (Exception e) {
+                out.println("<br>");
+                out.println("<h1>" + "No Connection To Database." + "</h1>");
+                out.println("<h1>" + "Redirecting to home..." + "</h1>");
+                response.addHeader("REFRESH", "5;URL=index.html");
+                out.println("</body>");
+                out.println("</html>");
+                e.printStackTrace();
+            }
 
             try {
 
                 String username = request.getParameter("user");
                 String password = request.getParameter("pass");
-                WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
+                
                 int loginVal = 0;
 
                 loginVal = db.CallgetID(username, password);

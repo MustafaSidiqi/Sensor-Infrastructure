@@ -26,13 +26,9 @@
             <div class="login">
                 <a href="logout.jsp"> LOGOUT </a>
             </div>
-            <div class="logo">
-                <a href="#">LOGO </a>
-            </div>
             <li> <a href="index.html"> Home </a></li>
-            <li> <a href="index.html"> About </a></li>
+            <li> <a href="about.jsp"> About </a></li>
             <li> <a href="requestData.jsp"> Services </a></li>
-            <li> <a href=""> Contact</a></li>
         </ul>
         <script>
             function openCity(evt, cityName) {
