@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 import securitysystem.UserAuthentication;
 import ui.UserInterface;
 
@@ -183,7 +184,8 @@ public class SensorSystem {
 
         if (!sensorList.containsKey(Sensor_ID)) { // Check if it's already an object
             sensor = new Sensor(); // Create new object
-            if (!sensors.getSensor(Sensor_ID, sensor)) { // Check if it's in the database
+            System.out.println(sensor.sg.ran);
+            if (sensors.getSensor(Sensor_ID, sensor)) { // Check if it's in the database
 
                 Sensor_ID = sensors.addSensor(name, location, unit, ownerID);// Create new sensor in database
                 sensors.getSensor(Sensor_ID, sensor); // set data for sensor object
@@ -221,13 +223,15 @@ public class SensorSystem {
     }
 
     public String getPublicKey(int Sensor_ID) throws NoSuchAlgorithmException {
-
+        System.out.println("Entering get publicKey...");
         Sensor sensor = sensorList.get(Sensor_ID);
-
+        System.out.println("Created object of sensor");
         sensor.publicKey = StringGen.generateString(sensor.sg.ran, "ABCDEF123456789", 32);
-
+        System.out.println("Created auto gen key");
         sensor.handshakeLog = sensor.handshakeLog.concat(sensor.publicKey) + " ";
-
+        System.out.println("Added to handshake");
+        System.out.println();
+        System.out.println();
         return sensor.publicKey;
     }
 

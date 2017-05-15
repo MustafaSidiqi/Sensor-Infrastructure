@@ -45,7 +45,7 @@ public class SensorGatherKlient {
 
         inonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
         
-        ID = g.requestConnection(name, sensorLocation, sensorUnit, ownerID, 6);
+        ID = g.requestConnection(name, sensorLocation, sensorUnit, ownerID, 3);
         count++;
         handshakeLog = "true ";
 
