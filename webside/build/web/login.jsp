@@ -22,7 +22,7 @@
             </form>
 
             <div class="login-help">
-                <a href="register.jsp">Register</a> ? <a href="#">Forgot Password</a>
+                <a href="register.jsp">Register ?</a> 
             </div>
         </div>
         <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>

@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 import javax.xml.namespace.QName;
 import java.net.URL;
 
-public final class requestData_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class displayData_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -66,14 +66,16 @@ public final class requestData_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    </head>\r\n");
       out.write("    <body background=\"img/background.png\">\r\n");
       out.write("        <ul class=\"nav\">\r\n");
-      out.write("\r\n");
+      out.write("            \r\n");
       out.write("            <div class=\"login\">\r\n");
-      out.write("                <a href=\"logout.jsp\"> LOGOUT </a>\r\n");
+      out.write("                <a href=\"loginCheck.jsp\">LOGOUT:      </a>\r\n");
       out.write("            </div>\r\n");
+      out.write("\r\n");
       out.write("            <li> <a href=\"index.html\"> Home </a></li>\r\n");
       out.write("            <li> <a href=\"about.jsp\"> About </a></li>\r\n");
-      out.write("            <li> <a href=\"requestData.jsp\"> Services </a></li>\r\n");
+      out.write("            <li> <a href=\"loginCheck.jsp\"> Services </a></li>\r\n");
       out.write("        </ul>\r\n");
+      out.write("        \r\n");
       out.write("        <script>\r\n");
       out.write("            function openCity(evt, cityName) {\r\n");
       out.write("                var i, tabcontent, tablinks;\r\n");
@@ -347,7 +349,22 @@ public final class requestData_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        </tbody>\r\n");
       out.write("    </table>\r\n");
       out.write("</form>\r\n");
+      out.write("<textarea rows=\"4\" cols=\"50\" style=\"margin: 10px; height: 333px; width: 664px;\"> \r\n");
+      out.write("    ");
+
+        out.println("display data: ");
+        //retrieve your list from the request, with casting 
+        ArrayList<String> list = (ArrayList<String>) request.getAttribute("list");
+
+        //print the information about every category of the list
+        for (String object : list) {
+            out.println(object);
+        }
+
+
+    
       out.write("\r\n");
+      out.write("</textarea>\r\n");
       out.write("</body>\r\n");
       out.write("</html>\r\n");
       out.write("\r\n");
