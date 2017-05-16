@@ -9,8 +9,10 @@ public class SensorGatherKlient {
     static int indexMax = 0;
     static int ownerID = 0;
     static String username = "s153712";
+    static String eUsername;
     static String name = "Michael";
     static String password = "yas12!";
+    static String ePassword;
     static boolean sent = false;
     private static final String sensorID = "1";
     private static final String sensorType = "Temperature";
@@ -24,9 +26,8 @@ public class SensorGatherKlient {
     static int ID = 1;
 
     //encryption
-    static String IV = "AAAAAAAAAAAAAAAA"; //on both server and client
     static String nonsense;
-    static String inonsense = "fedcba9876543210"; //inonsense local string in client (has to be randomized)
+    static String inonsense; //inonsense local string in client (has to be randomized)
     static String Einonsense; //encrypted inonsense
     static String XORNonsense = "0"; //The XOR'ed string of inonsense and nonsense (client (client token)
     static String publicKey; //recieved from server (has to be randomized)
@@ -45,7 +46,7 @@ public class SensorGatherKlient {
 
         inonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
         
-        ID = g.requestConnection(name, sensorLocation, sensorUnit, ownerID, 3);
+        ID = g.requestConnection(name, sensorLocation, sensorUnit, ownerID, 7);
         count++;
         handshakeLog = "true ";
 
@@ -54,13 +55,8 @@ public class SensorGatherKlient {
         count++;
         handshakeLog = handshakeLog.concat(publicKey + " " + nonsense);
         
-        System.out.println(nonsense.length());
-        System.out.println(inonsense.length());
-        
         XORNonsense = x.xorHex(nonsense, inonsense);
         XORNonsenseHex = Crypt.toHex(XORNonsense).toUpperCase().substring(0, 32);
-
-        
 
         Einonsense = Crypt.encrypt(inonsense, publicKey);
         g.sendCipherInonsense(ID,Einonsense);
@@ -75,12 +71,14 @@ public class SensorGatherKlient {
         System.out.println("Handshake log: " + handshakeLog);
 
         handshakeLogHash = h.stringHash(handshakeLog);
-
         g.sendLogHashCipher(ID,Crypt.encrypt(handshakeLogHash, XORNonsenseHex));
 
         count++;
 
         access = g.recieveOK(ID);
+        
+        eUsername = Crypt.encrypt(username, XORNonsenseHex);
+        ePassword = Crypt.encrypt(password, XORNonsenseHex);
 
         while (access) {
             timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
@@ -90,15 +88,12 @@ public class SensorGatherKlient {
 
             data = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Float.toString(value)).concat(" ").concat(timeStamp).concat(" ").concat("25");
             count++;
-            sent = g.transferDataRMI(username, password, data, count, ID); //Public key skal ændres til XORNonsense hvis kryptes
-            if (sent) {
-                System.out.println("Send!");
-            } else {
-                System.out.println("Failed!");
-            }
-            System.out.println("Data :" + data);
+            access = g.transferDataRMI(eUsername, ePassword, data, count, ID); //Public key skal ændres til XORNonsense hvis kryptes
 
-            //System.out.println("Handshake: " + handshakeLog);
+            System.out.println("Send!");
+                
+            System.out.println("Data :" + data);
         }
+        System.out.println("Failed!");
     }
 }

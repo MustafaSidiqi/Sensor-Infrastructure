@@ -17,7 +17,6 @@ public class XORStrings {
         char[] chars = new char[a.length()];
         for (int i = 0; i < chars.length; i++) {
            chars[i] = (char)(((int)(a.charAt(i)))^((int)(b.charAt(i))));
-           
         }
         return new String(chars);
     }
