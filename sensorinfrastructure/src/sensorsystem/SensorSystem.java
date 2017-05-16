@@ -38,6 +38,7 @@ public class SensorSystem {
     static Hashing h = new Hashing();
     static StringGen sg = new StringGen();
 
+    
     static HashMap<Integer, Sensor> sensorList = new HashMap<>();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,43 +86,71 @@ public class SensorSystem {
     public boolean transferData(String eUsername, String ePassword, String eData, int count, int Sensor_ID) throws Exception {
 
         Sensor sensor = sensorList.get(Sensor_ID);
-        
-        System.out.println("Sensor ID:      "+Sensor_ID);
-        System.out.println("Server count:   "+sensor.count);
-        System.out.println("Sensor count:   "+count);
-        
-        sensor.username = Crypt.decrypt(eUsername, sensor.XORNonsenseHex);
-        sensor.password = Crypt.decrypt(ePassword, sensor.XORNonsenseHex);
 
-        if (sec.login(sensor.username, sensor.password) && count == sensor.count) {
-            System.out.println("Login crecedentials confirmed!");
-            SensorDataType Data = new SensorDataType(eData);
+        System.out.println("Incomming Data!");
+        System.out.println("Sensor ID    :" + sensor.ID);
+        System.out.println("server count :" + sensor.count);
+        System.out.println("sensor count :" + count);
+
+        System.out.println("Background checking user...");
+
+        if (sec.login(eUsername, ePassword) && count == sensor.count) {
+
+            System.out.println("Access Granted!");
+
+            System.out.println("Transfering Data...");
+
+            System.out.print("Data: ");
+
+            System.out.println(eData);
             
-            System.out.println("Data is being transfered...");
-            System.out.println("Data: "+eData);
+            SensorDataType Data = new SensorDataType(eData);
             Data.table = "Expert";
             synchronized (lock) {
+
                 incomingBuffer.add(Data);
+
             }
+
+            System.out.println("End of transmission.");
+
             sensor.count++;
+
             return true;
 
-        } else {
+        }
+        else {
             int tempUserID = users.getID(eUsername, ePassword);
-            if (tempUserID != 0 && count == sensor.count) {
+             if(tempUserID !=0 && count == sensor.count){
+                    System.out.println("Access Granted!");
 
-                SensorDataType Data = new SensorDataType(eData);
-                Data.table = users.getStatus(tempUserID);
-                synchronized (lock) {
-                    incomingBuffer.add(Data);
-                }
-                sensor.count++;
-                return true;
+            System.out.println("Transfering Data...");
+
+            System.out.print("Data: ");
+
+            System.out.println(eData);
+            
+            SensorDataType Data = new SensorDataType(eData);
+            Data.table = users.getStatus(tempUserID);
+            synchronized (lock) {
+
+                incomingBuffer.add(Data);
+
             }
 
-            System.out.println("Access Denied!");
-            return false;
+            System.out.println("End of transmission.");
+
+            sensor.count++;
+
+            return true;
         }
+
+            System.out.println("Access Denied!");
+
+            return false;
+
+        }
+
     }
 
     public SensorDataType receiveData() {
@@ -131,7 +160,7 @@ public class SensorSystem {
             synchronized (lock) {
 
                 SensorDataType outputdata = incomingBuffer.remove();
-
+                
                 System.out.println("Data Output:" + outputdata);
 
                 return outputdata;
