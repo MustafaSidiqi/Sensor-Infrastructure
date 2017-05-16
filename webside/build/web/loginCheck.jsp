@@ -12,7 +12,7 @@
 if(session.getAttribute("currentSessionUser") == null) {
             response.sendRedirect("login.jsp");
 } else {
-    response.sendRedirect("requestData.jsp");
+    response.sendRedirect("getDatabaseValues");
 }
 %>
 

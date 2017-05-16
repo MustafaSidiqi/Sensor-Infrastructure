@@ -11,6 +11,19 @@
 <%@page import="java.net.URL"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<%
+    // Create an ArrayList with test data
+    ArrayList databaseArrayList = new ArrayList();
+    for (int i = 0; i < 10; i++) {
+        databaseArrayList.add(i);
+        System.out.println(databaseArrayList.get(i));
+    }
+
+    pageContext.setAttribute("authors", databaseArrayList);
+%>
+
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -124,6 +137,47 @@
                             <option value="2">2</option>
                             <option value="3">3</option>
                         </select>
+
+                        <select name="sensorID" id="SensorID">
+                            <option selected="selected"  value="Select ID">Select ID</option>
+                            <c:forEach var="databaseValue" items="${databaseList}" >
+                                <option value="${databaseList[0]}">
+                                    ${databaseList[0]}
+                                </option>
+                            </c:forEach>
+                        </select>
+
+                        <select name="database1">
+                            <c:forEach items="${databaseList}" var="databaseValue">
+                                <option value="${databaseValue}">
+                                    ${databaseValue}
+                                </option>
+                            </c:forEach>
+                        </select>
+
+                        <select name="item">
+                            <c:forEach items="${databaseList}" var="item">
+                                <option value="${item.getValue}"> ${item}</option>
+                            </c:forEach>
+                        </select>
+
+
+                        <select style="width:150px;"tabindex="5" name="Tag">
+                            <option></option>
+                            <%
+                                //retrieve your list from the request, with casting 
+                                ArrayList<String> list = (ArrayList<String>) request.getAttribute("databaseList");
+
+                                //print the information about every category of the list
+                                for (String object : list) {
+                                    out.println(object);
+                                }
+
+                            %>             
+                            <option></option>
+                        </select>
+
+
                         <input type="submit" name="requestSensorByID" value="Send Request" />
                     </form>
                 </div>
