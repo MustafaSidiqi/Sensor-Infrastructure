@@ -46,7 +46,7 @@ public class registerServlet extends HttpServlet {
 
             WebInterface db = null;
             try {
-                db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
+                db = (WebInterface) Naming.lookup("rmi://ubuntu4.javabog.dk:53168/data");
             } catch (Exception e) {
                 out.println("<br>");
                 out.println("<h1>" + "No Connection To Database." + "</h1>");
