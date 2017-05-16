@@ -66,24 +66,20 @@ public class getDatabaseValues extends HttpServlet {
 /*
                 ArrayList databaseArrayList = new ArrayList();
                 
-                
+                */
+
+                ArrayList<String> databaseArrayList = new ArrayList<String>();
+
                 for (int i = 0; i < 10; i++) {
-                    databaseArrayList.add(i);
+                    databaseArrayList.add(""+i);
                     System.out.println(databaseArrayList.get(i));
                 }
                 
                 
-                 */
-
-                ArrayList<String> databaseArrayList = new ArrayList<String>();
-                databaseArrayList.add("red");
-                databaseArrayList.add("orange");
-                databaseArrayList.add("yellow");
-                databaseArrayList.add("green");
-                databaseArrayList.add("blue");
+                
 
                 System.out.println("Adding values");
-
+                //databaseArrayList = db.CallgetSensorIDlist("");
                 request.setAttribute("databaseList", databaseArrayList); //categorylist is an arraylist      contains object of class category  
                 ServletContext context = getServletContext();
                 RequestDispatcher rd = request.getRequestDispatcher("requestData.jsp");

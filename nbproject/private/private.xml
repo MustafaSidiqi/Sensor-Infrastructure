@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/taras/Documents/SensorInfrastructure/sensorinfrastructure/src/sensorsystem/StringGen.java</file>
-            <file>file:/C:/Users/taras/Documents/SensorInfrastructure/sensorinfrastructure/src/sensorsystem/SensorSystem.java</file>
-            <file>file:/C:/Users/taras/Documents/SensorInfrastructure/sensorinfrastructure/src/SensorDataType/Sensor.java</file>
-            <file>file:/C:/Users/taras/Documents/SensorInfrastructure/sensorinfrastructure/src/datasystem/SensorControl.java</file>
-            <file>file:/C:/Users/taras/Documents/SensorInfrastructure/sensorinfrastructure/src/datasystem/DataCollector.java</file>
-            <file>file:/C:/Users/taras/Documents/SensorInfrastructure/sensorinfrastructure/src/SensorDataType/SensorDataType.java</file>
-            <file>file:/C:/Users/taras/Documents/SensorInfrastructure/sensorinfrastructure/src/ui/UserInterface.java</file>
-            <file>file:/C:/Users/taras/Documents/SensorInfrastructure/sensorinfrastructure/src/dockingsystem/DockImpRMI.java</file>
-            <file>file:/C:/Users/taras/Documents/SensorInfrastructure/sensorinfrastructure/src/sensorinfrastructure/Main.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

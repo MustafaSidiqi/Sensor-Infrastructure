@@ -201,6 +201,43 @@ public class DataControl {
         }
     }
 
+        public ArrayList<String> GetSensorIDList(){
+        String sql = "SELECT DISTINCT Sensor_ID FROM "+DB_table;
+        ArrayList<String> temp = new ArrayList<>();
+        try {
+            Statement stmt = con.createStatement(); // creates new sql statment
+            ResultSet rs = null;
+            rs = stmt.executeQuery(sql);  //executes query  
+            while (rs.next()) {         // while more data to read 
+                temp.add(rs.getString("Sensor_ID"));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ex.getMessage());
+            System.out.println("ERROR GETTING LIST");
+        }
+        return temp;
+        
+    }
+    public ArrayList<String> GetLocationList(){
+        String sql = "SELECT DISTINCT Location FROM "+DB_table;
+        
+        ArrayList<String> temp = new ArrayList<>();
+        try {
+            Statement stmt = con.createStatement(); // creates new sql statment
+            ResultSet rs = null;
+            rs = stmt.executeQuery(sql);  //executes query  
+            while (rs.next()) {         // while more data to read 
+                temp.add(rs.getString("Location"));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ex.getMessage());
+            System.out.println("ERROR GETTING LIST");
+        }
+        return temp;
+    }
+    
     ////////////////////////////////////////////////////////////////////////////
     
     /**

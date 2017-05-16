@@ -76,7 +76,6 @@ public class myServlet extends HttpServlet {
                 out.println("</html>");
                 e.printStackTrace();
             }
-            out.println(db.getMessage());
 
             // Logging in the admin user 
             if (request.getParameter("user") != null && request.getParameter("pass") != null) {
@@ -105,8 +104,8 @@ public class myServlet extends HttpServlet {
             }
 
             //Requesting data
-            if (request.getParameter("SensorByIDdatabase") != null && request.getParameter("sensorID") != null) {
-                int SensorID = Integer.parseInt(request.getParameter("sensorID"));
+            if (request.getParameter("SensorByIDdatabase") != null && request.getParameter("sensorID2") != null) {
+                int SensorID = Integer.parseInt(request.getParameter("sensorID2"));
                 out.println(SensorID);
                 String databaseSelection = (String) request.getParameter("SensorByIDdatabase");
 
@@ -120,8 +119,8 @@ public class myServlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("displayData.jsp");
                 rd.forward(request, response);
 
-            } else if (request.getParameter("SensorByDatedatabase") != null && request.getParameter("SensorByDatesensorID") != null) {
-                int SensorID = Integer.parseInt(request.getParameter("SensorByDatesensorID"));
+            } else if (request.getParameter("SensorByDatedatabase") != null && request.getParameter("SensorByDatesensorID2") != null) {
+                int SensorID = Integer.parseInt(request.getParameter("SensorByDatesensorID2"));
                 String databaseSelection = request.getParameter("SensorByDatedatabase");
                 String fromDate = request.getParameter("SensorByDateFrom");
                 String toDate = request.getParameter("SensorByDateTo");
@@ -131,6 +130,7 @@ public class myServlet extends HttpServlet {
                 formatter = new SimpleDateFormat("MM-dd-yyyy");
                 java.util.Date date =  formatter.parse(request.getParameter("SensorByDateFrom"));
                  */
+                
                 //Converting dates
                 java.util.Date utilStartDate = new SimpleDateFormat("yyyy/MM/dd").parse(fromDate);
                 java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
@@ -139,7 +139,7 @@ public class myServlet extends HttpServlet {
                 java.sql.Date sqlEndDate = new java.sql.Date(utilStartDate.getTime());
 
                 //Sending request for data
-                ArrayList<String> temp = db.CallgetIntervalBySensorID("", 0, sqlStartDate, sqlEndDate);
+                ArrayList<String> temp = db.CallgetIntervalBySensorID("", SensorID, sqlStartDate, sqlEndDate);
 
                 out.println("databaseSelection " + databaseSelection + "Form " + sqlStartDate + "to " + sqlEndDate);
 
@@ -286,7 +286,6 @@ public class myServlet extends HttpServlet {
                 rd.forward(request, response);
 
             } else {
-
             }
             /*
             out.println("<a href=\"index.html\">\n"

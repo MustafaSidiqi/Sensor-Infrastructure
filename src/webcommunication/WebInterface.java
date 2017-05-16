@@ -35,4 +35,9 @@ public interface WebInterface extends java.rmi.Remote {
     public void CallchangePassword(String Uname, String changeParam)                                throws java.rmi.RemoteException;
     public int CallgetID(String user, String password)                                              throws java.rmi.RemoteException;
     public void CallchangeStatus(int UserId, String status)                                         throws java.rmi.RemoteException;
+    
+   
+    // get list functions 
+    public ArrayList<String> CallgetSensorIDlist(String data)                                       throws RemoteException;
+    public ArrayList<String> CallgetLocationList(String data)                                           throws RemoteException;
 }
