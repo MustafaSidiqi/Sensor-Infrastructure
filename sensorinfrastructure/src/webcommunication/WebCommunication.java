@@ -7,8 +7,6 @@ package webcommunication;
 
 import datasystem.DataControl;
 import datasystem.UserControl;
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
 import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -20,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import securitysystem.UserAuthentication;
 import sensorinfrastructure.Main;
-import static sensorinfrastructure.Main.users;
 
 /**
  *
@@ -81,7 +78,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
 
         System.out.println("CallgetAllBySensorID " + data + " " + ID);
 
-        if (data.equals("offdata")){
+        if (data.equals("offdata")) {
             return offdata.getAllBySensorID(ID);
         } else {
             return expdata.getAllBySensorID(ID);
@@ -134,7 +131,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     public ArrayList<String> CallgetAllByLocation(String data, String loc) throws RemoteException {
         System.out.println("CallgetAllByLocation " + data + " " + loc);
 
-        if (data.equals("offdata")){
+        if (data.equals("offdata")) {
             return offdata.getAllByLocation(loc);
         } else {
             return expdata.getAllByLocation(loc);
@@ -167,7 +164,7 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     public ArrayList<String> CallgetIntervalByDate(String data, Date start, Date end) throws RemoteException {
         System.out.println("CallgetIntervalByDate " + data + " " + start + " " + end);
 
-        if (data.equals("offdata")){
+        if (data.equals("offdata")) {
             return offdata.getIntervalByDate(start, end);
         } else {
             return expdata.getIntervalByDate(start, end);
@@ -218,4 +215,21 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
         users.changeStatus(UserId, status);
     }
 
+    @Override
+    public ArrayList<String> CallGetSensorIDlist(String data) throws RemoteException {
+        if (data.equals("offdata")) {
+            return offdata.GetSensorIDList();
+        } else {
+            return expdata.GetSensorIDList();
+        }
+    }
+
+    @Override
+    public ArrayList<String> GetLocationList(String data) throws RemoteException {
+        if (data.equals("offdata")) {
+            return offdata.GetSensorIDList();
+        } else {
+            return expdata.GetSensorIDList();
+        }
+    }
 }

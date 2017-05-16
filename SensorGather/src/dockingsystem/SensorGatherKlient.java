@@ -41,7 +41,7 @@ public class SensorGatherKlient {
 
     public static void main(String[] args) throws Exception /*NoSuchAlgorithmException, NotBoundException, MalformedURLException, RemoteException, InterruptedException */ {
         //System.setSecurityManager(new RMISecurityManager());
-        DockIntRMI g = (DockIntRMI) Naming.lookup("rmi://localhost:53712/sensorRMI");
+        DockIntRMI g = (DockIntRMI) Naming.lookup("rmi://ubuntu4.javabog.dk:53712/sensorRMI");
 
         inonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
         
