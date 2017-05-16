@@ -12,7 +12,7 @@ public class WebCommunicationKlient implements java.io.Serializable {
     public static void main(String[] arg) throws Exception {
 
         //Setup RMI connection 
-        WebInterface db = (WebInterface) Naming.lookup("rmi://ubuntu4.javabog.dk:53168/data");
+        WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
 
         //Test with Hello World 
         System.out.println(db.getMessage());
@@ -32,7 +32,7 @@ public class WebCommunicationKlient implements java.io.Serializable {
         //Data convertion and request   
         // 2017-04-27 
         String sDate1 = "2017/04/27";
-        
+
         java.util.Date utilStartDate = new SimpleDateFormat("yyyy/MM/dd").parse(sDate1);
         java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
         System.out.println(sDate1 + "\t" + sqlStartDate);
@@ -51,7 +51,13 @@ public class WebCommunicationKlient implements java.io.Serializable {
         }
 
         //User register and login 
-        System.out.println("User ID: " + db.CallgetID("mustafa2", "sidiqi10") );
+        System.out.println("User ID: " + db.CallgetID("mustafa2", "sidiqi10"));
+        System.out.println("Adding data");
+        db.CallinsertData("expdata", 4, "Stue", "Temp", "test", 100, "2017-04-29", 2);
 
+        temp = db.CallgetAllBySensorID("expdata", 4);
+        for (String object : temp) {
+            System.out.println(object);
+        }
     }
 }

@@ -8,10 +8,6 @@ package webcommunication;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.Naming;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +19,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Mustafa Sidiqi
  */
-@WebServlet(name = "getDatabaseValues", urlPatterns = {"/getDatabaseValues"})
-public class getDatabaseValues extends HttpServlet {
+@WebServlet(name = "uploadLogin", urlPatterns = {"/uploadLogin"})
+public class uploadLogin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,11 +39,10 @@ public class getDatabaseValues extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet getDatabaseValues</title>");
+            out.println("<title>Servlet loginServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet getDatabaseValues at " + request.getContextPath() + "</h1>");
-
+            
             WebInterface db = null;
             try {
                 db = (WebInterface) Naming.lookup("rmi://ubuntu4.javabog.dk:53168/data");
@@ -62,33 +57,22 @@ public class getDatabaseValues extends HttpServlet {
             }
 
             try {
-                //String databaseArrayList = "mustafa";
-/*
-                ArrayList databaseArrayList = new ArrayList();
+
+                String username = request.getParameter("user");
+                String password = request.getParameter("pass");
                 
-                
-                for (int i = 0; i < 10; i++) {
-                    databaseArrayList.add(i);
-                    System.out.println(databaseArrayList.get(i));
+                int loginVal = 0;
+
+                loginVal = db.CallgetID(username, password);
+
+                if (loginVal != 0) {
+
+                    HttpSession session = request.getSession(true);
+                    session.setAttribute("currentSessionUser", username);
+                    response.sendRedirect("uploadData.jsp"); //logged-in page      		
+                } else {
+                    response.sendRedirect("login.jsp"); //error page 
                 }
-                
-                
-                 */
-
-                ArrayList<String> databaseArrayList = new ArrayList<String>();
-                databaseArrayList.add("red");
-                databaseArrayList.add("orange");
-                databaseArrayList.add("yellow");
-                databaseArrayList.add("green");
-                databaseArrayList.add("blue");
-
-                System.out.println("Adding values");
-
-                request.setAttribute("databaseList", databaseArrayList); //categorylist is an arraylist      contains object of class category  
-                ServletContext context = getServletContext();
-                RequestDispatcher rd = request.getRequestDispatcher("requestData.jsp");
-                rd.forward(request, response);
-
             } catch (Throwable theException) {
                 System.out.println(theException);
             }

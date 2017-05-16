@@ -8,7 +8,6 @@ package webcommunication;
 import datasystem.DataControl;
 import datasystem.UserControl;
 import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
 import java.rmi.Naming;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -21,7 +20,6 @@ import java.util.logging.Logger;
 import ui.UserInterface;
 import securitysystem.UserAuthentication;
 import sensorinfrastructure.Main;
-import static sensorinfrastructure.Main.users;
 
 /**
  *
@@ -238,6 +236,18 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
         System.out.println("CallchangeStatus " + UserId + " " + status);
 
         users.changeStatus(UserId, status);
+    }
+
+    @Override
+    public void CallinsertData(String data, int SensID, String loc, String type, String unit, float value, String s, int chsm) throws RemoteException {
+        System.out.println("CallinsertData " + SensID + " " + loc + " " + type + " " + unit + " " + value + " " + s + " " + chsm);
+        
+        if (data == "offdata") {
+            offdata.insertData(SensID, loc, type, unit, value, s, chsm);
+        } else {
+            expdata.insertData(SensID, loc, type, unit, value, s, chsm);
+        }
+
     }
 
 }

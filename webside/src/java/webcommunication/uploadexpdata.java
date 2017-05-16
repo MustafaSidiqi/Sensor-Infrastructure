@@ -8,23 +8,18 @@ package webcommunication;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.Naming;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Mustafa Sidiqi
  */
-@WebServlet(name = "getDatabaseValues", urlPatterns = {"/getDatabaseValues"})
-public class getDatabaseValues extends HttpServlet {
+@WebServlet(name = "uploadexpdata", urlPatterns = {"/uploadexpdata"})
+public class uploadexpdata extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,14 +38,13 @@ public class getDatabaseValues extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet getDatabaseValues</title>");
+            out.println("<title>Servlet uploadDataServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet getDatabaseValues at " + request.getContextPath() + "</h1>");
 
             WebInterface db = null;
             try {
-                db = (WebInterface) Naming.lookup("rmi://ubuntu4.javabog.dk:53168/data");
+                db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
             } catch (Exception e) {
                 out.println("<br>");
                 out.println("<h1>" + "No Connection To Database." + "</h1>");
@@ -62,32 +56,18 @@ public class getDatabaseValues extends HttpServlet {
             }
 
             try {
-                //String databaseArrayList = "mustafa";
-/*
-                ArrayList databaseArrayList = new ArrayList();
-                
-                
-                for (int i = 0; i < 10; i++) {
-                    databaseArrayList.add(i);
-                    System.out.println(databaseArrayList.get(i));
-                }
-                
-                
-                 */
+                int ID = Integer.parseInt(request.getParameter("ID"));
+                String loc = request.getParameter("loc");
+                String type = request.getParameter("type");
+                String unit = request.getParameter("unit");
+                int value = Integer.parseInt(request.getParameter("value"));
+                String date = request.getParameter("date");
 
-                ArrayList<String> databaseArrayList = new ArrayList<String>();
-                databaseArrayList.add("red");
-                databaseArrayList.add("orange");
-                databaseArrayList.add("yellow");
-                databaseArrayList.add("green");
-                databaseArrayList.add("blue");
-
-                System.out.println("Adding values");
-
-                request.setAttribute("databaseList", databaseArrayList); //categorylist is an arraylist      contains object of class category  
-                ServletContext context = getServletContext();
-                RequestDispatcher rd = request.getRequestDispatcher("requestData.jsp");
-                rd.forward(request, response);
+                db.CallinsertData("expdata", ID, loc, type, unit, value, date, 2);
+                out.println("<h1>" + "Uploading data..." + "</h1>");
+                out.println("<h1>" + "Redirecting to home. Please wait." + "</h1>");
+                response.addHeader("REFRESH", "5;URL=index.html");
+                //response.sendRedirect("index.html"); //logged-in page      		
 
             } catch (Throwable theException) {
                 System.out.println(theException);

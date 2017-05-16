@@ -15,7 +15,7 @@
     <body background="img/background.png">
         <div class="login-card">
             <h1>Login</h1><br>
-            <form method="post" action="loginServlet">
+            <form method="post" action="uploadLogin">
                 <input type="text" name="user" placeholder="Username" required>
                 <input type="password" name="pass" placeholder="Password" required >
                 <input type="submit" name="login" class="login login-submit" value="login">

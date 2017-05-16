@@ -28,6 +28,7 @@ public interface WebInterface extends java.rmi.Remote {
     ArrayList<String> CallgetIntervalByDate(String data, Date start, Date end)                   throws java.rmi.RemoteException;
     ArrayList<String> CalldirectSQL(String data, String sql)                                     throws java.rmi.RemoteException;
     ArrayList<String> CallgetData(String data, String s)                                         throws java.rmi.RemoteException;
+    public void CallinsertData (String data, int SensID, String loc, String type, String unit, float value, String s, int chsm) throws java.rmi.RemoteException;
 
     //User functions
     public boolean CallcreateUser(String uname, String password, String email, String name)         throws java.rmi.RemoteException;

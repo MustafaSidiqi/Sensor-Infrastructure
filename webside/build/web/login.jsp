@@ -5,7 +5,7 @@
 
         <meta charset="UTF-8">
 
-        <title>CodePen - Log-in</title>
+        <title>Login</title>
 
 
         <link rel="stylesheet" href="style2.css" media="screen" type="text/css" />
