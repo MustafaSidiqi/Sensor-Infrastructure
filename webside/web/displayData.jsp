@@ -9,8 +9,37 @@
 <%@page import="javax.xml.namespace.QName"%>
 <%@page import="javax.xml.namespace.QName"%>
 <%@page import="java.net.URL"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<%
+    /*
+    // Create an ArrayList with test data
+    ArrayList<String> databaseArrayList = new ArrayList<>();
+    for (int i = 0; i < 10; i++) {
+        databaseArrayList.add("" + i);
+        System.out.println(databaseArrayList.get(i));
+    }
+
+    pageContext.setAttribute("authors", databaseArrayList);
+   
+    
+                        <!--This is a comment. Comments are not displayed in the browser
+                        <select name="sensorID" id="SensorID">
+                            <option selected="selected"  value="Select ID">Select ID - Online</option>
+                        <c:forEach var="databaseValue" items="${databaseList}" >
+                            <option value="${databaseValue}">
+                            ${databaseValue}
+                        </option>
+                        </c:forEach>
+                    </select>
+                        --> 
+    
+     */
+%>
+
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,16 +51,14 @@
     </head>
     <body background="img/background.png">
         <ul class="nav">
-            
-            <div class="login">
-                <a href="loginCheck.jsp">LOGOUT:      </a>
-            </div>
 
+            <div class="login">
+                <a href="logout.jsp"> LOGOUT </a>
+            </div>
             <li> <a href="index.html"> Home </a></li>
             <li> <a href="about.jsp"> About </a></li>
-            <li> <a href="loginCheck.jsp"> Services </a></li>
+            <li> <a href="requestData.jsp"> Services </a></li>
         </ul>
-        
         <script>
             function openCity(evt, cityName) {
                 var i, tabcontent, tablinks;
@@ -115,17 +142,16 @@
                 <div>
                     <form method="post" action="myServlet">
                         <select name="SensorByIDdatabase">
-                            <option selected="selected">Choose Database</option>
+                            <option selected="selected" required>Choose Database</option>
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
                         </select>
-                        <select name="sensorID" id="SensorID">
-                            <option selected="selected"  value="Select ID">Select ID</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
+                        <br>
+                        <br>
+
+                        <input type="number" name="sensorID2" placeholder="Sensor ID" required>
+                        <br>
+                        <br>
                         <input type="submit" name="requestSensorByID" value="Send Request" />
                     </form>
                 </div>
@@ -142,13 +168,10 @@
                             <option value="expdata">Exp</option>
                         </select>
                         <br>
-                        <select name="SensorByDatesensorID" id="SensorID">
-                            <option selected="selected"  value="Select ID">Select ID</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
+                        <br>
+                        <input type="number" name="SensorByDatesensorID2" placeholder="Sensor ID" required>
+
+                        <br>
                         <br>
                         <input type="text" name="SensorByDateFrom" placeholder="YYYY-MM-DD">
                         <input type="text" name="SensorByDateTo" placeholder="YYYY-MM-DD">
@@ -169,10 +192,11 @@
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
                         </select>
-                        <select name="LocationByIDLocationID">
-                            <option value="Lyngby">Lyngby</option>
-                            <option value="Stue">Stue</option>
-                        </select>
+                        <br>
+                        <br>
+                        <input type="text" name="LocationByIDLocationID" placeholder="Location">
+                        <br>
+                        <br>
                         <input type="submit" name="requestLocationByID" value="Send Request " />
                     </form>
                 </div>
@@ -191,10 +215,9 @@
                             <option value="expdata">Exp</option>
                         </select>
                         <br>
-                        <select name="LocationByDateLocationID">
-                            <option value="Lyngby">Lyngby</option>
-                            <option value="Stue">Stue</option>
-                        </select>
+                        <br>
+                        <input type="text" name="LocationByDateLocationID" placeholder="Location">
+                        <br>
                         <br>
                         <input type="text" name="LocationByDateTo" placeholder="YYYY-MM-DD">
                         <input type="text" name="LocationByDateFrom" placeholder="YYYY-MM-DD">
@@ -217,6 +240,7 @@
                             <option value="expdata">Exp</option>
                         </select>
                         <br>
+                        <br>
                         <input type="text" name="DateByIDTo" placeholder="YYYY-MM-DD">
                         <br><br><br>
                         <input type="submit" name="requestDateByID" value="Send Request " />
@@ -236,6 +260,7 @@
                             <option value="offdata">Main</option>
                             <option value="expdata">Exp</option>
                         </select>
+                        <br>
                         <br>
                         <input type="text" name="DateByDateFrom" placeholder="YYYY-MM-DD">
                         <input type="text" name="DateByDateTo" placeholder="YYYY-MM-DD">
@@ -258,13 +283,8 @@
                             <option value="expdata">Exp</option>
                         </select>
                         <br>
-                        <select name="TypeByIDID" id="TypeID">
-                            <option selected="selected"  value="Select ID">Select ID</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
+                        <br>
+                        <input type="number" name="TypeByIDID" placeholder="Type ID" required>
 
                         <br><br><br>
                         <input type="submit" name="requestTypeByID" value="Send Request " />
@@ -285,13 +305,11 @@
                             <option value="expdata">Exp</option>
                         </select>
                         <br>
-                        <select name="TypeByDateID" id="TypeID">
-                            <option selected="selected"  value="Select ID">Select ID</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
+                        <br>
+
+                        <input type="number" name="TypeByDateID" placeholder="Type ID" required>
+
+                        <br>
                         <br>
                         <input type="text" name="TypeByDateFrom" placeholder="YYYY-MM-DD">
                         <input type="text" name="TypeByDateTo" placeholder="YYYY-MM-DD">

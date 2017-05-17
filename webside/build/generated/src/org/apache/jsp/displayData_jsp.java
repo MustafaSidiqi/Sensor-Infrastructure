@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 import javax.xml.namespace.QName;
 import java.net.URL;
 
-public final class requestData_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class displayData_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -368,7 +368,21 @@ public final class requestData_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        </tbody>\r\n");
       out.write("    </table>\r\n");
       out.write("</form>\r\n");
+      out.write("<textarea rows=\"4\" cols=\"50\" style=\"margin: 10px; height: 333px; width: 664px;\"> \r\n");
+      out.write("    ");
+
+        out.println("display data: ");
+        //retrieve your list from the request, with casting 
+        ArrayList<String> list = (ArrayList<String>) request.getAttribute("list");
+
+        //print the information about every category of the list
+        for (String object : list) {
+            out.println(object);
+        }
+
+    
       out.write("\r\n");
+      out.write("</textarea>\r\n");
       out.write("</body>\r\n");
       out.write("</html>\r\n");
       out.write("\r\n");

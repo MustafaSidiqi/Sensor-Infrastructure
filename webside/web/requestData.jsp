@@ -194,10 +194,7 @@
                         </select>
                         <br>
                         <br>
-                        <select name="LocationByIDLocationID">
-                            <option value="Lyngby">Lyngby</option>
-                            <option value="Stue">Stue</option>
-                        </select>
+                        <input type="text" name="LocationByIDLocationID" placeholder="Location">
                         <br>
                         <br>
                         <input type="submit" name="requestLocationByID" value="Send Request " />
@@ -219,10 +216,7 @@
                         </select>
                         <br>
                         <br>
-                        <select name="LocationByDateLocationID">
-                            <option value="Lyngby">Lyngby</option>
-                            <option value="Stue">Stue</option>
-                        </select>
+                        <input type="text" name="LocationByDateLocationID" placeholder="Location">
                         <br>
                         <br>
                         <input type="text" name="LocationByDateTo" placeholder="YYYY-MM-DD">
