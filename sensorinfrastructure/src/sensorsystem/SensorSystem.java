@@ -93,8 +93,11 @@ public class SensorSystem {
         System.out.println("sensor count :" + count);
 
         System.out.println("Background checking user...");
+        
+        sensor.username = Crypt.decrypt(eUsername, sensor.XORNonsenseHex);
+        sensor.password = Crypt.decrypt(ePassword, sensor.XORNonsenseHex);
 
-        if (sec.login(eUsername, ePassword) && count == sensor.count) {
+        if (sec.login(sensor.username, sensor.password) && count == sensor.count) {
 
             System.out.println("Access Granted!");
 
@@ -199,7 +202,7 @@ public class SensorSystem {
 
             sensor.handshakeLog = "true "; // Add true
 
-            sensor.count++; // Incredement count
+            sensor.count++; // Increment count
 
         } else {
 

@@ -24,6 +24,8 @@ public Sensor(){
     public Hashing h = new Hashing();
     //public StringGen sg = new StringGen();
     
+    public String password;
+    public String username;
     public String nonsense;
     public String inonsense;
     public String decodeNonsense;

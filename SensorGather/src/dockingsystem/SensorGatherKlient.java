@@ -24,15 +24,17 @@ public class SensorGatherKlient {
     static int ID = 1;
 
     //encryption
-    static String IV = "AAAAAAAAAAAAAAAA"; //on both server and client
+    static String IV; //on both server and client
     static String nonsense;
-    static String inonsense = "fedcba9876543210"; //inonsense local string in client (has to be randomized)
+    static String inonsense; //inonsense local string in client (has to be randomized)
     static String Einonsense; //encrypted inonsense
     static String XORNonsense = "0"; //The XOR'ed string of inonsense and nonsense (client (client token)
     static String publicKey; //recieved from server (has to be randomized)
     static String handshakeLog; //log of handshake for hashing
     static String handshakeLogHash; //log of handshake for hashing
     static String XORNonsenseHex;
+    static String eUsername;
+    static String ePassword;
     static XORStrings x = new XORStrings(); //object of XOR functions
     static Crypt c = new Crypt(); //object of XOR functions
     static Hashing h = new Hashing();
@@ -42,6 +44,7 @@ public class SensorGatherKlient {
     public static void main(String[] args) throws Exception /*NoSuchAlgorithmException, NotBoundException, MalformedURLException, RemoteException, InterruptedException */ {
         //System.setSecurityManager(new RMISecurityManager());
         DockIntRMI g = (DockIntRMI) Naming.lookup("rmi://ubuntu4.javabog.dk:53712/sensorRMI");
+        //DockIntRMI g = (DockIntRMI) Naming.lookup("rmi://localhost:53712/sensorRMI");
 
         inonsense = StringGen.generateString(sg.ran, "ABCDEF123456789", 32);
         
@@ -59,8 +62,6 @@ public class SensorGatherKlient {
         
         XORNonsense = x.xorHex(nonsense, inonsense);
         XORNonsenseHex = Crypt.toHex(XORNonsense).toUpperCase().substring(0, 32);
-
-        
 
         Einonsense = Crypt.encrypt(inonsense, publicKey);
         g.sendCipherInonsense(ID,Einonsense);
@@ -90,15 +91,17 @@ public class SensorGatherKlient {
 
             data = sensorID.concat(" ").concat(sensorLocation).concat(" ").concat(sensorType).concat(" ").concat(sensorUnit).concat(" ").concat(Float.toString(value)).concat(" ").concat(timeStamp).concat(" ").concat("25");
             count++;
-            sent = g.transferDataRMI(username, password, data, count, ID); //Public key skal ændres til XORNonsense hvis kryptes
+            
+            eUsername = Crypt.encrypt(username, XORNonsenseHex);
+            ePassword = Crypt.encrypt(password, XORNonsenseHex);
+            
+            sent = g.transferDataRMI(eUsername, ePassword, data, count, ID); 
             if (sent) {
                 System.out.println("Send!");
             } else {
                 System.out.println("Failed!");
             }
             System.out.println("Data :" + data);
-
-            //System.out.println("Handshake: " + handshakeLog);
         }
     }
 }
