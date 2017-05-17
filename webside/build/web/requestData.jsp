@@ -14,6 +14,7 @@
 <!DOCTYPE html>
 
 <%
+    /*
     // Create an ArrayList with test data
     ArrayList<String> databaseArrayList = new ArrayList<>();
     for (int i = 0; i < 10; i++) {
@@ -22,6 +23,20 @@
     }
 
     pageContext.setAttribute("authors", databaseArrayList);
+   
+    
+                        <!--This is a comment. Comments are not displayed in the browser
+                        <select name="sensorID" id="SensorID">
+                            <option selected="selected"  value="Select ID">Select ID - Online</option>
+                        <c:forEach var="databaseValue" items="${databaseList}" >
+                            <option value="${databaseValue}">
+                            ${databaseValue}
+                        </option>
+                        </c:forEach>
+                    </select>
+                        --> 
+    
+     */
 %>
 
 
@@ -137,16 +152,6 @@
                         <input type="number" name="sensorID2" placeholder="Sensor ID" required>
                         <br>
                         <br>
-                        <!--This is a comment. Comments are not displayed in the browser
-                        <select name="sensorID" id="SensorID">
-                            <option selected="selected"  value="Select ID">Select ID - Online</option>
-                        <c:forEach var="databaseValue" items="${databaseList}" >
-                            <option value="${databaseValue}">
-                            ${databaseValue}
-                        </option>
-                        </c:forEach>
-                    </select>
-                        -->
                         <input type="submit" name="requestSensorByID" value="Send Request" />
                     </form>
                 </div>

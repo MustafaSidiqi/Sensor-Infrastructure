@@ -286,6 +286,7 @@ public class myServlet extends HttpServlet {
                 rd.forward(request, response);
 
             } else {
+                out.println("Wrong:");
             }
             /*
             out.println("<a href=\"index.html\">\n"
