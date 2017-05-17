@@ -216,7 +216,19 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     }
 
     @Override
-    public ArrayList<String> CallGetSensorIDlist(String data) throws RemoteException {
+    public void CallinsertData(String data, int SensID, String loc, String type, String unit, float value, String s, int chsm) throws RemoteException {
+        System.out.println("CallinsertData " + SensID + " " + loc + " " + type + " " + unit + " " + value + " " + s + " " + chsm);
+
+        if (data == "offdata") {
+            offdata.insertData(SensID, loc, type, unit, value, s, chsm);
+        } else {
+            expdata.insertData(SensID, loc, type, unit, value, s, chsm);
+        }
+
+    }
+
+    @Override
+    public ArrayList<String> CallgetSensorIDlist(String data) throws RemoteException {
         if (data.equals("offdata")) {
             return offdata.GetSensorIDList();
         } else {
@@ -225,11 +237,11 @@ public class WebCommunication extends UnicastRemoteObject implements WebInterfac
     }
 
     @Override
-    public ArrayList<String> GetLocationList(String data) throws RemoteException {
+    public ArrayList<String> CallgetLocationList(String data) throws RemoteException {
         if (data.equals("offdata")) {
-            return offdata.GetSensorIDList();
+            return offdata.GetLocationList();
         } else {
-            return expdata.GetSensorIDList();
+            return expdata.GetLocationList();
         }
     }
 }

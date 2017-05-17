@@ -12,7 +12,8 @@ public class WebCommunicationKlient implements java.io.Serializable {
     public static void main(String[] arg) throws Exception {
 
         //Setup RMI connection 
-        WebInterface db = (WebInterface) Naming.lookup("rmi://ubuntu4.javabog.dk:53168/data");
+       //WebInterface db = (WebInterface) Naming.lookup("rmi://ubuntu4.javabog.dk:53168/data");
+        WebInterface db = (WebInterface) Naming.lookup("rmi://localhost:53168/data");
 
         //Test with Hello World 
         System.out.println(db.getMessage());
@@ -54,11 +55,11 @@ public class WebCommunicationKlient implements java.io.Serializable {
         System.out.println("User ID: " + db.CallgetID("mustafa2", "sidiqi10"));
 
         System.out.println("CallgetLocationList");
-/*
+
         temp = db.CallgetSensorIDlist("");
         for (String object : temp) {
             System.out.println(object);
         }
-*/
+
     }
 }
